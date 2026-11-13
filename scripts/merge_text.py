@@ -12,6 +12,7 @@
 - 차입금은 다섯 분기 모두 재무상태표의 두 줄(Debt, current / Debt, non-current)로 맞춘다(2026-11-13).
   2026년 3분기는 주석의 합계(Total debt 14,162.8)로 뽑혔는데, 재무상태표 합(14,190.8)과 28.0 차이가 나고
   앞 분기들과 기준이 달라서 쓰지 않고, 재무상태표의 두 줄을 표에서 읽어 넣는다. 합계는 계산 지표(debt)가 만든다.
+- 선수금(Deferred revenue)은 재무상태표의 유동·비유동 두 줄을 표에서 읽어 넣는다. 2025년 3분기에는 한 줄뿐이라 합계로 넣는다.
 """
 import json
 import pathlib
@@ -83,8 +84,51 @@ def second_batch() -> list[dict]:
     return out + nbis_q3_2026_debt()
 
 
+# 재무상태표의 선수금 줄. (원문 파일, 기간 말, 줄 이름, 지표, 줄 이름 뒤에 이어 붙일 칸 수, 값(백만 달러))
+# 칸 순서는 (주석 번호가 있으면 주석 번호, 앞 기간 말, 이번 기간 말)이다. 2026-11-13에 머리줄과 함께 읽고,
+# 뒤 공시들의 비교 열(2025-12-31의 275.5와 1,302.0)이 서로 같은 것으로 열을 확인했다.
+DEFERRED_ROWS = [
+    ("0001104659-25-110831/tm2531034d1_ex99-2.htm.txt", "2025-09-30", "Deferred revenue", "deferred_revenue", 3, 15.6),
+    ("0001104659-26-013946/tm266173d1_ex99-1.htm.txt", "2025-12-31", "Deferred revenue, current", "deferred_revenue_current", 2, 275.5),
+    ("0001104659-26-013946/tm266173d1_ex99-1.htm.txt", "2025-12-31", "Deferred revenue, non-current", "deferred_revenue_noncurrent", 2, 1302.0),
+    ("0001104659-26-064092/nbis-20260331xex99d2.htm.txt", "2026-03-31", "Deferred revenue, current", "deferred_revenue_current", 3, 685.6),
+    ("0001104659-26-064092/nbis-20260331xex99d2.htm.txt", "2026-03-31", "Deferred revenue, non-current", "deferred_revenue_noncurrent", 2, 4092.5),
+    ("0001104659-26-094844/nbis-20260812xex99d2.htm.txt", "2026-06-30", "Deferred revenue, current", "deferred_revenue_current", 3, 979.4),
+    ("0001104659-26-094844/nbis-20260812xex99d2.htm.txt", "2026-06-30", "Deferred revenue, non-current", "deferred_revenue_noncurrent", 2, 4995.8),
+    ("0001104659-26-126238/nbis-ex99d2.htm.txt", "2026-09-30", "Deferred revenue, current", "deferred_revenue_current", 3, 1445.5),
+    ("0001104659-26-126238/nbis-ex99d2.htm.txt", "2026-09-30", "Deferred revenue, non-current", "deferred_revenue_noncurrent", 2, 7963.7),
+]
+
+
+def nbis_deferred_revenue(known: list[dict]) -> list[dict]:
+    """재무상태표에서 선수금 줄을 읽는다. 공시의 제출일과 주소는 이미 뽑아 둔 값(known)에서 같은 파일의 것을 쓴다."""
+    meta = {v["source"]["text_file"]: v["source"] for v in known if v["source"].get("text_file")}
+    out = []
+    for rel, period_end, label, metric, cells, millions in DEFERRED_ROWS:
+        tf = "data/raw/filings/nbis/" + rel
+        lines = (ROOT / tf).read_text(encoding="utf-8").split("\n")
+        clean = [ln.replace("\u200b", "").strip() for ln in lines]
+        start = next(i for i, ln in enumerate(clean) if "BALANCE SHEET" in ln.upper() and "as of" not in ln.lower())
+        i = next(k for k in range(start, len(clean)) if clean[k] == label)
+        j, seen, last = i + 1, 0, ""
+        while seen < cells:
+            if clean[j]:
+                seen, last = seen + 1, clean[j]
+            j += 1
+        if last.replace(",", "") != f"{millions:.1f}":
+            raise SystemExit(f"{rel} {label}: 표에서 읽은 값 {last!r}가 기대한 {millions}와 다르다")
+        m = meta[tf]
+        out.append({
+            "company": "nbis", "metric": metric, "period_start": None, "period_end": period_end, "value": round(millions * 1e6), "unit": "USD",
+            "source": {"type": "text", "form": m["form"], "accession": m["accession"], "filed": m["filed"], "url": m["url"],
+                       "label": label, "quote": re.sub(r"\s+", " ", "\n".join(lines[i:j])).strip(), "text_file": tf},
+        })
+    return out
+
+
 def main() -> None:
     values = load("nbis_values.json") + load("text_values.json") + [nbis_q3_2026_top_customer()] + second_batch()
+    values += nbis_deferred_revenue(values)
     kept: dict[tuple, dict] = {}
     dropped = 0
     for v in values:

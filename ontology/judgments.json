@@ -96,5 +96,170 @@
    "매출이 늘어난다"
   ],
   "decisions": []
+ },
+ {
+  "id": "nbis-residual",
+  "company": "nbis",
+  "statement": "네비우스는 설비값과 이자를 치르고도 남는다.",
+  "created": "2026-11-13",
+  "example": false,
+  "note": "사용자의 말 \"부채로 레버리지를 끌어온 거고, 전환사채와 고객 선수금을 빼고 나면 남는 게 좀 적겠지\"를 조건으로 옮긴 것. 조건은 초안이다.",
+  "period_end": "2026-09-30",
+  "status": "broken",
+  "counts": {
+   "held": 1,
+   "near": 0,
+   "reversed": 0,
+   "broken": 2,
+   "unknown": 0
+  },
+  "conditions": [
+   {
+    "id": "ebit-covers-interest",
+    "name": "영업이익이 이자비용보다 크다",
+    "metric": "ebit_to_interest",
+    "kind": "at_least",
+    "threshold": 1,
+    "rule": "1.00배 이상",
+    "unit": "x",
+    "verdict": {
+     "period_end": "2026-09-30",
+     "basis": [
+      {
+       "company": "nbis",
+       "metric": "ebit_to_interest",
+       "period_end": "2026-09-30",
+       "value": 0.45,
+       "label": null,
+       "source_type": "derived",
+       "review": "inputs_unreviewed",
+       "filing": {
+        "form": "6-K",
+        "filed": "2026-11-12",
+        "url": "https://www.sec.gov/Archives/edgar/data/1513845/000110465926126238/nbis-ex99d1.htm"
+       }
+      }
+     ],
+     "result": "broken",
+     "text": "0.45배. 기준 1.00배에 0.55배 못 미침."
+    },
+    "previous": {
+     "result": "broken",
+     "period_end": "2026-06-30",
+     "text": "-1.48배. 기준 1.00배에 2.48배 못 미침."
+    }
+   },
+   {
+    "id": "ebit-interest-up",
+    "name": "영업이익 ÷ 이자비용이 올라간다",
+    "metric": "ebit_to_interest",
+    "kind": "increase",
+    "rule": "직전 분기보다 늘어남 (2분기 연속 반대로 가면 깨짐)",
+    "unit": "x",
+    "verdict": {
+     "period_end": "2026-09-30",
+     "basis": [
+      {
+       "company": "nbis",
+       "metric": "ebit_to_interest",
+       "period_end": "2026-09-30",
+       "value": 0.45,
+       "label": null,
+       "source_type": "derived",
+       "review": "inputs_unreviewed",
+       "filing": {
+        "form": "6-K",
+        "filed": "2026-11-12",
+        "url": "https://www.sec.gov/Archives/edgar/data/1513845/000110465926126238/nbis-ex99d1.htm"
+       }
+      },
+      {
+       "company": "nbis",
+       "metric": "ebit_to_interest",
+       "period_end": "2026-06-30",
+       "value": -1.48,
+       "label": null,
+       "source_type": "derived",
+       "review": "inputs_unreviewed",
+       "filing": {
+        "form": "6-K",
+        "filed": "2026-08-12",
+        "url": "https://www.sec.gov/Archives/edgar/data/1513845/000110465926094568/tm2622968d1_ex99-1.htm"
+       }
+      }
+     ],
+     "trail": [
+      {
+       "period_end": "2025-12-31",
+       "ok": true,
+       "change": "+2.74배",
+       "pct": null
+      },
+      {
+       "period_end": "2026-03-31",
+       "ok": true,
+       "change": "+4.11배",
+       "pct": null
+      },
+      {
+       "period_end": "2026-06-30",
+       "ok": true,
+       "change": "+0.53배",
+       "pct": null
+      },
+      {
+       "period_end": "2026-09-30",
+       "ok": true,
+       "change": "+1.93배",
+       "pct": null
+      }
+     ],
+     "result": "held",
+     "text": "-1.48배 → 0.45배 (+1.93배)."
+    },
+    "previous": {
+     "result": "held",
+     "period_end": "2026-06-30",
+     "text": "-2.01배 → -1.48배 (+0.53배)."
+    }
+   },
+   {
+    "id": "cash-ex-prepay-positive",
+    "name": "선수금을 뺀 영업현금흐름이 플러스다",
+    "metric": "ocf_ex_deferred",
+    "kind": "at_least",
+    "threshold": 0,
+    "rule": "0.00억 달러 이상",
+    "unit": "USD",
+    "verdict": {
+     "period_end": "2026-09-30",
+     "basis": [
+      {
+       "company": "nbis",
+       "metric": "ocf_ex_deferred",
+       "period_end": "2026-09-30",
+       "value": -3707000000,
+       "label": null,
+       "source_type": "derived",
+       "review": "inputs_unreviewed",
+       "filing": {
+        "form": "6-K",
+        "filed": "2026-11-12",
+        "url": "https://www.sec.gov/Archives/edgar/data/1513845/000110465926126008/tm2629571d1_ex99-1.htm"
+       }
+      }
+     ],
+     "result": "broken",
+     "text": "-37.1억 달러. 기준 0.00억 달러에 37.1억 달러 못 미침."
+    },
+    "previous": {
+     "result": "held",
+     "period_end": "2026-06-30",
+     "text": "10.5억 달러. 기준 0.00억 달러보다 10.5억 달러 위."
+    }
+   }
+  ],
+  "paused_conditions": [],
+  "decisions": []
  }
 ]

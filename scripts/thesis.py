@@ -225,7 +225,7 @@ def inputs_of(metric: str, M: dict) -> set:
         out.add(m)
         d = M.get(m, {}).get("derive")
         if d:
-            todo += [d["a"], d["b"]]
+            todo += [d["a"], d.get("b")]
     return out
 
 

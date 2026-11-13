@@ -64,6 +64,7 @@ def is_quarter(v: dict) -> bool:
 def add_derived(values: list[dict], metrics: list[dict], skips: list[dict] | None = None) -> None:
     """metrics.json의 derive 정의대로 계산 지표를 채운다. 재료 값이 둘 다 있는 기간만 만든다.
 
+    derive: {"op": "delta", "a": 지표}는 바로 앞 분기 값과의 차이(잔액의 한 분기 변화)를 만든다.
     derive: {"op": "ratio", "diff" 또는 "sum", "a": 지표, "b": 지표, "scale": 곱할 수(기본 1), "b_positive": 분모가 0 이하면 만들지 않음}
     분모 때문에 만들지 못한 기간은 skips에 이유와 함께 적는다.
     """
@@ -73,6 +74,23 @@ def add_derived(values: list[dict], metrics: list[dict], skips: list[dict] | Non
         if not d:
             continue
         have = {(v["company"], v["period_end"]) for v in values if v["metric"] == m["id"]}
+        if d["op"] == "delta":
+            rows = sorted((v for v in values if v["metric"] == d["a"]), key=lambda v: (v["company"], v["period_end"]))
+            for prev, cur in zip(rows, rows[1:]):
+                gap = (dt.date.fromisoformat(cur["period_end"]) - dt.date.fromisoformat(prev["period_end"])).days
+                if prev["company"] != cur["company"] or gap > 120 or (cur["company"], cur["period_end"]) in have:
+                    continue
+                raw = any(x.get("review", {}).get("status") in ("unreviewed", "inputs_unreviewed") for x in (prev, cur))
+                values.append({
+                    "company": cur["company"], "metric": m["id"],
+                    "period_start": (dt.date.fromisoformat(prev["period_end"]) + dt.timedelta(days=1)).isoformat(),
+                    "period_end": cur["period_end"], "value": cur["value"] - prev["value"], "unit": m["unit"],
+                    "source": {"type": "derived", "how": f"{names[d['a']]}의 {prev['period_end']} 값과 {cur['period_end']} 값의 차이",
+                               "filings": [f for f in (cur["source"].get("filings") or []) if f],
+                               "inputs": [{"metric": d["a"], "value": cur["value"], "unit": cur["unit"]}]},
+                    "review": {"status": "inputs_unreviewed" if raw else "n/a"},
+                })
+            continue
         side = {k: {(v["company"], v["period_end"]): v for v in values if v["metric"] == d[k] and is_quarter(v)} for k in ("a", "b")}
         for key in sorted(side["a"].keys() & side["b"].keys()):
             a, b = side["a"][key], side["b"][key]
@@ -132,7 +150,7 @@ def compute_gaps(values: list[dict], metrics: list[dict], companies: list[dict],
         d = m.get("derive")
         if d:
             for k in ("a", "b"):
-                if (cid, d[k]) not in have:
+                if k in d and (cid, d[k]) not in have:
                     g = why(cid, role, d[k])
                     return {"reason": g["reason"], "note": f"재료 값({M[d[k]]['name']})이 없다. {g['note']}"}
             mine = sorted((s for s in skips if (s["company"], s["metric"]) == (cid, mid)), key=lambda s: s["period_end"])

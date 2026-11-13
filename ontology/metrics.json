@@ -179,6 +179,61 @@
     "derive": {"op": "ratio", "a": "operating_cash_flow", "b": "capex", "scale": 100, "b_positive": true}
   },
   {
+    "id": "ebit_to_interest",
+    "name": "영업이익 ÷ 이자비용",
+    "unit": "x",
+    "kind": "derived",
+    "definition": "분기 영업이익을 분기 이자비용으로 나눈 배수. 설비 감가상각까지 치른 뒤의 이익으로 이자를 몇 번 낼 수 있는지. 1배가 안 되면 영업이익으로 이자를 다 내지 못한다는 뜻이다.",
+    "comparability": "이자비용에 고객 선수금에 붙인 이자가 들어 있는 회사가 있다(네비우스). 자본화한 이자는 빠져 있다.",
+    "derive": {"op": "ratio", "a": "operating_income", "b": "interest_expense", "b_positive": true}
+  },
+  {
+    "id": "deferred_revenue_current",
+    "name": "유동 선수금",
+    "unit": "USD",
+    "kind": "text",
+    "show": false,
+    "definition": "기간 말 재무상태표의 유동 선수금(1년 안에 매출로 바뀔 것).",
+    "comparability": "회사마다 줄 이름이 다르다(Deferred revenue, Contract liabilities)."
+  },
+  {
+    "id": "deferred_revenue_noncurrent",
+    "name": "비유동 선수금",
+    "unit": "USD",
+    "kind": "text",
+    "show": false,
+    "definition": "기간 말 재무상태표의 비유동 선수금.",
+    "comparability": "회사마다 줄 이름이 다르다."
+  },
+  {
+    "id": "deferred_revenue",
+    "name": "선수금 잔액",
+    "unit": "USD",
+    "kind": "derived",
+    "definition": "고객에게 미리 받았고 아직 서비스로 갚지 않은 돈. 재무상태표의 유동·비유동 선수금을 더한 값.",
+    "comparability": "갚을 빚은 아니지만 서비스를 제공해야 하는 의무다. 큰 계약 하나로 크게 뛴다.",
+    "derive": {"op": "sum", "a": "deferred_revenue_current", "b": "deferred_revenue_noncurrent"}
+  },
+  {
+    "id": "deferred_revenue_change",
+    "name": "선수금 증가",
+    "unit": "USD",
+    "kind": "derived",
+    "show": false,
+    "definition": "선수금 잔액이 한 분기 동안 늘어난 금액.",
+    "comparability": "잔액의 차이로 계산해서 현금흐름표의 선수금 줄과 조금 다를 수 있다(선수금에 붙인 이자, 환율).",
+    "derive": {"op": "delta", "a": "deferred_revenue"}
+  },
+  {
+    "id": "ocf_ex_deferred",
+    "name": "선수금을 뺀 영업현금흐름",
+    "unit": "USD",
+    "kind": "derived",
+    "definition": "분기 영업현금흐름에서 그 분기의 선수금 증가를 뺀 값. 고객이 미리 준 돈을 빼고 영업에서 들어온 현금.",
+    "comparability": "회사가 발표한 값이 아니라 이 레포에서 계산한 값이다. 공급사에 미리 준 돈, 매출채권 같은 다른 운전자본 항목 때문에 분기마다 크게 출렁인다.",
+    "derive": {"op": "diff", "a": "operating_cash_flow", "b": "deferred_revenue_change"}
+  },
+  {
     "id": "contracted_power_mw",
     "name": "계약 전력",
     "unit": "MW",

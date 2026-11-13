@@ -12,6 +12,18 @@
   ]
  },
  {
+  "id": "nbis-residual",
+  "company": "nbis",
+  "statement": "네비우스는 설비값과 이자를 치르고도 남는다.",
+  "created": "2026-11-13",
+  "note": "사용자의 말 \"부채로 레버리지를 끌어온 거고, 전환사채와 고객 선수금을 빼고 나면 남는 게 좀 적겠지\"를 조건으로 옮긴 것. 조건은 초안이다.",
+  "conditions": [
+   {"id": "ebit-covers-interest", "name": "영업이익이 이자비용보다 크다", "metric": "ebit_to_interest", "kind": "at_least", "threshold": 1},
+   {"id": "ebit-interest-up", "name": "영업이익 ÷ 이자비용이 올라간다", "metric": "ebit_to_interest", "kind": "increase"},
+   {"id": "cash-ex-prepay-positive", "name": "선수금을 뺀 영업현금흐름이 플러스다", "metric": "ocf_ex_deferred", "kind": "at_least", "threshold": 0}
+  ]
+ },
+ {
   "id": "nbis-debt",
   "company": "nbis",
   "statement": "네비우스는 번 돈으로 빚을 감당할 수 있게 된다.",

@@ -1,5 +1,85 @@
 [
  {
+  "id": "thesis|nbis-residual|ebit-covers-interest|2026-09-30",
+  "kind": "thesis",
+  "company": "nbis",
+  "thesis": "nbis-residual",
+  "statement": "네비우스는 설비값과 이자를 치르고도 남는다.",
+  "condition": "ebit-covers-interest",
+  "rule_name": "영업이익이 이자비용보다 크다",
+  "metric": "ebit_to_interest",
+  "unit": "x",
+  "period_end": "2026-09-30",
+  "result": "broken",
+  "previous_result": "broken",
+  "changed": false,
+  "change": "깨짐. 0.45배. 기준 1.00배에 0.55배 못 미침.",
+  "trail": null,
+  "basis": [
+   {
+    "company": "nbis",
+    "metric": "ebit_to_interest",
+    "period_end": "2026-09-30",
+    "value": 0.45,
+    "label": null,
+    "source_type": "derived",
+    "review": "inputs_unreviewed",
+    "filing": {
+     "form": "6-K",
+     "filed": "2026-11-12",
+     "url": "https://www.sec.gov/Archives/edgar/data/1513845/000110465926126238/nbis-ex99d1.htm"
+    }
+   }
+  ],
+  "filing": {
+   "form": "6-K",
+   "filed": "2026-11-12",
+   "url": "https://www.sec.gov/Archives/edgar/data/1513845/000110465926126238/nbis-ex99d1.htm"
+  },
+  "impact": [],
+  "dismissed": false
+ },
+ {
+  "id": "thesis|nbis-residual|cash-ex-prepay-positive|2026-09-30",
+  "kind": "thesis",
+  "company": "nbis",
+  "thesis": "nbis-residual",
+  "statement": "네비우스는 설비값과 이자를 치르고도 남는다.",
+  "condition": "cash-ex-prepay-positive",
+  "rule_name": "선수금을 뺀 영업현금흐름이 플러스다",
+  "metric": "ocf_ex_deferred",
+  "unit": "USD",
+  "period_end": "2026-09-30",
+  "result": "broken",
+  "previous_result": "held",
+  "changed": true,
+  "change": "지켜짐 → 깨짐. -37.1억 달러. 기준 0.00억 달러에 37.1억 달러 못 미침.",
+  "trail": null,
+  "basis": [
+   {
+    "company": "nbis",
+    "metric": "ocf_ex_deferred",
+    "period_end": "2026-09-30",
+    "value": -3707000000,
+    "label": null,
+    "source_type": "derived",
+    "review": "inputs_unreviewed",
+    "filing": {
+     "form": "6-K",
+     "filed": "2026-11-12",
+     "url": "https://www.sec.gov/Archives/edgar/data/1513845/000110465926126008/tm2629571d1_ex99-1.htm"
+    }
+   }
+  ],
+  "filing": {
+   "form": "6-K",
+   "filed": "2026-11-12",
+   "url": "https://www.sec.gov/Archives/edgar/data/1513845/000110465926126008/tm2629571d1_ex99-1.htm"
+  },
+  "impact": [],
+  "dismissed": false
+ },
+ {
   "id": "nbis|top_customer_changed|2026-09-30",
   "company": "nbis",
   "rule_id": "top_customer_changed",

@@ -721,6 +721,168 @@
  },
  {
   "company": "nbis",
+  "metric": "deferred_revenue",
+  "period_start": null,
+  "period_end": "2025-09-30",
+  "value": 15600000,
+  "unit": "USD",
+  "source": {
+   "type": "text",
+   "form": "6-K",
+   "accession": "0001104659-25-110831",
+   "filed": "2025-11-13",
+   "url": "https://www.sec.gov/Archives/edgar/data/1513845/000110465925110831/tm2531034d1_ex99-2.htm",
+   "label": "Deferred revenue",
+   "quote": "Deferred revenue 4 16.3 15.6",
+   "text_file": "data/raw/filings/nbis/0001104659-25-110831/tm2531034d1_ex99-2.htm.txt"
+  }
+ },
+ {
+  "company": "nbis",
+  "metric": "deferred_revenue_current",
+  "period_start": null,
+  "period_end": "2025-12-31",
+  "value": 275500000,
+  "unit": "USD",
+  "source": {
+   "type": "text",
+   "form": "6-K",
+   "accession": "0001104659-26-013946",
+   "filed": "2026-02-12",
+   "url": "https://www.sec.gov/Archives/edgar/data/1513845/000110465926013946/tm266173d1_ex99-1.htm",
+   "label": "Deferred revenue, current",
+   "quote": "Deferred revenue, current 16.3 275.5",
+   "text_file": "data/raw/filings/nbis/0001104659-26-013946/tm266173d1_ex99-1.htm.txt"
+  }
+ },
+ {
+  "company": "nbis",
+  "metric": "deferred_revenue_current",
+  "period_start": null,
+  "period_end": "2026-03-31",
+  "value": 685600000,
+  "unit": "USD",
+  "source": {
+   "type": "text",
+   "form": "6-K",
+   "accession": "0001104659-26-064092",
+   "filed": "2026-05-20",
+   "url": "https://www.sec.gov/Archives/edgar/data/1513845/000110465926064092/nbis-20260331xex99d2.htm",
+   "label": "Deferred revenue, current",
+   "quote": "Deferred revenue, current ​ 4 275.5 ​ 685.6",
+   "text_file": "data/raw/filings/nbis/0001104659-26-064092/nbis-20260331xex99d2.htm.txt"
+  }
+ },
+ {
+  "company": "nbis",
+  "metric": "deferred_revenue_current",
+  "period_start": null,
+  "period_end": "2026-06-30",
+  "value": 979400000,
+  "unit": "USD",
+  "source": {
+   "type": "text",
+   "form": "6-K",
+   "accession": "0001104659-26-094844",
+   "filed": "2026-08-12",
+   "url": "https://www.sec.gov/Archives/edgar/data/1513845/000110465926094844/nbis-20260812xex99d2.htm",
+   "label": "Deferred revenue, current",
+   "quote": "Deferred revenue, current ​ 4 275.5 ​ 979.4",
+   "text_file": "data/raw/filings/nbis/0001104659-26-094844/nbis-20260812xex99d2.htm.txt"
+  }
+ },
+ {
+  "company": "nbis",
+  "metric": "deferred_revenue_current",
+  "period_start": null,
+  "period_end": "2026-09-30",
+  "value": 1445500000,
+  "unit": "USD",
+  "source": {
+   "type": "text",
+   "form": "6-K",
+   "accession": "0001104659-26-126238",
+   "filed": "2026-11-12",
+   "url": "https://www.sec.gov/Archives/edgar/data/1513845/000110465926126238/nbis-ex99d2.htm",
+   "label": "Deferred revenue, current",
+   "quote": "Deferred revenue, current ​ 4 275.5 ​ 1,445.5",
+   "text_file": "data/raw/filings/nbis/0001104659-26-126238/nbis-ex99d2.htm.txt"
+  }
+ },
+ {
+  "company": "nbis",
+  "metric": "deferred_revenue_noncurrent",
+  "period_start": null,
+  "period_end": "2025-12-31",
+  "value": 1302000000,
+  "unit": "USD",
+  "source": {
+   "type": "text",
+   "form": "6-K",
+   "accession": "0001104659-26-013946",
+   "filed": "2026-02-12",
+   "url": "https://www.sec.gov/Archives/edgar/data/1513845/000110465926013946/tm266173d1_ex99-1.htm",
+   "label": "Deferred revenue, non-current",
+   "quote": "Deferred revenue, non-current — 1,302.0",
+   "text_file": "data/raw/filings/nbis/0001104659-26-013946/tm266173d1_ex99-1.htm.txt"
+  }
+ },
+ {
+  "company": "nbis",
+  "metric": "deferred_revenue_noncurrent",
+  "period_start": null,
+  "period_end": "2026-03-31",
+  "value": 4092500000,
+  "unit": "USD",
+  "source": {
+   "type": "text",
+   "form": "6-K",
+   "accession": "0001104659-26-064092",
+   "filed": "2026-05-20",
+   "url": "https://www.sec.gov/Archives/edgar/data/1513845/000110465926064092/nbis-20260331xex99d2.htm",
+   "label": "Deferred revenue, non-current",
+   "quote": "Deferred revenue, non-current ​ ​ ​ 1,302.0 ​ 4,092.5",
+   "text_file": "data/raw/filings/nbis/0001104659-26-064092/nbis-20260331xex99d2.htm.txt"
+  }
+ },
+ {
+  "company": "nbis",
+  "metric": "deferred_revenue_noncurrent",
+  "period_start": null,
+  "period_end": "2026-06-30",
+  "value": 4995800000,
+  "unit": "USD",
+  "source": {
+   "type": "text",
+   "form": "6-K",
+   "accession": "0001104659-26-094844",
+   "filed": "2026-08-12",
+   "url": "https://www.sec.gov/Archives/edgar/data/1513845/000110465926094844/nbis-20260812xex99d2.htm",
+   "label": "Deferred revenue, non-current",
+   "quote": "Deferred revenue, non-current ​ ​ ​ 1,302.0 ​ 4,995.8",
+   "text_file": "data/raw/filings/nbis/0001104659-26-094844/nbis-20260812xex99d2.htm.txt"
+  }
+ },
+ {
+  "company": "nbis",
+  "metric": "deferred_revenue_noncurrent",
+  "period_start": null,
+  "period_end": "2026-09-30",
+  "value": 7963700000,
+  "unit": "USD",
+  "source": {
+   "type": "text",
+   "form": "6-K",
+   "accession": "0001104659-26-126238",
+   "filed": "2026-11-12",
+   "url": "https://www.sec.gov/Archives/edgar/data/1513845/000110465926126238/nbis-ex99d2.htm",
+   "label": "Deferred revenue, non-current",
+   "quote": "Deferred revenue, non-current ​ ​ ​ 1,302.0 ​ 7,963.7",
+   "text_file": "data/raw/filings/nbis/0001104659-26-126238/nbis-ex99d2.htm.txt"
+  }
+ },
+ {
+  "company": "nbis",
   "metric": "interest_expense",
   "period_start": "2025-07-01",
   "period_end": "2025-09-30",
