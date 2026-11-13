@@ -148,10 +148,10 @@ def compute_gaps(values: list[dict], metrics: list[dict], companies: list[dict],
     return gaps
 
 
-def load_values(skips: list[dict] | None = None) -> tuple[list[dict], list[dict]]:
+def load_values(skips: list[dict] | None = None, keep=None, actions: list[dict] | None = None) -> tuple[list[dict], list[dict]]:
     """값을 모으고 행동 기록(정정·검토)을 반영한 뒤 파생 값을 채운다. (값, 행동 기록)을 돌려준다."""
-    values = [normalize(v) for v in load("values_xbrl.json", []) + load("values_text.json", [])]
-    actions = loop.load_actions()
+    values = [normalize(v) for v in load("values_xbrl.json", []) + load("values_text.json", []) if keep is None or keep(v)]
+    actions = loop.load_actions() if actions is None else actions
     loop.apply_actions(values, actions)
     add_yoy(values)
     add_derived(values, load("metrics.json"), skips)
@@ -160,9 +160,10 @@ def load_values(skips: list[dict] | None = None) -> tuple[list[dict], list[dict]
     return values, actions
 
 
-def build() -> dict:
+def build(keep=None, actions: list[dict] | None = None) -> dict:
+    """화면이 읽을 자료를 만든다. keep(값을 걸러 내는 함수)과 actions(기록 대신 쓸 목록)는 scripts/replay.py가 지난 때를 다시 볼 때 쓴다."""
     skips: list[dict] = []
-    values, actions = load_values(skips)
+    values, actions = load_values(skips, keep, actions)
     monitors = load("monitors.json", [])
     alerts = loop.compute_alerts(values, monitors, load("relations.json", []), load("companies.json"),
                                  load("metrics.json"), actions)

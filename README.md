@@ -45,6 +45,7 @@ python scripts/check_quotes.py ontology/values_text.json ontology/relations.json
 python scripts/build_dashboard.py  # 대시보드가 읽는 dashboard/data.js를 만든다
 python scripts/loop.py             # 감시 조건에 걸린 변화를 알림으로 만든다 (ontology/alerts.json)
 python scripts/thesis.py           # 가설의 조건을 최신 값에 비춰 판정한다 (ontology/judgments.json)
+python scripts/replay.py           # 지난 분기로 되돌아가 고리를 한 바퀴 돌려 본다 (시연용, 아무것도 저장하지 않는다)
 python scripts/serve.py            # http://localhost:8765 에서 본다. 화면에서 한 행동(검토, 정정, 잇기, 조건 판정, 판단, 돌아보기)을 기록한다
 ```
 
