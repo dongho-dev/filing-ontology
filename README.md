@@ -4,7 +4,7 @@
 
 > **상태(2026-11-13): 시작 단계입니다. 아직 구현된 기능이 없습니다.**
 > 아래 내용은 초안이며, 만들면서 고칩니다.
-> 자세한 구상과 아직 못 정한 것은 [docs/concept.md](docs/concept.md)에 있습니다.
+> 자세한 구상과 아직 못 정한 것은 [docs/concept.md](docs/concept.md)에, 다음 방향(투자형 메이븐)은 [docs/investment-maven.md](docs/investment-maven.md)에 있습니다.
 
 ## 풀려는 문제 (초안)
 
@@ -43,7 +43,9 @@ python scripts/build_values.py     # 분기별 지표 값을 만든다 (ontology
 python scripts/merge_text.py       # 글에서 뽑은 값을 검토 규칙으로 걸러 옮긴다 (ontology/values_text.json, relations.json)
 python scripts/check_quotes.py ontology/values_text.json ontology/relations.json   # 근거 문장이 원문과 글자 그대로 맞는지 검사
 python scripts/build_dashboard.py  # 대시보드가 읽는 dashboard/data.js를 만든다
-python -m http.server 8765 --directory dashboard   # http://localhost:8765 에서 본다
+python scripts/loop.py             # 감시 조건에 걸린 변화를 알림으로 만든다 (ontology/alerts.json)
+python scripts/thesis.py           # 가설의 조건을 최신 값에 비춰 판정한다 (ontology/judgments.json)
+python scripts/serve.py            # http://localhost:8765 에서 본다. 화면에서 한 행동(검토, 정정, 잇기)을 기록한다
 ```
 
 지금 되는 것
@@ -53,6 +55,8 @@ python -m http.server 8765 --directory dashboard   # http://localhost:8765 에�
 - 숫자마다 근거 공시가 붙고, 글에서 뽑은 값은 원문 문장이 함께 나옵니다.
 - 엔비디아가 세 회사에 GPU를 공급한다는 관계와 그 근거 문장.
 - 화면은 두 종류입니다. 고정 화면(지표 비교)과 질의 화면(질문 하나에 맞춘 화면, `views/*.json`으로 정의). 첫 질의 화면은 "네비우스가 분기마다 가격에 대해 한 말"입니다.
+- 고리: 감시 조건에 걸린 변화가 "알림" 탭에 뜨고, 화면에서 검토함 표시·값 정정·가려진 고객 잇기를 하면 `ontology/actions.jsonl`에 기록되어 다음 화면에 반영됩니다(구상 문서 16장).
+- 가설: `ontology/theses.json`에 적은 가설의 조건을 최신 분기 값에 비춰 "가설" 탭에 지켜짐, 가까워짐, 깨짐, 판정 불가로 보여 줍니다. 발언에 기대는 조건은 사람이 읽고 판정을 기록합니다. 지금 들어 있는 가설 하나는 틀을 보여 주려고 지어낸 예시이며 권고가 아닙니다.
 
 아직 안 되는 것
 

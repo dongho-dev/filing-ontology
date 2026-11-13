@@ -1,0 +1,458 @@
+[
+ {
+  "id": "nbis|top_customer_changed|2026-09-30",
+  "company": "nbis",
+  "rule_id": "top_customer_changed",
+  "rule_name": "최대 고객이 바뀜",
+  "metric": "top_customer_share",
+  "period_end": "2026-09-30",
+  "current": {
+   "value": 33,
+   "label": "Customer E",
+   "source_type": "text",
+   "review": "corrected"
+  },
+  "previous": {
+   "value": 24,
+   "label": "Customer C",
+   "period_end": "2026-06-30"
+  },
+  "change": "최대 고객 비중 원문 표현이 'Customer C'에서 'Customer E'로 바뀜 (2026-06-30 → 2026-09-30). 같은 회사인지는 원문만으로 알 수 없음.",
+  "filing": {
+   "form": "6-K",
+   "filed": "2026-11-12",
+   "url": "https://www.sec.gov/Archives/edgar/data/1513845/000110465926126238/nbis-ex99d2.htm"
+  },
+  "impact": [
+   {
+    "kind": "unknown",
+    "label": "Customer E",
+    "linked": false,
+    "text": "이름이 가려져 있어 누구인지 모름 (원문 표현: Customer E)"
+   },
+   {
+    "kind": "supplier",
+    "company": "nvda",
+    "what": "GPU"
+   },
+   {
+    "kind": "same_supplier",
+    "company": "crwv",
+    "via": "nvda"
+   },
+   {
+    "kind": "same_supplier",
+    "company": "iren",
+    "via": "nvda"
+   }
+  ],
+  "dismissed": false
+ },
+ {
+  "id": "nbis|top_customer_share_pp|2026-09-30",
+  "company": "nbis",
+  "rule_id": "top_customer_share_pp",
+  "rule_name": "최대 고객 비중이 5%p 넘게 변함",
+  "metric": "top_customer_share",
+  "period_end": "2026-09-30",
+  "current": {
+   "value": 33,
+   "label": "Customer E",
+   "source_type": "text",
+   "review": "corrected"
+  },
+  "previous": {
+   "value": 24,
+   "label": "Customer C",
+   "period_end": "2026-06-30"
+  },
+  "change": "최대 고객 비중이 24%에서 33%로 9.0%p 늘어남 (2026-06-30 → 2026-09-30).",
+  "filing": {
+   "form": "6-K",
+   "filed": "2026-11-12",
+   "url": "https://www.sec.gov/Archives/edgar/data/1513845/000110465926126238/nbis-ex99d2.htm"
+  },
+  "impact": [
+   {
+    "kind": "unknown",
+    "label": "Customer E",
+    "linked": false,
+    "text": "이름이 가려져 있어 누구인지 모름 (원문 표현: Customer E)"
+   },
+   {
+    "kind": "supplier",
+    "company": "nvda",
+    "what": "GPU"
+   },
+   {
+    "kind": "same_supplier",
+    "company": "crwv",
+    "via": "nvda"
+   },
+   {
+    "kind": "same_supplier",
+    "company": "iren",
+    "via": "nvda"
+   }
+  ],
+  "dismissed": false
+ },
+ {
+  "id": "crwv|top_customer_changed|2026-09-30",
+  "company": "crwv",
+  "rule_id": "top_customer_changed",
+  "rule_name": "최대 고객이 바뀜",
+  "metric": "top_customer_share",
+  "period_end": "2026-09-30",
+  "current": {
+   "value": 30,
+   "label": "Customer B",
+   "source_type": "text",
+   "review": "reviewed"
+  },
+  "previous": {
+   "value": 36,
+   "label": "Customer A",
+   "period_end": "2026-06-30"
+  },
+  "change": "최대 고객 비중 원문 표현이 'Customer A'에서 'Customer B'로 바뀜 (2026-06-30 → 2026-09-30). 같은 회사인지는 원문만으로 알 수 없음.",
+  "filing": {
+   "form": "10-Q",
+   "filed": "2026-11-12",
+   "url": "https://www.sec.gov/Archives/edgar/data/1769628/000176962826000465/crwv-20260930.htm"
+  },
+  "impact": [
+   {
+    "kind": "unknown",
+    "label": "Customer B",
+    "linked": false,
+    "text": "이름이 가려져 있어 누구인지 모름 (원문 표현: Customer B)"
+   },
+   {
+    "kind": "supplier",
+    "company": "nvda",
+    "what": "GPU"
+   },
+   {
+    "kind": "same_supplier",
+    "company": "nbis",
+    "via": "nvda"
+   },
+   {
+    "kind": "same_supplier",
+    "company": "iren",
+    "via": "nvda"
+   }
+  ],
+  "dismissed": false
+ },
+ {
+  "id": "crwv|top_customer_share_pp|2026-09-30",
+  "company": "crwv",
+  "rule_id": "top_customer_share_pp",
+  "rule_name": "최대 고객 비중이 5%p 넘게 변함",
+  "metric": "top_customer_share",
+  "period_end": "2026-09-30",
+  "current": {
+   "value": 30,
+   "label": "Customer B",
+   "source_type": "text",
+   "review": "reviewed"
+  },
+  "previous": {
+   "value": 36,
+   "label": "Customer A",
+   "period_end": "2026-06-30"
+  },
+  "change": "최대 고객 비중이 36%에서 30%로 6.0%p 줄어듦 (2026-06-30 → 2026-09-30).",
+  "filing": {
+   "form": "10-Q",
+   "filed": "2026-11-12",
+   "url": "https://www.sec.gov/Archives/edgar/data/1769628/000176962826000465/crwv-20260930.htm"
+  },
+  "impact": [
+   {
+    "kind": "unknown",
+    "label": "Customer B",
+    "linked": false,
+    "text": "이름이 가려져 있어 누구인지 모름 (원문 표현: Customer B)"
+   },
+   {
+    "kind": "supplier",
+    "company": "nvda",
+    "what": "GPU"
+   },
+   {
+    "kind": "same_supplier",
+    "company": "nbis",
+    "via": "nvda"
+   },
+   {
+    "kind": "same_supplier",
+    "company": "iren",
+    "via": "nvda"
+   }
+  ],
+  "dismissed": false
+ },
+ {
+  "id": "crwv|capex_up_30|2026-09-30",
+  "company": "crwv",
+  "rule_id": "capex_up_30",
+  "rule_name": "설비투자가 직전 분기보다 30% 넘게 늘어남",
+  "metric": "capex",
+  "period_end": "2026-09-30",
+  "current": {
+   "value": 9441000000,
+   "label": null,
+   "source_type": "xbrl",
+   "review": "n/a"
+  },
+  "previous": {
+   "value": 6422000000,
+   "label": null,
+   "period_end": "2026-06-30"
+  },
+  "change": "설비투자가 64.2억 달러에서 94.4억 달러로 47.0% 늘어남 (2026-06-30 → 2026-09-30).",
+  "filing": {
+   "form": "10-Q",
+   "filed": "2026-11-12",
+   "url": "https://www.sec.gov/Archives/edgar/data/1769628/000176962826000465/crwv-20260930.htm"
+  },
+  "impact": [
+   {
+    "kind": "supplier",
+    "company": "nvda",
+    "what": "GPU"
+   },
+   {
+    "kind": "same_supplier",
+    "company": "nbis",
+    "via": "nvda"
+   },
+   {
+    "kind": "same_supplier",
+    "company": "iren",
+    "via": "nvda"
+   }
+  ],
+  "dismissed": false
+ },
+ {
+  "id": "crwv|rpo_up_20|2026-09-30",
+  "company": "crwv",
+  "rule_id": "rpo_up_20",
+  "rule_name": "수주 잔고가 20% 넘게 늘어남",
+  "metric": "rpo",
+  "period_end": "2026-09-30",
+  "current": {
+   "value": 132300000000,
+   "label": null,
+   "source_type": "xbrl",
+   "review": "n/a"
+  },
+  "previous": {
+   "value": 103700000000,
+   "label": null,
+   "period_end": "2026-06-30"
+  },
+  "change": "수주 잔고가 1,037억 달러에서 1,323억 달러로 27.6% 늘어남 (2026-06-30 → 2026-09-30).",
+  "filing": {
+   "form": "10-Q",
+   "filed": "2026-11-12",
+   "url": "https://www.sec.gov/Archives/edgar/data/1769628/000176962826000465/crwv-20260930.htm"
+  },
+  "impact": [
+   {
+    "kind": "supplier",
+    "company": "nvda",
+    "what": "GPU"
+   },
+   {
+    "kind": "same_supplier",
+    "company": "nbis",
+    "via": "nvda"
+   },
+   {
+    "kind": "same_supplier",
+    "company": "iren",
+    "via": "nvda"
+   }
+  ],
+  "dismissed": false
+ },
+ {
+  "id": "iren|capex_up_30|2026-09-30",
+  "company": "iren",
+  "rule_id": "capex_up_30",
+  "rule_name": "설비투자가 직전 분기보다 30% 넘게 늘어남",
+  "metric": "capex",
+  "period_end": "2026-09-30",
+  "current": {
+   "value": 2131000000,
+   "label": null,
+   "source_type": "xbrl",
+   "review": "n/a"
+  },
+  "previous": {
+   "value": 1328849000,
+   "label": null,
+   "period_end": "2026-06-30"
+  },
+  "change": "설비투자가 13.3억 달러에서 21.3억 달러로 60.4% 늘어남 (2026-06-30 → 2026-09-30).",
+  "filing": {
+   "form": "10-Q",
+   "filed": "2026-11-05",
+   "url": "https://www.sec.gov/Archives/edgar/data/1878848/000187884826000066/iren-20260930.htm"
+  },
+  "impact": [
+   {
+    "kind": "supplier",
+    "company": "nvda",
+    "what": "GPU"
+   },
+   {
+    "kind": "same_supplier",
+    "company": "nbis",
+    "via": "nvda"
+   },
+   {
+    "kind": "same_supplier",
+    "company": "crwv",
+    "via": "nvda"
+   }
+  ],
+  "dismissed": false
+ },
+ {
+  "id": "iren|rpo_up_20|2026-09-30",
+  "company": "iren",
+  "rule_id": "rpo_up_20",
+  "rule_name": "수주 잔고가 20% 넘게 늘어남",
+  "metric": "rpo",
+  "period_end": "2026-09-30",
+  "current": {
+   "value": 6347000000,
+   "label": null,
+   "source_type": "xbrl",
+   "review": "n/a"
+  },
+  "previous": {
+   "value": 5100000000,
+   "label": null,
+   "period_end": "2026-06-30"
+  },
+  "change": "수주 잔고가 51.0억 달러에서 63.5억 달러로 24.5% 늘어남 (2026-06-30 → 2026-09-30).",
+  "filing": {
+   "form": "10-Q",
+   "filed": "2026-11-05",
+   "url": "https://www.sec.gov/Archives/edgar/data/1878848/000187884826000066/iren-20260930.htm"
+  },
+  "impact": [
+   {
+    "kind": "supplier",
+    "company": "nvda",
+    "what": "GPU"
+   },
+   {
+    "kind": "same_supplier",
+    "company": "nbis",
+    "via": "nvda"
+   },
+   {
+    "kind": "same_supplier",
+    "company": "crwv",
+    "via": "nvda"
+   }
+  ],
+  "dismissed": false
+ },
+ {
+  "id": "nvda|top_customer_changed|2026-07-26",
+  "company": "nvda",
+  "rule_id": "top_customer_changed",
+  "rule_name": "최대 고객이 바뀜",
+  "metric": "top_customer_share",
+  "period_end": "2026-07-26",
+  "current": {
+   "value": 16,
+   "label": "one direct customer",
+   "source_type": "text",
+   "review": "unreviewed"
+  },
+  "previous": {
+   "value": 21,
+   "label": "three direct customers",
+   "period_end": "2026-04-26"
+  },
+  "change": "최대 고객 비중 원문 표현이 'three direct customers'에서 'one direct customer'로 바뀜 (2026-04-26 → 2026-07-26). 같은 회사인지는 원문만으로 알 수 없음.",
+  "filing": {
+   "form": "10-Q",
+   "filed": "2026-08-26",
+   "url": "https://www.sec.gov/Archives/edgar/data/1045810/000104581026000075/nvda-20260726.htm"
+  },
+  "impact": [
+   {
+    "kind": "unknown",
+    "label": "one direct customer",
+    "linked": false,
+    "text": "이름이 가려져 있어 누구인지 모름 (원문 표현: one direct customer)"
+   }
+  ],
+  "dismissed": false
+ },
+ {
+  "id": "nvda|capex_up_30|2026-07-26",
+  "company": "nvda",
+  "rule_id": "capex_up_30",
+  "rule_name": "설비투자가 직전 분기보다 30% 넘게 늘어남",
+  "metric": "capex",
+  "period_end": "2026-07-26",
+  "current": {
+   "value": 2677000000,
+   "label": null,
+   "source_type": "xbrl",
+   "review": "n/a"
+  },
+  "previous": {
+   "value": 1757000000,
+   "label": null,
+   "period_end": "2026-04-26"
+  },
+  "change": "설비투자가 17.6억 달러에서 26.8억 달러로 52.4% 늘어남 (2026-04-26 → 2026-07-26).",
+  "filing": {
+   "form": "10-Q",
+   "filed": "2026-08-26",
+   "url": "https://www.sec.gov/Archives/edgar/data/1045810/000104581026000075/nvda-20260726.htm"
+  },
+  "impact": [],
+  "dismissed": false
+ },
+ {
+  "id": "nvda|rpo_up_20|2026-07-26",
+  "company": "nvda",
+  "rule_id": "rpo_up_20",
+  "rule_name": "수주 잔고가 20% 넘게 늘어남",
+  "metric": "rpo",
+  "period_end": "2026-07-26",
+  "current": {
+   "value": 3200000000,
+   "label": null,
+   "source_type": "xbrl",
+   "review": "n/a"
+  },
+  "previous": {
+   "value": 2600000000,
+   "label": null,
+   "period_end": "2026-04-26"
+  },
+  "change": "수주 잔고가 26.0억 달러에서 32.0억 달러로 23.1% 늘어남 (2026-04-26 → 2026-07-26).",
+  "filing": {
+   "form": "10-Q",
+   "filed": "2026-08-26",
+   "url": "https://www.sec.gov/Archives/edgar/data/1045810/000104581026000075/nvda-20260726.htm"
+  },
+  "impact": [],
+  "dismissed": false
+ }
+]

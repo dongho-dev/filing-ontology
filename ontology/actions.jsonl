@@ -1,0 +1,2 @@
+{"ts": "2026-11-13T19:00:00", "type": "correct", "target": {"company": "nbis", "metric": "top_customer_share", "period_end": "2026-09-30"}, "value": 33, "note": "처음 뽑을 때 표의 열을 잘못 읽어 '10% 넘는 고객 없음'으로 나옴. 원문 표에서 Customer E 33% 확인"}
+{"ts": "2026-11-13T20:44:24", "type": "review", "target": {"company": "crwv", "metric": "top_customer_share", "period_end": "2026-09-30"}, "note": ""}

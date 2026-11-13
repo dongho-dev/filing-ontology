@@ -1,0 +1,7 @@
+[
+  {"id": "top_customer_changed", "name": "최대 고객이 바뀜", "metric": "top_customer_share", "kind": "label_changed"},
+  {"id": "top_customer_share_pp", "name": "최대 고객 비중이 5%p 넘게 변함", "metric": "top_customer_share", "kind": "pp_change", "threshold": 5, "direction": "any"},
+  {"id": "capex_up_30", "name": "설비투자가 직전 분기보다 30% 넘게 늘어남", "metric": "capex", "kind": "pct_change", "threshold": 30, "direction": "up"},
+  {"id": "rpo_up_20", "name": "수주 잔고가 20% 넘게 늘어남", "metric": "rpo", "kind": "pct_change", "threshold": 20, "direction": "up"},
+  {"id": "revenue_down", "name": "매출이 직전 분기보다 줄어듦", "metric": "revenue", "kind": "pct_change", "threshold": 0, "direction": "down"}
+]

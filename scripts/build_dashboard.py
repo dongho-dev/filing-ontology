@@ -1,11 +1,19 @@
 """정의와 값을 모아 대시보드가 읽는 dashboard/data.js를 만든다.
 
 쓰는 법: python scripts/build_dashboard.py
-입력: ontology/companies.json, metrics.json, values_xbrl.json, values_text.json(있으면), relations.json(있으면), views/*.json(질의 화면)
+입력: ontology/companies.json, metrics.json, values_xbrl.json, values_text.json(있으면), relations.json(있으면),
+      monitors.json(감시 조건), theses.json(가설과 조건), actions.jsonl(행동 기록), views/*.json(질의 화면)
+출력: dashboard/data.js, ontology/alerts.json, ontology/judgments.json
+
+행동 기록(검토·정정·잇기·닫기·조건 판정)을 값, 알림, 가설 판정에 다시 반영한다.
+알림 계산은 scripts/loop.py, 가설 판정은 scripts/thesis.py의 것을 쓴다.
 """
 import datetime as dt
 import json
 import pathlib
+
+import loop
+import thesis
 
 ROOT = pathlib.Path(__file__).resolve().parent.parent
 ONT = ROOT / "ontology"
@@ -46,21 +54,46 @@ def add_yoy(values: list[dict]) -> None:
             })
 
 
-def main() -> None:
+def load_values() -> tuple[list[dict], list[dict]]:
+    """값을 모으고 행동 기록(정정·검토)을 반영한 뒤 파생 값을 채운다. (값, 행동 기록)을 돌려준다."""
     values = [normalize(v) for v in load("values_xbrl.json", []) + load("values_text.json", [])]
+    actions = loop.load_actions()
+    loop.apply_actions(values, actions)
     add_yoy(values)
-    data = {
+    for v in values:
+        v.setdefault("review", {"status": "n/a"})
+    return values, actions
+
+
+def build() -> dict:
+    values, actions = load_values()
+    monitors = load("monitors.json", [])
+    alerts = loop.compute_alerts(values, monitors, load("relations.json", []), load("companies.json"),
+                                 load("metrics.json"), actions)
+    return {
         "generated": dt.datetime.now().strftime("%Y-%m-%d %H:%M"),
         "companies": load("companies.json"),
         "metrics": load("metrics.json"),
         "values": values,
         "relations": load("relations.json", []),
         "views": [json.loads(p.read_text(encoding="utf-8")) for p in sorted((ROOT / "views").glob("*.json"))],
+        "monitors": monitors,
+        "alerts": alerts,
+        "theses": thesis.compute(values, load("theses.json", []), actions, load("metrics.json")),
+        "actions": actions,
     }
+
+
+def main() -> None:
+    data = build()
+    (ONT / "alerts.json").write_text(json.dumps(data["alerts"], ensure_ascii=False, indent=1) + "\n", encoding="utf-8")
+    (ONT / "judgments.json").write_text(json.dumps(data["theses"], ensure_ascii=False, indent=1) + "\n", encoding="utf-8")
     out = ROOT / "dashboard" / "data.js"
     out.parent.mkdir(exist_ok=True)
     out.write_text("window.DATA = " + json.dumps(data, ensure_ascii=False) + ";\n", encoding="utf-8")
-    print(f"값 {len(values)}개, 관계 {len(data['relations'])}개, 질의 화면 {len(data['views'])}개를 dashboard/data.js에 썼습니다.")
+    n_open = sum(1 for a in data["alerts"] if not a["dismissed"])
+    print(f"값 {len(data['values'])}개, 관계 {len(data['relations'])}개, 질의 화면 {len(data['views'])}개, "
+          f"알림 {len(data['alerts'])}건(열림 {n_open}), 가설 {len(data['theses'])}개, 행동 기록 {len(data['actions'])}줄을 dashboard/data.js에 썼습니다.")
 
 
 if __name__ == "__main__":

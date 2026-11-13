@@ -1,0 +1,15 @@
+[
+ {
+  "id": "nbis-demand",
+  "company": "nbis",
+  "statement": "네비우스는 수요가 공급을 넘는 동안 본다.",
+  "created": "2026-11-13",
+  "example": true,
+  "note": "틀을 보여 주려고 지어낸 예시 가설입니다. 권고가 아닙니다.",
+  "conditions": [
+   {"id": "rpo-up", "name": "수주 잔고가 직전 분기보다 늘어난다", "metric": "rpo", "kind": "increase"},
+   {"id": "top-share", "name": "최대 고객 비중이 40% 아래다", "metric": "top_customer_share", "kind": "at_most", "threshold": 40, "near": 10},
+   {"id": "price-up", "name": "회사가 가격이 오른다고 말한다", "kind": "manual", "view": "nbis-pricing"}
+  ]
+ }
+]

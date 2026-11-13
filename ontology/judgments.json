@@ -1,0 +1,113 @@
+[
+ {
+  "id": "nbis-demand",
+  "company": "nbis",
+  "statement": "네비우스는 수요가 공급을 넘는 동안 본다.",
+  "created": "2026-11-13",
+  "example": true,
+  "note": "틀을 보여 주려고 지어낸 예시 가설입니다. 권고가 아닙니다.",
+  "period_end": "2026-09-30",
+  "status": "near",
+  "counts": {
+   "held": 1,
+   "near": 1,
+   "broken": 0,
+   "unknown": 1
+  },
+  "conditions": [
+   {
+    "id": "rpo-up",
+    "name": "수주 잔고가 직전 분기보다 늘어난다",
+    "metric": "rpo",
+    "kind": "increase",
+    "rule": "직전 분기보다 늘어남",
+    "unit": "USD",
+    "verdict": {
+     "period_end": "2026-09-30",
+     "basis": [
+      {
+       "period_end": "2026-09-30",
+       "value": 38700000000,
+       "label": "unsatisfied RPO",
+       "source_type": "text",
+       "review": "unreviewed",
+       "filing": {
+        "form": "6-K",
+        "filed": "2026-11-12",
+        "url": "https://www.sec.gov/Archives/edgar/data/1513845/000110465926126238/nbis-ex99d2.htm"
+       }
+      },
+      {
+       "period_end": "2026-06-30",
+       "value": 37490600000,
+       "label": "unsatisfied RPO",
+       "source_type": "text",
+       "review": "unreviewed",
+       "filing": {
+        "form": "6-K",
+        "filed": "2026-08-12",
+        "url": "https://www.sec.gov/Archives/edgar/data/1513845/000110465926094844/nbis-20260812xex99d2.htm"
+       }
+      }
+     ],
+     "result": "held",
+     "text": "375억 달러 → 387억 달러 (+3.2%)."
+    },
+    "previous": {
+     "result": "held",
+     "period_end": "2026-06-30",
+     "text": "336억 달러 → 375억 달러 (+11.6%)."
+    }
+   },
+   {
+    "id": "top-share",
+    "name": "최대 고객 비중이 40% 아래다",
+    "metric": "top_customer_share",
+    "kind": "at_most",
+    "threshold": 40,
+    "near": 10,
+    "rule": "40% 이하 (기준까지 10%p 이내면 가까워짐)",
+    "unit": "%",
+    "verdict": {
+     "period_end": "2026-09-30",
+     "basis": [
+      {
+       "period_end": "2026-09-30",
+       "value": 33,
+       "label": "Customer E",
+       "source_type": "text",
+       "review": "corrected",
+       "filing": {
+        "form": "6-K",
+        "filed": "2026-11-12",
+        "url": "https://www.sec.gov/Archives/edgar/data/1513845/000110465926126238/nbis-ex99d2.htm"
+       }
+      }
+     ],
+     "result": "near",
+     "text": "33%. 기준 40%보다 7%p 아래."
+    },
+    "previous": {
+     "result": "held",
+     "period_end": "2026-06-30",
+     "text": "24%. 기준 40%보다 16%p 아래."
+    }
+   },
+   {
+    "id": "price-up",
+    "name": "회사가 가격이 오른다고 말한다",
+    "kind": "manual",
+    "view": "nbis-pricing",
+    "rule": "사람이 읽고 판정",
+    "unit": null,
+    "verdict": {
+     "result": "unknown",
+     "period_end": "2026-09-30",
+     "basis": [],
+     "text": "사람이 읽고 판정해야 함. 이 분기에 대한 판정 기록이 없음."
+    },
+    "previous": null
+   }
+  ]
+ }
+]
