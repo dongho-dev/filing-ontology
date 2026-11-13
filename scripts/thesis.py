@@ -10,6 +10,7 @@
 - at_most, at_least: 최신 분기 값을 기준값(threshold, 지표의 단위 그대로)과 비교한다.
   near가 있으면 기준까지 near 이내일 때 "가까워짐".
 - manual: 발언처럼 숫자로 판정할 수 없는 조건. 사람이 읽고 남긴 판정 기록(judge)을 쓴다.
+가설이나 조건에 "paused": true를 적으면 보류한 것으로 보고 판정하지 않는다.
 
 판정 결과: held(지켜짐), near(가까워짐), reversed(반대로 움직임), broken(깨짐), unknown(판정 불가).
 회사의 최신 분기에 해당하는 값이나 판정 기록이 없으면 지난 값으로 대신하지 않고 판정 불가로 둔다.
@@ -186,10 +187,14 @@ def compute(values: list[dict], theses: list[dict], actions: list[dict], metrics
     human = judgments_from(actions)
     out = []
     for t in theses:
+        if t.get("paused"):
+            continue  # 보류한 가설은 판정하지 않고 알림도 만들지 않는다
         rev = loop.series(values, t["company"], "revenue")
         latest = rev[-1]["period_end"] if rev else None
         conds = []
         for c in t["conditions"]:
+            if c.get("paused"):
+                continue
             unit = M.get(c.get("metric"), {}).get("unit")
             if c["kind"] == "manual":
                 cur, prev = judge_manual(t["id"], c, latest, human)
@@ -199,10 +204,11 @@ def compute(values: list[dict], theses: list[dict], actions: list[dict], metrics
                 raise ValueError(f"모르는 조건 종류: {c['kind']}")
             conds.append(dict(c, rule=rule_text(c, unit), unit=unit, verdict=cur, previous=prev))
         counts = {r: sum(1 for c in conds if c["verdict"]["result"] == r) for r in RESULTS}
-        status = next(r for r in ("broken", "reversed", "near", "unknown", "held") if counts[r] or r == "held")
+        status = next(r for r in ("broken", "reversed", "near", "unknown", "held") if counts[r] or r == "held") if conds else "unknown"
         out.append({"id": t["id"], "company": t["company"], "statement": t["statement"], "created": t.get("created"),
                     "example": bool(t.get("example")), "note": t.get("note", ""), "period_end": latest,
                     "status": status, "counts": counts, "conditions": conds,
+                    "paused_conditions": [c["name"] for c in t["conditions"] if c.get("paused")],
                     "decisions": decisions_for(t["id"], latest, actions)})
     return out
 

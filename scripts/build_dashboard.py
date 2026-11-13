@@ -182,6 +182,8 @@ def build(keep=None, actions: list[dict] | None = None) -> dict:
         "monitors": monitors,
         "alerts": alerts,
         "theses": theses,
+        "paused_theses": [{"company": t["company"], "statement": t["statement"], "note": t.get("note", "")}
+                          for t in load("theses.json", []) if t.get("paused")],
         "gaps": gaps,
         "actions": actions,
     }

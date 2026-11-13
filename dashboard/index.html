@@ -323,12 +323,15 @@ function thesisCard(t) {
     }
     h += `<tr><td>${esc(c.name)}</td><td>${esc(c.rule)}</td><td>${verdict}</td><td>${basis || '<span class="none">근거 없음</span>'}</td></tr>`;
   }
-  return h + "</tbody></table></div>" + decisionBlock(t) + "</div>";
+  h += "</tbody></table></div>";
+  if (t.paused_conditions?.length) h += `<div class="row">보류한 조건(판정하지 않음): ${t.paused_conditions.map(esc).join(" · ")}</div>`;
+  return h + decisionBlock(t) + "</div>";
 }
 function renderTheses() {
   let h = `<h2 style="margin-top:12px">가설 <span class="muted">내가 세운 가설의 조건을 최신 분기 값에 비춘 결과입니다. 조건과 값 사이의 관계만 말하고, 무엇을 할지는 말하지 않습니다.</span></h2>`;
   if (!API) h += `<div class="off">${OFF_MSG}</div>`;
   h += D.theses.length ? D.theses.map(thesisCard).join("") : `<div class="qa">아직 가설이 없습니다. ontology/theses.json에 적으면 여기에 나옵니다.</div>`;
+  if (D.paused_theses?.length) h += `<div class="qa"><b>보류한 가설 ${D.paused_theses.length}개 (판정하지 않고 알림도 만들지 않음)</b>${D.paused_theses.map(t => `<div>${esc(cname(t.company))} · "${esc(t.statement)}" <span class="muted">${esc(t.note)}</span></div>`).join("")}</div>`;
   h += `<div class="qa"><b>읽는 법</b>지켜짐: 조건이 성립함 · 가까워짐: 성립하지만 기준에 가까움 · 반대로 움직임: 이번 분기에 가설과 반대 방향으로 감 · 깨짐: 성립하지 않음(방향 조건은 두 분기 연속 반대) · 판정 불가: 최신 분기의 값이나 판정 기록이 없음. 가설의 상태는 조건에서 나옵니다: 깨진 조건이 있으면 깨짐, 가까워졌거나 반대로 움직인 조건이 있으면 흔들림, 판정하지 못한 조건이 있으면 판정 불가, 모두 지켜지면 유지. 가설과 조건은 ontology/theses.json에서 고칩니다.</div>`;
   document.getElementById("theses").innerHTML = h;
 }
