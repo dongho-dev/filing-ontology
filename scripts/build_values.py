@@ -125,6 +125,8 @@ def main() -> None:
         ends_all = sorted(rev)
         ends = ends_all[-QUARTERS_SHOWN:]
         for m in metrics:
+            if m.get("derive"):
+                continue  # 다른 지표에서 계산하는 지표는 build_dashboard.py가 채운다
             if m["kind"] == "derived":
                 for e in ends:
                     target = d(e) - dt.timedelta(days=365)

@@ -1,5 +1,68 @@
 [
  {
+  "id": "thesis|nbis-demand|top-share|2026-09-30",
+  "kind": "thesis",
+  "company": "nbis",
+  "thesis": "nbis-demand",
+  "statement": "네비우스는 수요가 공급을 넘는 동안 본다.",
+  "condition": "top-share",
+  "rule_name": "최대 고객 비중이 40% 아래다",
+  "metric": "top_customer_share",
+  "unit": "%",
+  "period_end": "2026-09-30",
+  "result": "near",
+  "previous_result": "held",
+  "changed": true,
+  "change": "지켜짐 → 가까워짐. 33%. 기준 40%보다 7%p 아래.",
+  "trail": null,
+  "basis": [
+   {
+    "period_end": "2026-09-30",
+    "value": 33,
+    "label": "Customer E",
+    "source_type": "text",
+    "review": "corrected",
+    "filing": {
+     "form": "6-K",
+     "filed": "2026-11-12",
+     "url": "https://www.sec.gov/Archives/edgar/data/1513845/000110465926126238/nbis-ex99d2.htm"
+    }
+   }
+  ],
+  "filing": {
+   "form": "6-K",
+   "filed": "2026-11-12",
+   "url": "https://www.sec.gov/Archives/edgar/data/1513845/000110465926126238/nbis-ex99d2.htm"
+  },
+  "impact": [],
+  "dismissed": false
+ },
+ {
+  "id": "thesis|nbis-demand|price-up|2026-09-30",
+  "kind": "thesis",
+  "company": "nbis",
+  "thesis": "nbis-demand",
+  "statement": "네비우스는 수요가 공급을 넘는 동안 본다.",
+  "condition": "price-up",
+  "rule_name": "회사가 가격이 오른다고 말한다",
+  "metric": null,
+  "unit": null,
+  "period_end": "2026-09-30",
+  "result": "unknown",
+  "previous_result": null,
+  "changed": false,
+  "change": "판정 불가. 사람이 읽고 판정해야 함. 이 분기에 대한 판정 기록이 없음.",
+  "trail": null,
+  "basis": [],
+  "filing": {
+   "form": null,
+   "filed": null,
+   "url": null
+  },
+  "impact": [],
+  "dismissed": false
+ },
+ {
   "id": "nbis|top_customer_changed|2026-09-30",
   "company": "nbis",
   "rule_id": "top_customer_changed",
@@ -46,7 +109,17 @@
     "via": "nvda"
    }
   ],
-  "dismissed": false
+  "dismissed": false,
+  "kind": "monitor",
+  "theses": [
+   {
+    "thesis": "nbis-demand",
+    "statement": "네비우스는 수요가 공급을 넘는 동안 본다.",
+    "condition": "top-share",
+    "name": "최대 고객 비중이 40% 아래다",
+    "result": "near"
+   }
+  ]
  },
  {
   "id": "nbis|top_customer_share_pp|2026-09-30",
@@ -95,7 +168,17 @@
     "via": "nvda"
    }
   ],
-  "dismissed": false
+  "dismissed": false,
+  "kind": "monitor",
+  "theses": [
+   {
+    "thesis": "nbis-demand",
+    "statement": "네비우스는 수요가 공급을 넘는 동안 본다.",
+    "condition": "top-share",
+    "name": "최대 고객 비중이 40% 아래다",
+    "result": "near"
+   }
+  ]
  },
  {
   "id": "crwv|top_customer_changed|2026-09-30",
@@ -144,7 +227,9 @@
     "via": "nvda"
    }
   ],
-  "dismissed": false
+  "dismissed": false,
+  "kind": "monitor",
+  "theses": []
  },
  {
   "id": "crwv|top_customer_share_pp|2026-09-30",
@@ -193,7 +278,9 @@
     "via": "nvda"
    }
   ],
-  "dismissed": false
+  "dismissed": false,
+  "kind": "monitor",
+  "theses": []
  },
  {
   "id": "crwv|capex_up_30|2026-09-30",
@@ -236,7 +323,9 @@
     "via": "nvda"
    }
   ],
-  "dismissed": false
+  "dismissed": false,
+  "kind": "monitor",
+  "theses": []
  },
  {
   "id": "crwv|rpo_up_20|2026-09-30",
@@ -279,7 +368,9 @@
     "via": "nvda"
    }
   ],
-  "dismissed": false
+  "dismissed": false,
+  "kind": "monitor",
+  "theses": []
  },
  {
   "id": "iren|capex_up_30|2026-09-30",
@@ -322,7 +413,9 @@
     "via": "nvda"
    }
   ],
-  "dismissed": false
+  "dismissed": false,
+  "kind": "monitor",
+  "theses": []
  },
  {
   "id": "iren|rpo_up_20|2026-09-30",
@@ -365,7 +458,9 @@
     "via": "nvda"
    }
   ],
-  "dismissed": false
+  "dismissed": false,
+  "kind": "monitor",
+  "theses": []
  },
  {
   "id": "nvda|top_customer_changed|2026-07-26",
@@ -399,7 +494,9 @@
     "text": "이름이 가려져 있어 누구인지 모름 (원문 표현: one direct customer)"
    }
   ],
-  "dismissed": false
+  "dismissed": false,
+  "kind": "monitor",
+  "theses": []
  },
  {
   "id": "nvda|capex_up_30|2026-07-26",
@@ -426,7 +523,9 @@
    "url": "https://www.sec.gov/Archives/edgar/data/1045810/000104581026000075/nvda-20260726.htm"
   },
   "impact": [],
-  "dismissed": false
+  "dismissed": false,
+  "kind": "monitor",
+  "theses": []
  },
  {
   "id": "nvda|rpo_up_20|2026-07-26",
@@ -453,6 +552,8 @@
    "url": "https://www.sec.gov/Archives/edgar/data/1045810/000104581026000075/nvda-20260726.htm"
   },
   "impact": [],
-  "dismissed": false
+  "dismissed": false,
+  "kind": "monitor",
+  "theses": []
  }
 ]

@@ -13,7 +13,7 @@ import pathlib
 ROOT = pathlib.Path(__file__).resolve().parent.parent
 ONT = ROOT / "ontology"
 ACTIONS = ONT / "actions.jsonl"
-ACTION_TYPES = ("review", "correct", "link", "dismiss", "judge")
+ACTION_TYPES = ("review", "correct", "link", "dismiss", "judge", "decide", "reflect")
 
 
 def vkey(company: str, metric: str, period_end: str) -> str:
@@ -88,6 +88,8 @@ def fmt(v, unit: str) -> str:
         return f"{v:g}%"
     if unit == "MW":
         return f"{round(v):,} MW"
+    if unit == "x":
+        return f"{v:,.2f}배"
     return str(v)
 
 
@@ -223,10 +225,10 @@ def validate_action(a, values: list[dict], companies: list[dict], alerts: list[d
     note = a.get("note", "")
     if not isinstance(note, str):
         return "note는 글이어야 합니다."
-    if t == "judge":
+    if t in ("judge", "decide", "reflect"):
         import thesis  # 순환 import를 피하려고 여기서 부른다
 
-        return thesis.validate_judge(a, theses or [])
+        return thesis.validate(a, theses or [])
     cids = {c["id"] for c in companies}
     if t in ("review", "correct"):
         k = vkey(target.get("company"), target.get("metric"), target.get("period_end"))
@@ -264,11 +266,9 @@ def validate_action(a, values: list[dict], companies: list[dict], alerts: list[d
 # ---------- 실행 ----------
 
 def build(write: bool = True) -> list[dict]:
-    from build_dashboard import load_values  # 순환 import를 피하려고 여기서 부른다
+    import build_dashboard
 
-    values, actions = load_values()
-    alerts = compute_alerts(values, load("monitors.json"), load("relations.json", []), load("companies.json"),
-                            load("metrics.json"), actions)
+    alerts = build_dashboard.build()["alerts"]  # 감시 알림과 가설 알림을 함께
     if write:
         (ONT / "alerts.json").write_text(json.dumps(alerts, ensure_ascii=False, indent=1) + "\n", encoding="utf-8")
     return alerts
@@ -286,7 +286,8 @@ def main() -> None:
     print(f"알림 {len(alerts)}건 (열림 {len(opened)}, 닫힘 {len(alerts) - len(opened)}) → ontology/alerts.json")
     for a in alerts:
         mark = "닫힘" if a["dismissed"] else "열림"
-        print(f"- [{mark}] {names.get(a['company'], a['company'])} · {a['rule_name']} · {a['change']}")
+        kind = "가설" if a.get("kind") == "thesis" else "감시"
+        print(f"- [{mark}] [{kind}] {names.get(a['company'], a['company'])} · {a['rule_name']} · {a['change']}")
 
 
 if __name__ == "__main__":

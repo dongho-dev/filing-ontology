@@ -11,6 +11,7 @@
   "counts": {
    "held": 1,
    "near": 1,
+   "reversed": 0,
    "broken": 0,
    "unknown": 1
   },
@@ -20,7 +21,7 @@
     "name": "수주 잔고가 직전 분기보다 늘어난다",
     "metric": "rpo",
     "kind": "increase",
-    "rule": "직전 분기보다 늘어남",
+    "rule": "직전 분기보다 늘어남 (2분기 연속 반대로 가면 깨짐)",
     "unit": "USD",
     "verdict": {
      "period_end": "2026-09-30",
@@ -48,6 +49,20 @@
         "filed": "2026-08-12",
         "url": "https://www.sec.gov/Archives/edgar/data/1513845/000110465926094844/nbis-20260812xex99d2.htm"
        }
+      }
+     ],
+     "trail": [
+      {
+       "period_end": "2026-06-30",
+       "ok": true,
+       "change": "+11.6%",
+       "pct": 11.62800391838097
+      },
+      {
+       "period_end": "2026-09-30",
+       "ok": true,
+       "change": "+3.2%",
+       "pct": 3.2258752860717
       }
      ],
      "result": "held",
@@ -108,6 +123,7 @@
     },
     "previous": null
    }
-  ]
+  ],
+  "decisions": []
  }
 ]

@@ -1,4 +1,4 @@
-"""대시보드를 열고 행동(검토·정정·잇기·닫기·조건 판정)을 기록하는 작은 서버.
+"""대시보드를 열고 행동(검토·정정·잇기·닫기·조건 판정·판단·돌아보기)을 기록하는 작은 서버.
 
 쓰는 법: python scripts/serve.py [포트]   (기본 8765, 127.0.0.1에만 연다)
 - GET  /            dashboard/ 정적 파일
@@ -14,6 +14,7 @@ import threading
 
 import build_dashboard
 import loop
+import thesis
 
 LOCK = threading.Lock()
 
@@ -57,8 +58,7 @@ class Handler(http.server.SimpleHTTPRequestHandler):
                 rec["value"] = a["value"]
             if a["type"] == "link":
                 rec["counterparty"] = a["counterparty"]
-            if a["type"] == "judge":
-                rec["verdict"] = a["verdict"]
+            thesis.enrich(rec, a, data["theses"])
             with loop.ACTIONS.open("a", encoding="utf-8", newline="\n") as f:
                 f.write(json.dumps(rec, ensure_ascii=False) + "\n")
             build_dashboard.main()

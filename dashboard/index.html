@@ -87,7 +87,7 @@ details>summary{cursor:pointer;font-size:14px;color:var(--ink2);margin:16px 0 8p
 <div id="fixed">
 <h2>최근 반영된 공시</h2>
 <div class="news" id="news"></div>
-<h2>지표 비교 <span class="muted">칸을 누르면 근거가 나옵니다. 회사마다 회계 분기가 달라 기간을 함께 적습니다.</span></h2>
+<h2>지표 비교 <span class="muted">칸을 누르면 근거가 나옵니다. 회사마다 회계 분기가 달라 기간을 함께 적습니다. 값이 없는 칸에는 이유를 적습니다: 아직 안 읽음(원문에서 찾아보지 않음), 공시에 없음(찾아봤지만 회사가 밝히지 않음), 해당 없음(이 회사에 맞지 않거나 계산할 수 없음).</span></h2>
 <div class="wrap"><table id="grid"></table></div>
 <h2>근거</h2>
 <div class="panel" id="panel"><p>표의 칸을 누르면 그 값의 정의, 분기별 값, 근거 공시가 여기에 나옵니다.</p></div>
@@ -108,7 +108,7 @@ const byId = (arr) => Object.fromEntries(arr.map(x => [x.id, x]));
 let D, C, M, genDate;
 function loadData() {
   D = window.DATA;
-  D.alerts = D.alerts || []; D.actions = D.actions || []; D.theses = D.theses || [];
+  D.alerts = D.alerts || []; D.actions = D.actions || []; D.theses = D.theses || []; D.gaps = D.gaps || {};
   C = byId(D.companies); M = byId(D.metrics);
   genDate = new Date(D.generated.slice(0, 10));
 }
@@ -118,7 +118,7 @@ const daysAgo = (iso) => Math.round((genDate - new Date(iso)) / 864e5);
 const cname = (id) => C[id]?.name || id;
 let API = false;
 const OFF_MSG = "행동을 기록하려면 python scripts/serve.py로 여세요.";
-const ST = {unreviewed: ["검토 전", ""], reviewed: ["검토함", "done"], corrected: ["정정됨", "done"]};
+const ST = {unreviewed: ["검토 전", ""], inputs_unreviewed: ["재료 값 검토 전", ""], reviewed: ["검토함", "done"], corrected: ["정정됨", "done"]};
 function stTag(v) {
   const s = ST[v?.review?.status];
   if (!s) return "";
@@ -146,6 +146,7 @@ function fmt(v, unit) {
   }
   if (unit === "%") return v.toLocaleString("ko-KR", {maximumFractionDigits: 1}) + "%";
   if (unit === "MW") return Math.round(v).toLocaleString("ko-KR") + " MW";
+  if (unit === "x") return v.toLocaleString("ko-KR", {minimumFractionDigits: 2, maximumFractionDigits: 2}) + "배";
   return String(v);
 }
 function delta(cur, prev, m) {
@@ -187,7 +188,7 @@ let selected = null;
 function render() {
   const focal = document.getElementById("focal").value;
   const cols = order(focal);
-  const rows = D.metrics.filter(m => D.values.some(v => v.metric === m.id));
+  const rows = D.metrics.filter(m => m.show !== false && D.values.some(v => v.metric === m.id));
   let h = "<thead><tr><th class='m'>지표</th>";
   for (const c of cols) {
     const lp = latestPeriod(c.id);
@@ -201,9 +202,9 @@ function render() {
       const s = series(c.id, m.id).slice(-5), cur = s[s.length - 1], prev = s[s.length - 2];
       const other = c.role !== C[focal].role, key = c.id + "|" + m.id;
       const cls = `c${other ? " sup" : ""}${selected === key ? " on" : ""}`;
-      if (!cur) { h += `<td class="${other ? "sup" : ""}"><span class="none">자료 없음</span></td>`; continue; }
-      const lp = latestPeriod(c.id);
-      const stale = lp && cur.period_end !== lp.period_end ? `<div class="d">${cur.period_end} 기준</div>` : "";
+      if (!cur) { const g = D.gaps[key] || {reason: "not_read"}; h += `<td class="${other ? "sup" : ""}" title="${esc(g.note || "")}"><span class="none">${GAP[g.reason] || "자료 없음"}</span></td>`; continue; }
+      const lp = latestPeriod(c.id), pg = lp && D.gaps[key + "|" + lp.period_end];
+      const stale = lp && cur.period_end !== lp.period_end ? `<div class="d"${pg ? ` title="${esc(pg.note || "")}"` : ""}>${cur.period_end} 기준${pg ? ` · 최신 분기는 ${GAP[pg.reason]}` : ""}</div>` : "";
       const label = m.kind === "text" && cur.source.label ? `<div class="d">${esc(cur.source.label)}</div>` : "";
       h += `<td class="${cls}" tabindex="0" data-key="${key}"><div class="v">${fmt(cur.value, m.unit)}${isFresh(cur) ? '<span class="tag">새 공시</span>' : ""}${stTag(cur)}</div>${label}<div class="d">${delta(cur, prev, m)}</div>${stale}${spark(s, m.unit)}</td>`;
     }
@@ -271,8 +272,9 @@ function renderView(v) {
   document.getElementById("view").innerHTML = h;
 }
 // ---------- 가설 ----------
-const RES = {held: "지켜짐", near: "가까워짐", broken: "깨짐", unknown: "판정 불가"};
-const TST = {held: "유지", near: "흔들림", broken: "깨짐", unknown: "판정 불가"};
+const GAP = {not_read: "아직 안 읽음", not_disclosed: "공시에 없음", not_applicable: "해당 없음"};
+const RES = {held: "지켜짐", near: "가까워짐", reversed: "반대로 움직임", broken: "깨짐", unknown: "판정 불가"};
+const TST = {held: "유지", near: "흔들림", reversed: "흔들림", broken: "깨짐", unknown: "판정 불가"};
 const resTag = (r, names) => `<span class="st ${r === "held" ? "done" : r === "unknown" ? "" : "hot"}">${(names || RES)[r] || esc(r)}</span>`;
 function basisLine(b, unit) {
   const f = b.filing || {};
@@ -284,8 +286,23 @@ function judgeForm(t, c) {
   const key = `${t.id}|${c.id}|${t.period_end}`;
   return `<form class="f" data-form="judge" data-key="${esc(key)}"><select name="verdict"><option value="">판정을 고르세요</option><option value="held">지켜짐</option><option value="near">가까워짐</option><option value="broken">깨짐</option></select><input name="note" placeholder="판정 이유 (필수)"><button class="b"${API ? "" : " disabled"}>기록</button><span class="err" data-ferr></span><span class="err" data-err="${esc(key)}"></span></form>`;
 }
+function snapLine(s) {
+  return s ? `${esc(s.period_end || "")} 분기 기준 ${TST[s.status] || esc(s.status)} (${(s.conditions || []).map(c => `${esc(c.name)}: ${RES[c.result] || esc(c.result)}`).join(" · ")})` : "기록 없음";
+}
+function decisionBlock(t) {
+  const when = (x) => esc(String(x.ts || "").replace("T", " "));
+  let h = `<div class="row" style="margin-top:12px"><b>판단</b> <span class="muted">무엇을 하기로 했는지와 이유를 적어 둡니다. 고쳐 쓰지 않고 덧붙이기만 합니다.</span></div>`;
+  for (const d of [...t.decisions].reverse()) {
+    h += `<div class="qa" style="margin:6px 0"><b>${when(d)} · ${esc(d.decision)}${d.due ? '<span class="st hot">돌아볼 때</span>' : ""}</b><div>이유: ${esc(d.note)}</div><div class="d" style="white-space:normal">그때 본 것: ${snapLine(d.snapshot)}</div>`;
+    for (const r of d.reflections) h += `<div class="q">돌아보기 ${when(r)} · ${esc(r.note)}<div class="d" style="white-space:normal">그때 본 것: ${snapLine(r.snapshot)}</div></div>`;
+    if (d.due) h += `<div class="d" style="white-space:normal">이 판단 뒤에 새 분기(${esc(t.period_end)})가 들어왔습니다. 지금 모습: ${snapLine({period_end: t.period_end, status: t.status, conditions: t.conditions.map(c => ({name: c.name, result: c.verdict.result}))})}</div>`;
+    h += `<form class="f" data-form="reflect" data-key="${esc(d.id)}"><input name="note" placeholder="돌아보기: 그때의 가설과 판단이 맞았는지"><button class="b"${API ? "" : " disabled"}>돌아보기 기록</button><span class="err" data-ferr></span><span class="err" data-err="${esc(d.id)}"></span></form></div>`;
+  }
+  h += `<form class="f" data-form="decide" data-key="${esc(t.id)}"><input name="decision" placeholder="하기로 한 것 (내 말로)" size="28"><input name="note" placeholder="이유 (필수)"><button class="b"${API ? "" : " disabled"}>판단 기록</button><span class="err" data-ferr></span><span class="err" data-err="decide|${esc(t.id)}"></span></form>`;
+  return h;
+}
 function thesisCard(t) {
-  const n = t.conditions.length, cnt = ["held", "near", "broken", "unknown"].filter(r => t.counts[r]).map(r => `${RES[r]} ${t.counts[r]}`).join(", ");
+  const n = t.conditions.length, cnt = ["held", "near", "reversed", "broken", "unknown"].filter(r => t.counts[r]).map(r => `${RES[r]} ${t.counts[r]}`).join(", ");
   let h = `<div class="al th"><h3>${esc(cname(t.company))} · "${esc(t.statement)}"${resTag(t.status, TST)}${t.example ? '<span class="st">예시</span>' : ""}</h3>`;
   if (t.note) h += `<div class="row">${esc(t.note)}</div>`;
   h += `<div class="row">최신 분기 ${esc(t.period_end || "모름")} 기준 · 조건 ${n}개 중 ${cnt}${t.created ? ` · ${esc(t.created)}에 만든 가설` : ""}</div>`;
@@ -293,6 +310,7 @@ function thesisCard(t) {
   for (const c of t.conditions) {
     const v = c.verdict, p = c.previous;
     let verdict = `${resTag(v.result)}<div>${esc(v.text)}</div>`;
+    if (v.trail?.length) verdict += `<div class="d" style="white-space:normal">최근 움직임: ${v.trail.map(m => `${esc(m.period_end.slice(2, 7))} ${m.ok ? esc(m.change) : `<b>${esc(m.change)} (반대)</b>`}`).join(" · ")}</div>`;
     if (v.by === "human") verdict += `<div class="d">사람이 판정함 · ${esc(String(v.ts || "").replace("T", " "))}</div>`;
     if (p) verdict += `<div class="d">${p.result !== v.result ? "달라짐: " : ""}그 앞 분기(${esc(p.period_end)})에는 ${RES[p.result]}</div>`;
     let basis = (v.basis || []).map(b => basisLine(b, c.unit)).join("");
@@ -303,13 +321,13 @@ function thesisCard(t) {
     }
     h += `<tr><td>${esc(c.name)}</td><td>${esc(c.rule)}</td><td>${verdict}</td><td>${basis || '<span class="none">근거 없음</span>'}</td></tr>`;
   }
-  return h + "</tbody></table></div></div>";
+  return h + "</tbody></table></div>" + decisionBlock(t) + "</div>";
 }
 function renderTheses() {
   let h = `<h2 style="margin-top:12px">가설 <span class="muted">내가 세운 가설의 조건을 최신 분기 값에 비춘 결과입니다. 조건과 값 사이의 관계만 말하고, 무엇을 할지는 말하지 않습니다.</span></h2>`;
   if (!API) h += `<div class="off">${OFF_MSG}</div>`;
   h += D.theses.length ? D.theses.map(thesisCard).join("") : `<div class="qa">아직 가설이 없습니다. ontology/theses.json에 적으면 여기에 나옵니다.</div>`;
-  h += `<div class="qa"><b>읽는 법</b>지켜짐: 조건이 성립함 · 가까워짐: 성립하지만 기준에 가까움 · 깨짐: 성립하지 않음 · 판정 불가: 최신 분기의 값이나 판정 기록이 없음. 가설의 상태는 조건에서 나옵니다: 깨진 조건이 있으면 깨짐, 가까워진 조건이 있으면 흔들림, 판정하지 못한 조건이 있으면 판정 불가, 모두 지켜지면 유지. 가설과 조건은 ontology/theses.json에서 고칩니다.</div>`;
+  h += `<div class="qa"><b>읽는 법</b>지켜짐: 조건이 성립함 · 가까워짐: 성립하지만 기준에 가까움 · 반대로 움직임: 이번 분기에 가설과 반대 방향으로 감 · 깨짐: 성립하지 않음(방향 조건은 두 분기 연속 반대) · 판정 불가: 최신 분기의 값이나 판정 기록이 없음. 가설의 상태는 조건에서 나옵니다: 깨진 조건이 있으면 깨짐, 가까워졌거나 반대로 움직인 조건이 있으면 흔들림, 판정하지 못한 조건이 있으면 판정 불가, 모두 지켜지면 유지. 가설과 조건은 ontology/theses.json에서 고칩니다.</div>`;
   document.getElementById("theses").innerHTML = h;
 }
 // ---------- 알림 ----------
@@ -323,7 +341,20 @@ function impactLine(it) {
   if (it.kind === "same_supplier") return `같은 공급사(${esc(cname(it.via))})를 쓰는 회사: ${esc(cname(it.company))}`;
   return esc(JSON.stringify(it));
 }
+function trailLine(trail) {
+  return trail?.length ? `<div class="row">최근 움직임: ${trail.map(m => `${esc(m.period_end.slice(2, 7))} ${m.ok ? esc(m.change) : `<b>${esc(m.change)} (반대)</b>`}`).join(" · ")}</div>` : "";
+}
+function thesisAlertCard(a) {
+  let h = `<div class="al" data-aid="${esc(a.id)}"><h3>${esc(a.rule_name)}${resTag(a.result)}</h3>`;
+  h += `<div class="row">가설: "${esc(a.statement)}" · ${esc(a.period_end || "")} 분기</div>`;
+  h += `<div>${esc(a.change)}</div>${trailLine(a.trail)}`;
+  if (a.basis?.length) h += `<div class="row">근거</div>` + a.basis.map(b => `<div class="row">${basisLine(b, a.unit)}</div>`).join("");
+  if (a.dismissed) return h + `<div class="row">닫음: ${esc(a.dismissed_ts)}${a.dismissed_note ? " · " + esc(a.dismissed_note) : ""}</div></div>`;
+  h += `<div class="acts"><button class="b" data-act="goto" data-id="theses">가설 탭에서 보기</button><button class="b" data-act="dismiss"${API ? "" : " disabled"}>알림 닫기</button></div>`;
+  return h + `<div class="err" data-err="${esc(a.id)}"></div></div>`;
+}
 function alertCard(a) {
+  if (a.kind === "thesis") return thesisAlertCard(a);
   const m = M[a.metric], u = m?.unit, cur = valueOf(a.company, a.metric, a.period_end);
   const lab = (x) => x ? ` · 원문 표현 "${esc(x)}"` : "";
   const f = a.filing || {};
@@ -336,6 +367,7 @@ function alertCard(a) {
   if (cur?.review?.status === "corrected") h += `<div class="row">원래 값 ${fmt(cur.review.original_value, u)}에서 정정함 · ${esc(cur.review.note)}</div>`;
   h += `<div class="row">근거: ${link}</div>`;
   h += `<div class="row">영향 범위</div>${imp}`;
+  if (a.theses?.length) h += `<div class="row">닿는 가설의 조건</div><ul>${a.theses.map(x => `<li>${esc(x.name)} ${resTag(x.result)} <span class="muted">"${esc(x.statement)}"</span></li>`).join("")}</ul>`;
   if (a.dismissed) return h + `<div class="row">닫음: ${esc(a.dismissed_ts)}${a.dismissed_note ? " · " + esc(a.dismissed_note) : ""}</div></div>`;
   const dis = API ? "" : " disabled";
   const text = a.current.source_type === "text";
@@ -350,19 +382,21 @@ function alertCard(a) {
 }
 function renderAlerts() {
   const open = D.alerts.filter(a => !a.dismissed), closed = D.alerts.filter(a => a.dismissed);
-  let h = `<h2 style="margin-top:12px">알림 <span class="muted">감시 조건에 걸린 변화입니다. 최신 기간을 바로 앞 기간과 비교했습니다.</span></h2>`;
+  let h = `<h2 style="margin-top:12px">알림 <span class="muted">내 가설의 조건과 감시 조건에 걸린 변화입니다. 최신 기간을 바로 앞 기간과 비교했습니다.</span></h2>`;
   if (!API) h += `<div class="off">${OFF_MSG}</div>`;
   if (!open.length) h += `<div class="qa">열린 알림이 없습니다.</div>`;
+  const th = open.filter(a => a.kind === "thesis"), mon = open.filter(a => a.kind !== "thesis");
+  if (th.length) h += `<h2>내 가설에 닿은 것 <span class="muted">${th.length}건 · 지켜지지 않거나 앞 분기와 판정이 달라진 조건</span></h2>` + th.map(a => `<div class="muted" style="margin:6px 0 2px">${esc(cname(a.company))}</div>` + alertCard(a)).join("");
   for (const c of D.companies) {
-    const mine = open.filter(a => a.company === c.id);
-    if (mine.length) h += `<h2>${esc(c.name)} <span class="muted">${mine.length}건</span></h2>` + mine.map(alertCard).join("");
+    const mine = mon.filter(a => a.company === c.id);
+    if (mine.length) h += `<h2>${esc(c.name)} <span class="muted">감시 조건 ${mine.length}건</span></h2>` + mine.map(alertCard).join("");
   }
   if (closed.length) h += `<details><summary>닫힌 알림 ${closed.length}건</summary>${closed.map(a => `<div class="muted" style="margin:6px 0 2px">${esc(cname(a.company))}</div>` + alertCard(a)).join("")}</details>`;
   h += `<h2>감시 조건</h2><div class="qa">${(D.monitors || []).map(r => esc(r.name)).join(" · ")}</div>`;
   document.getElementById("alerts").innerHTML = h;
 }
 // ---------- 기록 ----------
-const ACT = {review: "검토함으로 표시", correct: "값 정정", link: "가려진 고객 잇기", dismiss: "알림 닫기", judge: "조건 판정"};
+const ACT = {review: "검토함으로 표시", correct: "값 정정", link: "가려진 고객 잇기", dismiss: "알림 닫기", judge: "조건 판정", decide: "판단", reflect: "돌아보기"};
 function renderLog() {
   const rows = D.actions.map((a, i) => [a, i]).sort((x, y) => (x[0].ts < y[0].ts ? 1 : x[0].ts > y[0].ts ? -1 : y[1] - x[1])).map(([a]) => {
     const t = a.target || {};
@@ -371,6 +405,8 @@ function renderLog() {
     if (a.type === "correct") did += `: 새 값 ${fmt(a.value, M[t.metric]?.unit)}`;
     if (a.type === "link") { what = `${esc(cname(t.company))} · 원문 표현 "${esc(t.label)}"`; did += a.counterparty ? `: ${esc(cname(a.counterparty))}` : ": 확인했지만 모름"; }
     if (a.type === "judge") { const th = D.theses.find(x => x.id === t.thesis), co = th?.conditions.find(x => x.id === t.condition); what = `${esc(th ? cname(th.company) : t.thesis)} · ${esc(co?.name || t.condition)} · ${esc(t.period_end)}`; did += `: ${RES[a.verdict] || esc(a.verdict)}`; }
+    if (a.type === "decide") { const th = D.theses.find(x => x.id === t.thesis); what = th ? `${esc(cname(th.company))} · "${esc(th.statement)}"` : esc(t.thesis); did += `: ${esc(a.decision)}`; }
+    if (a.type === "reflect") { const th = D.theses.find(x => x.decisions.some(d => d.id === t.decision)), d = th?.decisions.find(d => d.id === t.decision); what = d ? `${esc(cname(th.company))} · ${esc(String(d.ts).slice(0, 10))}의 판단 "${esc(d.decision)}"` : esc(t.decision); }
     if (a.type === "dismiss") { const al = D.alerts.find(x => x.id === t.alert_id); what = al ? `${esc(cname(al.company))} · ${esc(al.rule_name)} · ${esc(al.period_end)}` : esc(t.alert_id); }
     return `<tr><td>${esc(String(a.ts || "").replace("T", " "))}</td><td>${what}</td><td>${did}</td><td>${esc(a.note || "")}</td></tr>`;
   });
@@ -429,6 +465,18 @@ document.addEventListener("submit", e => {
   const form = e.target.closest("form.f");
   if (!form) return;
   e.preventDefault();
+  if (form.dataset.form === "decide" || form.dataset.form === "reflect") {
+    const ferr = form.querySelector("[data-ferr]"), why = form.querySelector("[name=note]").value.trim(), key = form.dataset.key;
+    if (!API) { ferr.textContent = OFF_MSG; return; }
+    if (form.dataset.form === "reflect") {
+      if (!why) { ferr.textContent = "돌아본 내용을 적으세요."; return; }
+      return post({type: "reflect", target: {decision: key}, note: why}, key);
+    }
+    const decision = form.querySelector("[name=decision]").value.trim();
+    if (!decision) { ferr.textContent = "하기로 한 것을 적으세요."; return; }
+    if (!why) { ferr.textContent = "이유를 적으세요."; return; }
+    return post({type: "decide", target: {thesis: key}, decision, note: why}, "decide|" + key);
+  }
   if (form.dataset.form === "judge") {
     const ferr = form.querySelector("[data-ferr]"), verdict = form.querySelector("[name=verdict]").value, why = form.querySelector("[name=note]").value.trim();
     if (!API) { ferr.textContent = OFF_MSG; return; }
