@@ -1,0 +1,79 @@
+[
+  {
+    "id": "revenue",
+    "name": "매출",
+    "unit": "USD",
+    "kind": "duration",
+    "definition": "한 분기 동안 인식한 총매출.",
+    "comparability": "그대로 비교할 수 있다.",
+    "xbrl": ["Revenues", "RevenueFromContractWithCustomerExcludingAssessedTax"]
+  },
+  {
+    "id": "revenue_yoy",
+    "name": "매출 전년 대비 성장률",
+    "unit": "%",
+    "kind": "derived",
+    "definition": "1년 전 같은 분기 매출과 비교한 증가율. 매출 값에서 계산한다.",
+    "comparability": "그대로 비교할 수 있다. 다만 회계연도가 달라 분기가 가리키는 달이 회사마다 다르다."
+  },
+  {
+    "id": "operating_income",
+    "name": "영업이익",
+    "unit": "USD",
+    "kind": "duration",
+    "definition": "회계 기준에 따른 분기 영업이익(손실이면 음수).",
+    "comparability": "회사가 보도자료에서 따로 내는 조정 영업이익과는 다른 값이다.",
+    "xbrl": ["OperatingIncomeLoss"]
+  },
+  {
+    "id": "capex",
+    "name": "설비투자",
+    "unit": "USD",
+    "kind": "duration",
+    "definition": "현금흐름표에서 유형자산을 사는 데 쓴 현금.",
+    "comparability": "리스로 들여온 설비는 빠진다. 설비를 사는 회사와 빌리는 회사를 나란히 볼 때 주의한다.",
+    "xbrl": ["PaymentsToAcquirePropertyPlantAndEquipment", "PaymentsToAcquireProductiveAssets"]
+  },
+  {
+    "id": "rpo",
+    "name": "수주 잔고",
+    "unit": "USD",
+    "kind": "instant",
+    "definition": "계약은 맺었지만 아직 매출로 잡지 않은 금액(잔여 이행 의무).",
+    "comparability": "회사가 보도자료에서 말하는 '백로그'는 범위가 더 넓을 수 있다. 여기 값은 재무제표 주석의 잔여 이행 의무다.",
+    "xbrl": ["RevenueRemainingPerformanceObligation"]
+  },
+  {
+    "id": "cash",
+    "name": "현금",
+    "unit": "USD",
+    "kind": "instant",
+    "definition": "분기 말 현금 및 현금성 자산.",
+    "comparability": "그대로 비교할 수 있다. 사용이 제한된 현금과 단기 투자 자산은 빠진다.",
+    "xbrl": ["CashAndCashEquivalentsAtCarryingValue"]
+  },
+  {
+    "id": "contracted_power_mw",
+    "name": "계약 전력",
+    "unit": "MW",
+    "kind": "text",
+    "definition": "회사가 확보했다고 밝힌 데이터센터 전력 용량.",
+    "comparability": "회사마다 '계약', '확보', '가동'의 뜻이 다르다. 값 옆에 회사가 쓴 표현을 함께 적는다."
+  },
+  {
+    "id": "active_power_mw",
+    "name": "가동 전력",
+    "unit": "MW",
+    "kind": "text",
+    "definition": "회사가 지금 가동 중이라고 밝힌 데이터센터 전력 용량.",
+    "comparability": "회사마다 '가동'의 기준이 다르다. 값 옆에 회사가 쓴 표현을 함께 적는다."
+  },
+  {
+    "id": "top_customer_share",
+    "name": "최대 고객 비중",
+    "unit": "%",
+    "kind": "text",
+    "definition": "가장 큰 고객 한 곳이 분기 매출에서 차지하는 비율.",
+    "comparability": "회사에 따라 분기 기준이 아닌 누적 기준으로만 밝히기도 한다. 기준 기간을 함께 적는다."
+  }
+]

@@ -1,0 +1,125 @@
+{
+ "id": "nbis-pricing",
+ "title": "네비우스: 가격에 대해 한 말",
+ "question": "네비우스의 최근 6개 분기 GPU 가격 변화 추이가 궁금해",
+ "created": "2026-11-13",
+ "blocks": [
+  {
+   "type": "note",
+   "text": "공시에 시간당 가격 자체는 없습니다. 분기마다 내는 주주 서한에 직전 분기와 비교한 변화율과 MW당 계약 금액이 적혀 있어, 그것을 시간순으로 모았습니다. 받아 둔 문서는 다섯 분기(2025년 3분기~2026년 3분기)라서 여섯 번째 분기는 없습니다. 회사가 서한에서 스스로 밝힌 말이며, 원문의 줄바꿈 흔적(gen-eration 등)은 그대로 두었습니다."
+  },
+  {
+   "type": "quotes",
+   "title": "분기별 발언",
+   "items": [
+    {
+     "company": "nbis",
+     "period_start": "2025-07-01",
+     "period_end": "2025-09-30",
+     "ko": "가격 언급은 없음. 3분기에도 용량이 다 팔렸고, 한 해 내내 이어진 흐름이라고 함.",
+     "text": "Once again, we sold out of available capacity in Q3 — a con-sistent trend during the year",
+     "source": {
+      "form": "6-K",
+      "filed": "2025-11-12",
+      "accession": "0001104659-25-109806",
+      "url": "https://www.sec.gov/Archives/edgar/data/1513845/000110465925109806/tm2530882d1_ex99-2.htm",
+      "text_file": "data/raw/filings/nbis/0001104659-25-109806/tm2530882d1_ex99-2.htm.txt"
+     }
+    },
+    {
+     "company": "nbis",
+     "period_start": "2025-10-01",
+     "period_end": "2025-12-31",
+     "ko": "가격 언급은 없음. 분기 내내 최대 가동률이었고 4분기 용량이 다 팔렸다고 함.",
+     "text": "We operated at peak utilization during the quarter and were sold out of capacity in Q4.",
+     "source": {
+      "form": "6-K",
+      "filed": "2026-02-12",
+      "accession": "0001104659-26-013946",
+      "url": "https://www.sec.gov/Archives/edgar/data/1513845/000110465926013946/tm266173d1_ex99-2.htm",
+      "text_file": "data/raw/filings/nbis/0001104659-26-013946/tm266173d1_ex99-2.htm.txt"
+     }
+    },
+    {
+     "company": "nbis",
+     "period_start": "2026-01-01",
+     "period_end": "2026-03-31",
+     "ko": "신형 GPU의 가격이 계속 올랐고, 구형 칩도 가격이 잘 버텼다고 함.",
+     "text": "Pricing continued to rise for new generation GPUs, with older gen-eration chips also seeing strong pricing support",
+     "source": {
+      "form": "6-K",
+      "filed": "2026-05-13",
+      "accession": "0001104659-26-059872",
+      "url": "https://www.sec.gov/Archives/edgar/data/1513845/000110465926059872/tm2614392d1_ex99-2.htm",
+      "text_file": "data/raw/filings/nbis/0001104659-26-059872/tm2614392d1_ex99-2.htm.txt"
+     }
+    },
+    {
+     "company": "nbis",
+     "period_start": "2026-04-01",
+     "period_end": "2026-06-30",
+     "ko": "MW당 연간 계약 금액이 올랐다고 함. 신형 GPU 가격이 오르고, 구형 GPU 가격은 1분기보다 30% 넘게 높았다고 함.",
+     "text": "Annual contract value per MW repriced higher. Our core AI cloud business won deals averaging above $20 million in rev-enue per MW, driven by increasing prices for new-generation GPUs and more than 30% higher pricing on older-generation GPUs versus Q1.",
+     "source": {
+      "form": "6-K",
+      "filed": "2026-08-12",
+      "accession": "0001104659-26-094568",
+      "url": "https://www.sec.gov/Archives/edgar/data/1513845/000110465926094568/tm2622968d1_ex99-2.htm",
+      "text_file": "data/raw/filings/nbis/0001104659-26-094568/tm2622968d1_ex99-2.htm.txt"
+     }
+    },
+    {
+     "company": "nbis",
+     "period_start": "2026-07-01",
+     "period_end": "2026-09-30",
+     "ko": "MW당 연간 계약 금액이 3분기에 2,500만 달러를 넘었다고 함(2분기 계약은 2,000만 달러 초과). 3분기 가격은 GPU 시간당 기준으로 2분기보다 평균 20% 넘게 올랐다고 함.",
+     "text": "Annual contract value per MW exceeded $25 million(1) in Q3, up from >$20 million on our Q2 deals. Prices in Q3 rose on average more than 20% per GPU-hour versus Q2.",
+     "source": {
+      "form": "6-K",
+      "filed": "2026-11-12",
+      "accession": "0001104659-26-126008",
+      "url": "https://www.sec.gov/Archives/edgar/data/1513845/000110465926126008/tm2629571d1_ex99-2.htm",
+      "text_file": "data/raw/filings/nbis/0001104659-26-126008/tm2629571d1_ex99-2.htm.txt"
+     }
+    },
+    {
+     "company": "nbis",
+     "period_start": "2026-07-01",
+     "period_end": "2026-09-30",
+     "ko": "시장이 가격을 정하게 하는 방식을 도입했다고 함. 예약 경매는 최저가보다 15% 넘게 높게 낙찰됐고, 단기 클러스터는 예약 요금의 두 배가 넘는다고 함.",
+     "text": "We introduced new pricing mechanisms to let the market set the benchmark: Reserve auctions cleared more than 15% above our reserve price; Live spot prices saw prices at times exceed our on-demand rate; and Short-term clusters, which are pricing at more than twice the reserved rate.",
+     "source": {
+      "form": "6-K",
+      "filed": "2026-11-12",
+      "accession": "0001104659-26-126008",
+      "url": "https://www.sec.gov/Archives/edgar/data/1513845/000110465926126008/tm2629571d1_ex99-2.htm",
+      "text_file": "data/raw/filings/nbis/0001104659-26-126008/tm2629571d1_ex99-2.htm.txt"
+     }
+    },
+    {
+     "company": "nbis",
+     "period_start": "2026-07-01",
+     "period_end": "2026-09-30",
+     "ko": "비슷한 1~3년 계약의 투자 회수 기간이 2분기 1년 10개월에서 3분기 1년 7개월로 줄었고, 주된 이유는 새 계약의 가격이 높아진 것이라고 함.",
+     "text": "Payback period improved to 1 year and 7 months in Q3 from 1 year and 10 months in Q2 for comparable 1-3 year deals, driven primarily by higher contracted pricing on new deals.",
+     "source": {
+      "form": "6-K",
+      "filed": "2026-11-12",
+      "accession": "0001104659-26-126008",
+      "url": "https://www.sec.gov/Archives/edgar/data/1513845/000110465926126008/tm2629571d1_ex99-2.htm",
+      "text_file": "data/raw/filings/nbis/0001104659-26-126008/tm2629571d1_ex99-2.htm.txt"
+     }
+    }
+   ]
+  },
+  {
+   "type": "series",
+   "title": "같은 기간의 매출",
+   "metric": "revenue",
+   "companies": [
+    "nbis"
+   ],
+   "last": 6
+  }
+ ]
+}

@@ -1,0 +1,47 @@
+[
+ {
+  "company": "nbis",
+  "relation": "supplied_by",
+  "counterparty": "nvda",
+  "what": "GPU",
+  "source": {
+   "type": "text",
+   "form": "20-F",
+   "accession": "0001104659-26-052948",
+   "filed": "2026-04-30",
+   "url": "https://www.sec.gov/Archives/edgar/data/1513845/000110465926052948/nbis-20251231x20f.htm",
+   "quote": "We currently rely on Nvidia for the GPU chips we use and on a limited number of other suppliers for other key components in our infrastructure.",
+   "text_file": "data/raw/filings/nbis/0001104659-26-052948/nbis-20251231x20f.htm.txt"
+  }
+ },
+ {
+  "company": "crwv",
+  "relation": "supplied_by",
+  "counterparty": "nvda",
+  "what": "GPU",
+  "source": {
+   "type": "text",
+   "form": "10-Q",
+   "accession": "0001769628-26-000465",
+   "filed": "2026-11-12",
+   "url": "https://www.sec.gov/Archives/edgar/data/1769628/000176962826000465/crwv-20260930.htm",
+   "quote": "For example, as a result of our obligations in our current customer contracts, all of the GPUs used in our infrastructure today are NVIDIA GPUs",
+   "text_file": "data/raw/filings/crwv/0001769628-26-000465/crwv-20260930.htm.txt"
+  }
+ },
+ {
+  "company": "iren",
+  "relation": "supplied_by",
+  "counterparty": "nvda",
+  "what": "GPU",
+  "source": {
+   "type": "text",
+   "form": "10-K",
+   "accession": "0001878848-26-000052",
+   "filed": "2026-08-27",
+   "url": "https://www.sec.gov/Archives/edgar/data/1878848/000187884826000052/iren-20260630.htm",
+   "quote": "we source certain hardware solutions (such as GPUs, networking and storage equipment utilized for AI Cloud Services) from a limited number of suppliers, including NVIDIA",
+   "text_file": "data/raw/filings/iren/0001878848-26-000052/iren-20260630.htm.txt"
+  }
+ }
+]

@@ -1,0 +1,1874 @@
+[
+ {
+  "company": "crwv",
+  "metric": "revenue",
+  "period_start": "2025-07-01",
+  "period_end": "2025-09-30",
+  "value": 1365000000,
+  "unit": "USD",
+  "source": {
+   "type": "xbrl",
+   "tag": "RevenueFromContractWithCustomerExcludingAssessedTax",
+   "how": "분기 값 그대로",
+   "filings": [
+    {
+     "form": "10-Q",
+     "accession": "0001769628-26-000465",
+     "filed": "2026-11-12",
+     "url": "https://www.sec.gov/Archives/edgar/data/1769628/000176962826000465/crwv-20260930.htm"
+    }
+   ]
+  }
+ },
+ {
+  "company": "crwv",
+  "metric": "revenue",
+  "period_start": "2025-10-01",
+  "period_end": "2025-12-31",
+  "value": 1572000000,
+  "unit": "USD",
+  "source": {
+   "type": "xbrl",
+   "tag": "RevenueFromContractWithCustomerExcludingAssessedTax",
+   "how": "누적 값의 차이",
+   "filings": [
+    {
+     "form": "10-K",
+     "accession": "0001769628-26-000104",
+     "filed": "2026-03-02",
+     "url": "https://www.sec.gov/Archives/edgar/data/1769628/000176962826000104/crwv-20251231.htm"
+    },
+    {
+     "form": "10-Q",
+     "accession": "0001769628-26-000465",
+     "filed": "2026-11-12",
+     "url": "https://www.sec.gov/Archives/edgar/data/1769628/000176962826000465/crwv-20260930.htm"
+    }
+   ]
+  }
+ },
+ {
+  "company": "crwv",
+  "metric": "revenue",
+  "period_start": "2026-01-01",
+  "period_end": "2026-03-31",
+  "value": 2078000000,
+  "unit": "USD",
+  "source": {
+   "type": "xbrl",
+   "tag": "RevenueFromContractWithCustomerExcludingAssessedTax",
+   "how": "분기 값 그대로",
+   "filings": [
+    {
+     "form": "10-Q",
+     "accession": "0001769628-26-000222",
+     "filed": "2026-05-08",
+     "url": "https://www.sec.gov/Archives/edgar/data/1769628/000176962826000222/crwv-20260331.htm"
+    }
+   ]
+  }
+ },
+ {
+  "company": "crwv",
+  "metric": "revenue",
+  "period_start": "2026-04-01",
+  "period_end": "2026-06-30",
+  "value": 2575000000,
+  "unit": "USD",
+  "source": {
+   "type": "xbrl",
+   "tag": "RevenueFromContractWithCustomerExcludingAssessedTax",
+   "how": "분기 값 그대로",
+   "filings": [
+    {
+     "form": "10-Q",
+     "accession": "0001769628-26-000366",
+     "filed": "2026-08-12",
+     "url": "https://www.sec.gov/Archives/edgar/data/1769628/000176962826000366/crwv-20260630.htm"
+    }
+   ]
+  }
+ },
+ {
+  "company": "crwv",
+  "metric": "revenue",
+  "period_start": "2026-07-01",
+  "period_end": "2026-09-30",
+  "value": 3661000000,
+  "unit": "USD",
+  "source": {
+   "type": "xbrl",
+   "tag": "RevenueFromContractWithCustomerExcludingAssessedTax",
+   "how": "분기 값 그대로",
+   "filings": [
+    {
+     "form": "10-Q",
+     "accession": "0001769628-26-000465",
+     "filed": "2026-11-12",
+     "url": "https://www.sec.gov/Archives/edgar/data/1769628/000176962826000465/crwv-20260930.htm"
+    }
+   ]
+  }
+ },
+ {
+  "company": "crwv",
+  "metric": "revenue_yoy",
+  "period_start": "2025-07-01",
+  "period_end": "2025-09-30",
+  "value": 133.8,
+  "unit": "%",
+  "source": {
+   "type": "derived",
+   "how": "2025-09-30 매출과 2024-09-30 매출에서 계산",
+   "filings": []
+  }
+ },
+ {
+  "company": "crwv",
+  "metric": "revenue_yoy",
+  "period_start": "2025-10-01",
+  "period_end": "2025-12-31",
+  "value": 110.4,
+  "unit": "%",
+  "source": {
+   "type": "derived",
+   "how": "2025-12-31 매출과 2024-12-31 매출에서 계산",
+   "filings": []
+  }
+ },
+ {
+  "company": "crwv",
+  "metric": "revenue_yoy",
+  "period_start": "2026-01-01",
+  "period_end": "2026-03-31",
+  "value": 111.6,
+  "unit": "%",
+  "source": {
+   "type": "derived",
+   "how": "2026-03-31 매출과 2025-03-31 매출에서 계산",
+   "filings": []
+  }
+ },
+ {
+  "company": "crwv",
+  "metric": "revenue_yoy",
+  "period_start": "2026-04-01",
+  "period_end": "2026-06-30",
+  "value": 112.5,
+  "unit": "%",
+  "source": {
+   "type": "derived",
+   "how": "2026-06-30 매출과 2025-06-30 매출에서 계산",
+   "filings": []
+  }
+ },
+ {
+  "company": "crwv",
+  "metric": "revenue_yoy",
+  "period_start": "2026-07-01",
+  "period_end": "2026-09-30",
+  "value": 168.2,
+  "unit": "%",
+  "source": {
+   "type": "derived",
+   "how": "2026-09-30 매출과 2025-09-30 매출에서 계산",
+   "filings": []
+  }
+ },
+ {
+  "company": "crwv",
+  "metric": "operating_income",
+  "period_start": "2025-07-01",
+  "period_end": "2025-09-30",
+  "value": 52000000,
+  "unit": "USD",
+  "source": {
+   "type": "xbrl",
+   "tag": "OperatingIncomeLoss",
+   "how": "분기 값 그대로",
+   "filings": [
+    {
+     "form": "10-Q",
+     "accession": "0001769628-26-000465",
+     "filed": "2026-11-12",
+     "url": "https://www.sec.gov/Archives/edgar/data/1769628/000176962826000465/crwv-20260930.htm"
+    }
+   ]
+  }
+ },
+ {
+  "company": "crwv",
+  "metric": "operating_income",
+  "period_start": "2025-10-01",
+  "period_end": "2025-12-31",
+  "value": -90000000,
+  "unit": "USD",
+  "source": {
+   "type": "xbrl",
+   "tag": "OperatingIncomeLoss",
+   "how": "누적 값의 차이",
+   "filings": [
+    {
+     "form": "10-K",
+     "accession": "0001769628-26-000104",
+     "filed": "2026-03-02",
+     "url": "https://www.sec.gov/Archives/edgar/data/1769628/000176962826000104/crwv-20251231.htm"
+    },
+    {
+     "form": "10-Q",
+     "accession": "0001769628-26-000465",
+     "filed": "2026-11-12",
+     "url": "https://www.sec.gov/Archives/edgar/data/1769628/000176962826000465/crwv-20260930.htm"
+    }
+   ]
+  }
+ },
+ {
+  "company": "crwv",
+  "metric": "operating_income",
+  "period_start": "2026-01-01",
+  "period_end": "2026-03-31",
+  "value": -144000000,
+  "unit": "USD",
+  "source": {
+   "type": "xbrl",
+   "tag": "OperatingIncomeLoss",
+   "how": "분기 값 그대로",
+   "filings": [
+    {
+     "form": "10-Q",
+     "accession": "0001769628-26-000222",
+     "filed": "2026-05-08",
+     "url": "https://www.sec.gov/Archives/edgar/data/1769628/000176962826000222/crwv-20260331.htm"
+    }
+   ]
+  }
+ },
+ {
+  "company": "crwv",
+  "metric": "operating_income",
+  "period_start": "2026-04-01",
+  "period_end": "2026-06-30",
+  "value": -49000000,
+  "unit": "USD",
+  "source": {
+   "type": "xbrl",
+   "tag": "OperatingIncomeLoss",
+   "how": "분기 값 그대로",
+   "filings": [
+    {
+     "form": "10-Q",
+     "accession": "0001769628-26-000366",
+     "filed": "2026-08-12",
+     "url": "https://www.sec.gov/Archives/edgar/data/1769628/000176962826000366/crwv-20260630.htm"
+    }
+   ]
+  }
+ },
+ {
+  "company": "crwv",
+  "metric": "operating_income",
+  "period_start": "2026-07-01",
+  "period_end": "2026-09-30",
+  "value": 207000000,
+  "unit": "USD",
+  "source": {
+   "type": "xbrl",
+   "tag": "OperatingIncomeLoss",
+   "how": "분기 값 그대로",
+   "filings": [
+    {
+     "form": "10-Q",
+     "accession": "0001769628-26-000465",
+     "filed": "2026-11-12",
+     "url": "https://www.sec.gov/Archives/edgar/data/1769628/000176962826000465/crwv-20260930.htm"
+    }
+   ]
+  }
+ },
+ {
+  "company": "crwv",
+  "metric": "capex",
+  "period_start": "2025-07-01",
+  "period_end": "2025-09-30",
+  "value": 2389000000,
+  "unit": "USD",
+  "source": {
+   "type": "xbrl",
+   "tag": "PaymentsToAcquirePropertyPlantAndEquipment",
+   "how": "누적 값의 차이",
+   "filings": [
+    {
+     "form": "10-Q",
+     "accession": "0001769628-26-000465",
+     "filed": "2026-11-12",
+     "url": "https://www.sec.gov/Archives/edgar/data/1769628/000176962826000465/crwv-20260930.htm"
+    },
+    {
+     "form": "10-Q",
+     "accession": "0001769628-26-000366",
+     "filed": "2026-08-12",
+     "url": "https://www.sec.gov/Archives/edgar/data/1769628/000176962826000366/crwv-20260630.htm"
+    }
+   ]
+  }
+ },
+ {
+  "company": "crwv",
+  "metric": "capex",
+  "period_start": "2025-10-01",
+  "period_end": "2025-12-31",
+  "value": 4060000000,
+  "unit": "USD",
+  "source": {
+   "type": "xbrl",
+   "tag": "PaymentsToAcquirePropertyPlantAndEquipment",
+   "how": "누적 값의 차이",
+   "filings": [
+    {
+     "form": "10-K",
+     "accession": "0001769628-26-000104",
+     "filed": "2026-03-02",
+     "url": "https://www.sec.gov/Archives/edgar/data/1769628/000176962826000104/crwv-20251231.htm"
+    },
+    {
+     "form": "10-Q",
+     "accession": "0001769628-26-000465",
+     "filed": "2026-11-12",
+     "url": "https://www.sec.gov/Archives/edgar/data/1769628/000176962826000465/crwv-20260930.htm"
+    }
+   ]
+  }
+ },
+ {
+  "company": "crwv",
+  "metric": "capex",
+  "period_start": "2026-01-01",
+  "period_end": "2026-03-31",
+  "value": 7695000000,
+  "unit": "USD",
+  "source": {
+   "type": "xbrl",
+   "tag": "PaymentsToAcquirePropertyPlantAndEquipment",
+   "how": "분기 값 그대로",
+   "filings": [
+    {
+     "form": "10-Q",
+     "accession": "0001769628-26-000222",
+     "filed": "2026-05-08",
+     "url": "https://www.sec.gov/Archives/edgar/data/1769628/000176962826000222/crwv-20260331.htm"
+    }
+   ]
+  }
+ },
+ {
+  "company": "crwv",
+  "metric": "capex",
+  "period_start": "2026-04-01",
+  "period_end": "2026-06-30",
+  "value": 6422000000,
+  "unit": "USD",
+  "source": {
+   "type": "xbrl",
+   "tag": "PaymentsToAcquirePropertyPlantAndEquipment",
+   "how": "누적 값의 차이",
+   "filings": [
+    {
+     "form": "10-Q",
+     "accession": "0001769628-26-000366",
+     "filed": "2026-08-12",
+     "url": "https://www.sec.gov/Archives/edgar/data/1769628/000176962826000366/crwv-20260630.htm"
+    },
+    {
+     "form": "10-Q",
+     "accession": "0001769628-26-000222",
+     "filed": "2026-05-08",
+     "url": "https://www.sec.gov/Archives/edgar/data/1769628/000176962826000222/crwv-20260331.htm"
+    }
+   ]
+  }
+ },
+ {
+  "company": "crwv",
+  "metric": "capex",
+  "period_start": "2026-07-01",
+  "period_end": "2026-09-30",
+  "value": 9441000000,
+  "unit": "USD",
+  "source": {
+   "type": "xbrl",
+   "tag": "PaymentsToAcquirePropertyPlantAndEquipment",
+   "how": "누적 값의 차이",
+   "filings": [
+    {
+     "form": "10-Q",
+     "accession": "0001769628-26-000465",
+     "filed": "2026-11-12",
+     "url": "https://www.sec.gov/Archives/edgar/data/1769628/000176962826000465/crwv-20260930.htm"
+    },
+    {
+     "form": "10-Q",
+     "accession": "0001769628-26-000366",
+     "filed": "2026-08-12",
+     "url": "https://www.sec.gov/Archives/edgar/data/1769628/000176962826000366/crwv-20260630.htm"
+    }
+   ]
+  }
+ },
+ {
+  "company": "crwv",
+  "metric": "rpo",
+  "period_start": null,
+  "period_end": "2025-09-30",
+  "value": 50000000000,
+  "unit": "USD",
+  "source": {
+   "type": "xbrl",
+   "tag": "RevenueRemainingPerformanceObligation",
+   "how": "기간 말 값 그대로",
+   "filings": [
+    {
+     "form": "10-Q",
+     "accession": "0001769628-25-000062",
+     "filed": "2025-11-13",
+     "url": "https://www.sec.gov/Archives/edgar/data/1769628/000176962825000062/crwv-20250930.htm"
+    }
+   ]
+  }
+ },
+ {
+  "company": "crwv",
+  "metric": "rpo",
+  "period_start": null,
+  "period_end": "2025-12-31",
+  "value": 60700000000,
+  "unit": "USD",
+  "source": {
+   "type": "xbrl",
+   "tag": "RevenueRemainingPerformanceObligation",
+   "how": "기간 말 값 그대로",
+   "filings": [
+    {
+     "form": "10-K",
+     "accession": "0001769628-26-000104",
+     "filed": "2026-03-02",
+     "url": "https://www.sec.gov/Archives/edgar/data/1769628/000176962826000104/crwv-20251231.htm"
+    }
+   ]
+  }
+ },
+ {
+  "company": "crwv",
+  "metric": "rpo",
+  "period_start": null,
+  "period_end": "2026-03-31",
+  "value": 98800000000,
+  "unit": "USD",
+  "source": {
+   "type": "xbrl",
+   "tag": "RevenueRemainingPerformanceObligation",
+   "how": "기간 말 값 그대로",
+   "filings": [
+    {
+     "form": "10-Q",
+     "accession": "0001769628-26-000222",
+     "filed": "2026-05-08",
+     "url": "https://www.sec.gov/Archives/edgar/data/1769628/000176962826000222/crwv-20260331.htm"
+    }
+   ]
+  }
+ },
+ {
+  "company": "crwv",
+  "metric": "rpo",
+  "period_start": null,
+  "period_end": "2026-06-30",
+  "value": 103700000000,
+  "unit": "USD",
+  "source": {
+   "type": "xbrl",
+   "tag": "RevenueRemainingPerformanceObligation",
+   "how": "기간 말 값 그대로",
+   "filings": [
+    {
+     "form": "10-Q",
+     "accession": "0001769628-26-000366",
+     "filed": "2026-08-12",
+     "url": "https://www.sec.gov/Archives/edgar/data/1769628/000176962826000366/crwv-20260630.htm"
+    }
+   ]
+  }
+ },
+ {
+  "company": "crwv",
+  "metric": "rpo",
+  "period_start": null,
+  "period_end": "2026-09-30",
+  "value": 132300000000,
+  "unit": "USD",
+  "source": {
+   "type": "xbrl",
+   "tag": "RevenueRemainingPerformanceObligation",
+   "how": "기간 말 값 그대로",
+   "filings": [
+    {
+     "form": "10-Q",
+     "accession": "0001769628-26-000465",
+     "filed": "2026-11-12",
+     "url": "https://www.sec.gov/Archives/edgar/data/1769628/000176962826000465/crwv-20260930.htm"
+    }
+   ]
+  }
+ },
+ {
+  "company": "crwv",
+  "metric": "cash",
+  "period_start": null,
+  "period_end": "2025-09-30",
+  "value": 1894000000,
+  "unit": "USD",
+  "source": {
+   "type": "xbrl",
+   "tag": "CashAndCashEquivalentsAtCarryingValue",
+   "how": "기간 말 값 그대로",
+   "filings": [
+    {
+     "form": "10-Q",
+     "accession": "0001769628-26-000465",
+     "filed": "2026-11-12",
+     "url": "https://www.sec.gov/Archives/edgar/data/1769628/000176962826000465/crwv-20260930.htm"
+    }
+   ]
+  }
+ },
+ {
+  "company": "crwv",
+  "metric": "cash",
+  "period_start": null,
+  "period_end": "2025-12-31",
+  "value": 3127000000,
+  "unit": "USD",
+  "source": {
+   "type": "xbrl",
+   "tag": "CashAndCashEquivalentsAtCarryingValue",
+   "how": "기간 말 값 그대로",
+   "filings": [
+    {
+     "form": "10-Q",
+     "accession": "0001769628-26-000465",
+     "filed": "2026-11-12",
+     "url": "https://www.sec.gov/Archives/edgar/data/1769628/000176962826000465/crwv-20260930.htm"
+    }
+   ]
+  }
+ },
+ {
+  "company": "crwv",
+  "metric": "cash",
+  "period_start": null,
+  "period_end": "2026-03-31",
+  "value": 2244000000,
+  "unit": "USD",
+  "source": {
+   "type": "xbrl",
+   "tag": "CashAndCashEquivalentsAtCarryingValue",
+   "how": "기간 말 값 그대로",
+   "filings": [
+    {
+     "form": "10-Q",
+     "accession": "0001769628-26-000222",
+     "filed": "2026-05-08",
+     "url": "https://www.sec.gov/Archives/edgar/data/1769628/000176962826000222/crwv-20260331.htm"
+    }
+   ]
+  }
+ },
+ {
+  "company": "crwv",
+  "metric": "cash",
+  "period_start": null,
+  "period_end": "2026-06-30",
+  "value": 5524000000,
+  "unit": "USD",
+  "source": {
+   "type": "xbrl",
+   "tag": "CashAndCashEquivalentsAtCarryingValue",
+   "how": "기간 말 값 그대로",
+   "filings": [
+    {
+     "form": "10-Q",
+     "accession": "0001769628-26-000366",
+     "filed": "2026-08-12",
+     "url": "https://www.sec.gov/Archives/edgar/data/1769628/000176962826000366/crwv-20260630.htm"
+    }
+   ]
+  }
+ },
+ {
+  "company": "crwv",
+  "metric": "cash",
+  "period_start": null,
+  "period_end": "2026-09-30",
+  "value": 4122000000,
+  "unit": "USD",
+  "source": {
+   "type": "xbrl",
+   "tag": "CashAndCashEquivalentsAtCarryingValue",
+   "how": "기간 말 값 그대로",
+   "filings": [
+    {
+     "form": "10-Q",
+     "accession": "0001769628-26-000465",
+     "filed": "2026-11-12",
+     "url": "https://www.sec.gov/Archives/edgar/data/1769628/000176962826000465/crwv-20260930.htm"
+    }
+   ]
+  }
+ },
+ {
+  "company": "iren",
+  "metric": "revenue",
+  "period_start": "2025-07-01",
+  "period_end": "2025-09-30",
+  "value": 240000000,
+  "unit": "USD",
+  "source": {
+   "type": "xbrl",
+   "tag": "Revenues",
+   "how": "분기 값 그대로",
+   "filings": [
+    {
+     "form": "10-Q",
+     "accession": "0001878848-26-000066",
+     "filed": "2026-11-05",
+     "url": "https://www.sec.gov/Archives/edgar/data/1878848/000187884826000066/iren-20260930.htm"
+    }
+   ]
+  }
+ },
+ {
+  "company": "iren",
+  "metric": "revenue",
+  "period_start": "2025-10-01",
+  "period_end": "2025-12-31",
+  "value": 184692000,
+  "unit": "USD",
+  "source": {
+   "type": "xbrl",
+   "tag": "RevenueFromContractWithCustomerExcludingAssessedTax",
+   "how": "분기 값 그대로",
+   "filings": [
+    {
+     "form": "10-Q",
+     "accession": "0001878848-26-000015",
+     "filed": "2026-02-05",
+     "url": "https://www.sec.gov/Archives/edgar/data/1878848/000187884826000015/iren-20251231.htm"
+    }
+   ]
+  }
+ },
+ {
+  "company": "iren",
+  "metric": "revenue",
+  "period_start": "2026-01-01",
+  "period_end": "2026-03-31",
+  "value": 144795000,
+  "unit": "USD",
+  "source": {
+   "type": "xbrl",
+   "tag": "RevenueFromContractWithCustomerExcludingAssessedTax",
+   "how": "분기 값 그대로",
+   "filings": [
+    {
+     "form": "10-Q",
+     "accession": "0001878848-26-000026",
+     "filed": "2026-05-08",
+     "url": "https://www.sec.gov/Archives/edgar/data/1878848/000187884826000026/iren-20260331.htm"
+    }
+   ]
+  }
+ },
+ {
+  "company": "iren",
+  "metric": "revenue",
+  "period_start": "2026-04-01",
+  "period_end": "2026-06-30",
+  "value": 137225000,
+  "unit": "USD",
+  "source": {
+   "type": "xbrl",
+   "tag": "Revenues / RevenueFromContractWithCustomerExcludingAssessedTax",
+   "how": "누적 값의 차이",
+   "filings": [
+    {
+     "form": "10-K",
+     "accession": "0001878848-26-000052",
+     "filed": "2026-08-27",
+     "url": "https://www.sec.gov/Archives/edgar/data/1878848/000187884826000052/iren-20260630.htm"
+    },
+    {
+     "form": "10-Q",
+     "accession": "0001878848-26-000026",
+     "filed": "2026-05-08",
+     "url": "https://www.sec.gov/Archives/edgar/data/1878848/000187884826000026/iren-20260331.htm"
+    }
+   ]
+  }
+ },
+ {
+  "company": "iren",
+  "metric": "revenue",
+  "period_start": "2026-07-01",
+  "period_end": "2026-09-30",
+  "value": 228000000,
+  "unit": "USD",
+  "source": {
+   "type": "xbrl",
+   "tag": "Revenues",
+   "how": "분기 값 그대로",
+   "filings": [
+    {
+     "form": "10-Q",
+     "accession": "0001878848-26-000066",
+     "filed": "2026-11-05",
+     "url": "https://www.sec.gov/Archives/edgar/data/1878848/000187884826000066/iren-20260930.htm"
+    }
+   ]
+  }
+ },
+ {
+  "company": "iren",
+  "metric": "revenue_yoy",
+  "period_start": "2025-07-01",
+  "period_end": "2025-09-30",
+  "value": 354.9,
+  "unit": "%",
+  "source": {
+   "type": "derived",
+   "how": "2025-09-30 매출과 2024-09-30 매출에서 계산",
+   "filings": []
+  }
+ },
+ {
+  "company": "iren",
+  "metric": "revenue_yoy",
+  "period_start": "2025-10-01",
+  "period_end": "2025-12-31",
+  "value": 59.0,
+  "unit": "%",
+  "source": {
+   "type": "derived",
+   "how": "2025-12-31 매출과 2024-12-31 매출에서 계산",
+   "filings": []
+  }
+ },
+ {
+  "company": "iren",
+  "metric": "revenue_yoy",
+  "period_start": "2026-01-01",
+  "period_end": "2026-03-31",
+  "value": -0.0,
+  "unit": "%",
+  "source": {
+   "type": "derived",
+   "how": "2026-03-31 매출과 2025-03-31 매출에서 계산",
+   "filings": []
+  }
+ },
+ {
+  "company": "iren",
+  "metric": "revenue_yoy",
+  "period_start": "2026-04-01",
+  "period_end": "2026-06-30",
+  "value": -26.7,
+  "unit": "%",
+  "source": {
+   "type": "derived",
+   "how": "2026-06-30 매출과 2025-06-30 매출에서 계산",
+   "filings": []
+  }
+ },
+ {
+  "company": "iren",
+  "metric": "revenue_yoy",
+  "period_start": "2026-07-01",
+  "period_end": "2026-09-30",
+  "value": -5.0,
+  "unit": "%",
+  "source": {
+   "type": "derived",
+   "how": "2026-09-30 매출과 2025-09-30 매출에서 계산",
+   "filings": []
+  }
+ },
+ {
+  "company": "iren",
+  "metric": "operating_income",
+  "period_start": "2025-07-01",
+  "period_end": "2025-09-30",
+  "value": -76000000,
+  "unit": "USD",
+  "source": {
+   "type": "xbrl",
+   "tag": "OperatingIncomeLoss",
+   "how": "분기 값 그대로",
+   "filings": [
+    {
+     "form": "10-Q",
+     "accession": "0001878848-26-000066",
+     "filed": "2026-11-05",
+     "url": "https://www.sec.gov/Archives/edgar/data/1878848/000187884826000066/iren-20260930.htm"
+    }
+   ]
+  }
+ },
+ {
+  "company": "iren",
+  "metric": "operating_income",
+  "period_start": "2025-10-01",
+  "period_end": "2025-12-31",
+  "value": -116403000,
+  "unit": "USD",
+  "source": {
+   "type": "xbrl",
+   "tag": "OperatingIncomeLoss",
+   "how": "분기 값 그대로",
+   "filings": [
+    {
+     "form": "10-Q",
+     "accession": "0001878848-26-000015",
+     "filed": "2026-02-05",
+     "url": "https://www.sec.gov/Archives/edgar/data/1878848/000187884826000015/iren-20251231.htm"
+    }
+   ]
+  }
+ },
+ {
+  "company": "iren",
+  "metric": "operating_income",
+  "period_start": "2026-01-01",
+  "period_end": "2026-03-31",
+  "value": -233523000,
+  "unit": "USD",
+  "source": {
+   "type": "xbrl",
+   "tag": "OperatingIncomeLoss",
+   "how": "분기 값 그대로",
+   "filings": [
+    {
+     "form": "10-Q",
+     "accession": "0001878848-26-000026",
+     "filed": "2026-05-08",
+     "url": "https://www.sec.gov/Archives/edgar/data/1878848/000187884826000026/iren-20260331.htm"
+    }
+   ]
+  }
+ },
+ {
+  "company": "iren",
+  "metric": "operating_income",
+  "period_start": "2026-04-01",
+  "period_end": "2026-06-30",
+  "value": -620383000,
+  "unit": "USD",
+  "source": {
+   "type": "xbrl",
+   "tag": "OperatingIncomeLoss",
+   "how": "누적 값의 차이",
+   "filings": [
+    {
+     "form": "10-K",
+     "accession": "0001878848-26-000052",
+     "filed": "2026-08-27",
+     "url": "https://www.sec.gov/Archives/edgar/data/1878848/000187884826000052/iren-20260630.htm"
+    },
+    {
+     "form": "10-Q",
+     "accession": "0001878848-26-000026",
+     "filed": "2026-05-08",
+     "url": "https://www.sec.gov/Archives/edgar/data/1878848/000187884826000026/iren-20260331.htm"
+    }
+   ]
+  }
+ },
+ {
+  "company": "iren",
+  "metric": "operating_income",
+  "period_start": "2026-07-01",
+  "period_end": "2026-09-30",
+  "value": -186000000,
+  "unit": "USD",
+  "source": {
+   "type": "xbrl",
+   "tag": "OperatingIncomeLoss",
+   "how": "분기 값 그대로",
+   "filings": [
+    {
+     "form": "10-Q",
+     "accession": "0001878848-26-000066",
+     "filed": "2026-11-05",
+     "url": "https://www.sec.gov/Archives/edgar/data/1878848/000187884826000066/iren-20260930.htm"
+    }
+   ]
+  }
+ },
+ {
+  "company": "iren",
+  "metric": "capex",
+  "period_start": "2025-07-01",
+  "period_end": "2025-09-30",
+  "value": 180000000,
+  "unit": "USD",
+  "source": {
+   "type": "xbrl",
+   "tag": "PaymentsToAcquirePropertyPlantAndEquipment",
+   "how": "분기 값 그대로",
+   "filings": [
+    {
+     "form": "10-Q",
+     "accession": "0001878848-26-000066",
+     "filed": "2026-11-05",
+     "url": "https://www.sec.gov/Archives/edgar/data/1878848/000187884826000066/iren-20260930.htm"
+    }
+   ]
+  }
+ },
+ {
+  "company": "iren",
+  "metric": "capex",
+  "period_start": "2025-10-01",
+  "period_end": "2025-12-31",
+  "value": 540001000,
+  "unit": "USD",
+  "source": {
+   "type": "xbrl",
+   "tag": "PaymentsToAcquirePropertyPlantAndEquipment",
+   "how": "누적 값의 차이",
+   "filings": [
+    {
+     "form": "10-Q",
+     "accession": "0001878848-26-000015",
+     "filed": "2026-02-05",
+     "url": "https://www.sec.gov/Archives/edgar/data/1878848/000187884826000015/iren-20251231.htm"
+    },
+    {
+     "form": "10-Q",
+     "accession": "0001878848-26-000066",
+     "filed": "2026-11-05",
+     "url": "https://www.sec.gov/Archives/edgar/data/1878848/000187884826000066/iren-20260930.htm"
+    }
+   ]
+  }
+ },
+ {
+  "company": "iren",
+  "metric": "capex",
+  "period_start": "2026-01-01",
+  "period_end": "2026-03-31",
+  "value": 949156000,
+  "unit": "USD",
+  "source": {
+   "type": "xbrl",
+   "tag": "PaymentsToAcquirePropertyPlantAndEquipment",
+   "how": "누적 값의 차이",
+   "filings": [
+    {
+     "form": "10-Q",
+     "accession": "0001878848-26-000026",
+     "filed": "2026-05-08",
+     "url": "https://www.sec.gov/Archives/edgar/data/1878848/000187884826000026/iren-20260331.htm"
+    },
+    {
+     "form": "10-Q",
+     "accession": "0001878848-26-000015",
+     "filed": "2026-02-05",
+     "url": "https://www.sec.gov/Archives/edgar/data/1878848/000187884826000015/iren-20251231.htm"
+    }
+   ]
+  }
+ },
+ {
+  "company": "iren",
+  "metric": "capex",
+  "period_start": "2026-04-01",
+  "period_end": "2026-06-30",
+  "value": 1328849000,
+  "unit": "USD",
+  "source": {
+   "type": "xbrl",
+   "tag": "PaymentsToAcquirePropertyPlantAndEquipment",
+   "how": "누적 값의 차이",
+   "filings": [
+    {
+     "form": "10-K",
+     "accession": "0001878848-26-000052",
+     "filed": "2026-08-27",
+     "url": "https://www.sec.gov/Archives/edgar/data/1878848/000187884826000052/iren-20260630.htm"
+    },
+    {
+     "form": "10-Q",
+     "accession": "0001878848-26-000026",
+     "filed": "2026-05-08",
+     "url": "https://www.sec.gov/Archives/edgar/data/1878848/000187884826000026/iren-20260331.htm"
+    }
+   ]
+  }
+ },
+ {
+  "company": "iren",
+  "metric": "capex",
+  "period_start": "2026-07-01",
+  "period_end": "2026-09-30",
+  "value": 2131000000,
+  "unit": "USD",
+  "source": {
+   "type": "xbrl",
+   "tag": "PaymentsToAcquirePropertyPlantAndEquipment",
+   "how": "분기 값 그대로",
+   "filings": [
+    {
+     "form": "10-Q",
+     "accession": "0001878848-26-000066",
+     "filed": "2026-11-05",
+     "url": "https://www.sec.gov/Archives/edgar/data/1878848/000187884826000066/iren-20260930.htm"
+    }
+   ]
+  }
+ },
+ {
+  "company": "iren",
+  "metric": "rpo",
+  "period_start": null,
+  "period_end": "2025-09-30",
+  "value": 195027000,
+  "unit": "USD",
+  "source": {
+   "type": "xbrl",
+   "tag": "RevenueRemainingPerformanceObligation",
+   "how": "기간 말 값 그대로",
+   "filings": [
+    {
+     "form": "10-Q",
+     "accession": "0001878848-25-000081",
+     "filed": "2025-11-06",
+     "url": "https://www.sec.gov/Archives/edgar/data/1878848/000187884825000081/iren-20250930.htm"
+    }
+   ]
+  }
+ },
+ {
+  "company": "iren",
+  "metric": "rpo",
+  "period_start": null,
+  "period_end": "2025-12-31",
+  "value": 289411000,
+  "unit": "USD",
+  "source": {
+   "type": "xbrl",
+   "tag": "RevenueRemainingPerformanceObligation",
+   "how": "기간 말 값 그대로",
+   "filings": [
+    {
+     "form": "10-Q",
+     "accession": "0001878848-26-000015",
+     "filed": "2026-02-05",
+     "url": "https://www.sec.gov/Archives/edgar/data/1878848/000187884826000015/iren-20251231.htm"
+    }
+   ]
+  }
+ },
+ {
+  "company": "iren",
+  "metric": "rpo",
+  "period_start": null,
+  "period_end": "2026-03-31",
+  "value": 710272000,
+  "unit": "USD",
+  "source": {
+   "type": "xbrl",
+   "tag": "RevenueRemainingPerformanceObligation",
+   "how": "기간 말 값 그대로",
+   "filings": [
+    {
+     "form": "10-Q",
+     "accession": "0001878848-26-000026",
+     "filed": "2026-05-08",
+     "url": "https://www.sec.gov/Archives/edgar/data/1878848/000187884826000026/iren-20260331.htm"
+    }
+   ]
+  }
+ },
+ {
+  "company": "iren",
+  "metric": "rpo",
+  "period_start": null,
+  "period_end": "2026-06-30",
+  "value": 5100000000,
+  "unit": "USD",
+  "source": {
+   "type": "xbrl",
+   "tag": "RevenueRemainingPerformanceObligation",
+   "how": "기간 말 값 그대로",
+   "filings": [
+    {
+     "form": "10-K",
+     "accession": "0001878848-26-000052",
+     "filed": "2026-08-27",
+     "url": "https://www.sec.gov/Archives/edgar/data/1878848/000187884826000052/iren-20260630.htm"
+    }
+   ]
+  }
+ },
+ {
+  "company": "iren",
+  "metric": "rpo",
+  "period_start": null,
+  "period_end": "2026-09-30",
+  "value": 6347000000,
+  "unit": "USD",
+  "source": {
+   "type": "xbrl",
+   "tag": "RevenueRemainingPerformanceObligation",
+   "how": "기간 말 값 그대로",
+   "filings": [
+    {
+     "form": "10-Q",
+     "accession": "0001878848-26-000066",
+     "filed": "2026-11-05",
+     "url": "https://www.sec.gov/Archives/edgar/data/1878848/000187884826000066/iren-20260930.htm"
+    }
+   ]
+  }
+ },
+ {
+  "company": "iren",
+  "metric": "cash",
+  "period_start": null,
+  "period_end": "2025-09-30",
+  "value": 1032263000,
+  "unit": "USD",
+  "source": {
+   "type": "xbrl",
+   "tag": "CashAndCashEquivalentsAtCarryingValue",
+   "how": "기간 말 값 그대로",
+   "filings": [
+    {
+     "form": "10-Q",
+     "accession": "0001878848-25-000081",
+     "filed": "2025-11-06",
+     "url": "https://www.sec.gov/Archives/edgar/data/1878848/000187884825000081/iren-20250930.htm"
+    }
+   ]
+  }
+ },
+ {
+  "company": "iren",
+  "metric": "cash",
+  "period_start": null,
+  "period_end": "2025-12-31",
+  "value": 3260589000,
+  "unit": "USD",
+  "source": {
+   "type": "xbrl",
+   "tag": "CashAndCashEquivalentsAtCarryingValue",
+   "how": "기간 말 값 그대로",
+   "filings": [
+    {
+     "form": "10-Q",
+     "accession": "0001878848-26-000015",
+     "filed": "2026-02-05",
+     "url": "https://www.sec.gov/Archives/edgar/data/1878848/000187884826000015/iren-20251231.htm"
+    }
+   ]
+  }
+ },
+ {
+  "company": "iren",
+  "metric": "cash",
+  "period_start": null,
+  "period_end": "2026-03-31",
+  "value": 2213274000,
+  "unit": "USD",
+  "source": {
+   "type": "xbrl",
+   "tag": "CashAndCashEquivalentsAtCarryingValue",
+   "how": "기간 말 값 그대로",
+   "filings": [
+    {
+     "form": "10-Q",
+     "accession": "0001878848-26-000026",
+     "filed": "2026-05-08",
+     "url": "https://www.sec.gov/Archives/edgar/data/1878848/000187884826000026/iren-20260331.htm"
+    }
+   ]
+  }
+ },
+ {
+  "company": "iren",
+  "metric": "cash",
+  "period_start": null,
+  "period_end": "2026-06-30",
+  "value": 5896000000,
+  "unit": "USD",
+  "source": {
+   "type": "xbrl",
+   "tag": "CashAndCashEquivalentsAtCarryingValue",
+   "how": "기간 말 값 그대로",
+   "filings": [
+    {
+     "form": "10-Q",
+     "accession": "0001878848-26-000066",
+     "filed": "2026-11-05",
+     "url": "https://www.sec.gov/Archives/edgar/data/1878848/000187884826000066/iren-20260930.htm"
+    }
+   ]
+  }
+ },
+ {
+  "company": "iren",
+  "metric": "cash",
+  "period_start": null,
+  "period_end": "2026-09-30",
+  "value": 3522000000,
+  "unit": "USD",
+  "source": {
+   "type": "xbrl",
+   "tag": "CashAndCashEquivalentsAtCarryingValue",
+   "how": "기간 말 값 그대로",
+   "filings": [
+    {
+     "form": "10-Q",
+     "accession": "0001878848-26-000066",
+     "filed": "2026-11-05",
+     "url": "https://www.sec.gov/Archives/edgar/data/1878848/000187884826000066/iren-20260930.htm"
+    }
+   ]
+  }
+ },
+ {
+  "company": "nvda",
+  "metric": "revenue",
+  "period_start": "2025-04-28",
+  "period_end": "2025-07-27",
+  "value": 46743000000,
+  "unit": "USD",
+  "source": {
+   "type": "xbrl",
+   "tag": "Revenues",
+   "how": "분기 값 그대로",
+   "filings": [
+    {
+     "form": "10-Q",
+     "accession": "0001045810-26-000075",
+     "filed": "2026-08-26",
+     "url": "https://www.sec.gov/Archives/edgar/data/1045810/000104581026000075/nvda-20260726.htm"
+    }
+   ]
+  }
+ },
+ {
+  "company": "nvda",
+  "metric": "revenue",
+  "period_start": "2025-07-28",
+  "period_end": "2025-10-26",
+  "value": 57006000000,
+  "unit": "USD",
+  "source": {
+   "type": "xbrl",
+   "tag": "Revenues",
+   "how": "분기 값 그대로",
+   "filings": [
+    {
+     "form": "10-Q",
+     "accession": "0001045810-25-000230",
+     "filed": "2025-11-19",
+     "url": "https://www.sec.gov/Archives/edgar/data/1045810/000104581025000230/nvda-20251026.htm"
+    }
+   ]
+  }
+ },
+ {
+  "company": "nvda",
+  "metric": "revenue",
+  "period_start": "2025-10-27",
+  "period_end": "2026-01-25",
+  "value": 68127000000,
+  "unit": "USD",
+  "source": {
+   "type": "xbrl",
+   "tag": "Revenues",
+   "how": "누적 값의 차이",
+   "filings": [
+    {
+     "form": "10-K",
+     "accession": "0001045810-26-000021",
+     "filed": "2026-02-25",
+     "url": "https://www.sec.gov/Archives/edgar/data/1045810/000104581026000021/nvda-20260125.htm"
+    },
+    {
+     "form": "10-Q",
+     "accession": "0001045810-25-000230",
+     "filed": "2025-11-19",
+     "url": "https://www.sec.gov/Archives/edgar/data/1045810/000104581025000230/nvda-20251026.htm"
+    }
+   ]
+  }
+ },
+ {
+  "company": "nvda",
+  "metric": "revenue",
+  "period_start": "2026-01-26",
+  "period_end": "2026-04-26",
+  "value": 81615000000,
+  "unit": "USD",
+  "source": {
+   "type": "xbrl",
+   "tag": "Revenues",
+   "how": "분기 값 그대로",
+   "filings": [
+    {
+     "form": "10-Q",
+     "accession": "0001045810-26-000052",
+     "filed": "2026-05-20",
+     "url": "https://www.sec.gov/Archives/edgar/data/1045810/000104581026000052/nvda-20260426.htm"
+    }
+   ]
+  }
+ },
+ {
+  "company": "nvda",
+  "metric": "revenue",
+  "period_start": "2026-04-27",
+  "period_end": "2026-07-26",
+  "value": 96221000000,
+  "unit": "USD",
+  "source": {
+   "type": "xbrl",
+   "tag": "Revenues",
+   "how": "분기 값 그대로",
+   "filings": [
+    {
+     "form": "10-Q",
+     "accession": "0001045810-26-000075",
+     "filed": "2026-08-26",
+     "url": "https://www.sec.gov/Archives/edgar/data/1045810/000104581026000075/nvda-20260726.htm"
+    }
+   ]
+  }
+ },
+ {
+  "company": "nvda",
+  "metric": "revenue_yoy",
+  "period_start": "2025-04-28",
+  "period_end": "2025-07-27",
+  "value": 55.6,
+  "unit": "%",
+  "source": {
+   "type": "derived",
+   "how": "2025-07-27 매출과 2024-07-28 매출에서 계산",
+   "filings": []
+  }
+ },
+ {
+  "company": "nvda",
+  "metric": "revenue_yoy",
+  "period_start": "2025-07-28",
+  "period_end": "2025-10-26",
+  "value": 62.5,
+  "unit": "%",
+  "source": {
+   "type": "derived",
+   "how": "2025-10-26 매출과 2024-10-27 매출에서 계산",
+   "filings": []
+  }
+ },
+ {
+  "company": "nvda",
+  "metric": "revenue_yoy",
+  "period_start": "2025-10-27",
+  "period_end": "2026-01-25",
+  "value": 73.2,
+  "unit": "%",
+  "source": {
+   "type": "derived",
+   "how": "2026-01-25 매출과 2025-01-26 매출에서 계산",
+   "filings": []
+  }
+ },
+ {
+  "company": "nvda",
+  "metric": "revenue_yoy",
+  "period_start": "2026-01-26",
+  "period_end": "2026-04-26",
+  "value": 85.2,
+  "unit": "%",
+  "source": {
+   "type": "derived",
+   "how": "2026-04-26 매출과 2025-04-27 매출에서 계산",
+   "filings": []
+  }
+ },
+ {
+  "company": "nvda",
+  "metric": "revenue_yoy",
+  "period_start": "2026-04-27",
+  "period_end": "2026-07-26",
+  "value": 105.9,
+  "unit": "%",
+  "source": {
+   "type": "derived",
+   "how": "2026-07-26 매출과 2025-07-27 매출에서 계산",
+   "filings": []
+  }
+ },
+ {
+  "company": "nvda",
+  "metric": "operating_income",
+  "period_start": "2025-04-28",
+  "period_end": "2025-07-27",
+  "value": 28440000000,
+  "unit": "USD",
+  "source": {
+   "type": "xbrl",
+   "tag": "OperatingIncomeLoss",
+   "how": "분기 값 그대로",
+   "filings": [
+    {
+     "form": "10-Q",
+     "accession": "0001045810-26-000075",
+     "filed": "2026-08-26",
+     "url": "https://www.sec.gov/Archives/edgar/data/1045810/000104581026000075/nvda-20260726.htm"
+    }
+   ]
+  }
+ },
+ {
+  "company": "nvda",
+  "metric": "operating_income",
+  "period_start": "2025-07-28",
+  "period_end": "2025-10-26",
+  "value": 36010000000,
+  "unit": "USD",
+  "source": {
+   "type": "xbrl",
+   "tag": "OperatingIncomeLoss",
+   "how": "분기 값 그대로",
+   "filings": [
+    {
+     "form": "10-Q",
+     "accession": "0001045810-25-000230",
+     "filed": "2025-11-19",
+     "url": "https://www.sec.gov/Archives/edgar/data/1045810/000104581025000230/nvda-20251026.htm"
+    }
+   ]
+  }
+ },
+ {
+  "company": "nvda",
+  "metric": "operating_income",
+  "period_start": "2025-10-27",
+  "period_end": "2026-01-25",
+  "value": 44299000000,
+  "unit": "USD",
+  "source": {
+   "type": "xbrl",
+   "tag": "OperatingIncomeLoss",
+   "how": "누적 값의 차이",
+   "filings": [
+    {
+     "form": "10-K",
+     "accession": "0001045810-26-000021",
+     "filed": "2026-02-25",
+     "url": "https://www.sec.gov/Archives/edgar/data/1045810/000104581026000021/nvda-20260125.htm"
+    },
+    {
+     "form": "10-Q",
+     "accession": "0001045810-25-000230",
+     "filed": "2025-11-19",
+     "url": "https://www.sec.gov/Archives/edgar/data/1045810/000104581025000230/nvda-20251026.htm"
+    }
+   ]
+  }
+ },
+ {
+  "company": "nvda",
+  "metric": "operating_income",
+  "period_start": "2026-01-26",
+  "period_end": "2026-04-26",
+  "value": 53536000000,
+  "unit": "USD",
+  "source": {
+   "type": "xbrl",
+   "tag": "OperatingIncomeLoss",
+   "how": "분기 값 그대로",
+   "filings": [
+    {
+     "form": "10-Q",
+     "accession": "0001045810-26-000052",
+     "filed": "2026-05-20",
+     "url": "https://www.sec.gov/Archives/edgar/data/1045810/000104581026000052/nvda-20260426.htm"
+    }
+   ]
+  }
+ },
+ {
+  "company": "nvda",
+  "metric": "operating_income",
+  "period_start": "2026-04-27",
+  "period_end": "2026-07-26",
+  "value": 63734000000,
+  "unit": "USD",
+  "source": {
+   "type": "xbrl",
+   "tag": "OperatingIncomeLoss",
+   "how": "분기 값 그대로",
+   "filings": [
+    {
+     "form": "10-Q",
+     "accession": "0001045810-26-000075",
+     "filed": "2026-08-26",
+     "url": "https://www.sec.gov/Archives/edgar/data/1045810/000104581026000075/nvda-20260726.htm"
+    }
+   ]
+  }
+ },
+ {
+  "company": "nvda",
+  "metric": "capex",
+  "period_start": "2025-04-28",
+  "period_end": "2025-07-27",
+  "value": 1895000000,
+  "unit": "USD",
+  "source": {
+   "type": "xbrl",
+   "tag": "PaymentsToAcquireProductiveAssets",
+   "how": "누적 값의 차이",
+   "filings": [
+    {
+     "form": "10-Q",
+     "accession": "0001045810-26-000075",
+     "filed": "2026-08-26",
+     "url": "https://www.sec.gov/Archives/edgar/data/1045810/000104581026000075/nvda-20260726.htm"
+    },
+    {
+     "form": "10-Q",
+     "accession": "0001045810-26-000052",
+     "filed": "2026-05-20",
+     "url": "https://www.sec.gov/Archives/edgar/data/1045810/000104581026000052/nvda-20260426.htm"
+    }
+   ]
+  }
+ },
+ {
+  "company": "nvda",
+  "metric": "capex",
+  "period_start": "2025-07-28",
+  "period_end": "2025-10-26",
+  "value": 1636000000,
+  "unit": "USD",
+  "source": {
+   "type": "xbrl",
+   "tag": "PaymentsToAcquireProductiveAssets",
+   "how": "누적 값의 차이",
+   "filings": [
+    {
+     "form": "10-Q",
+     "accession": "0001045810-25-000230",
+     "filed": "2025-11-19",
+     "url": "https://www.sec.gov/Archives/edgar/data/1045810/000104581025000230/nvda-20251026.htm"
+    },
+    {
+     "form": "10-Q",
+     "accession": "0001045810-26-000075",
+     "filed": "2026-08-26",
+     "url": "https://www.sec.gov/Archives/edgar/data/1045810/000104581026000075/nvda-20260726.htm"
+    }
+   ]
+  }
+ },
+ {
+  "company": "nvda",
+  "metric": "capex",
+  "period_start": "2025-10-27",
+  "period_end": "2026-01-25",
+  "value": 1284000000,
+  "unit": "USD",
+  "source": {
+   "type": "xbrl",
+   "tag": "PaymentsToAcquireProductiveAssets",
+   "how": "누적 값의 차이",
+   "filings": [
+    {
+     "form": "10-K",
+     "accession": "0001045810-26-000021",
+     "filed": "2026-02-25",
+     "url": "https://www.sec.gov/Archives/edgar/data/1045810/000104581026000021/nvda-20260125.htm"
+    },
+    {
+     "form": "10-Q",
+     "accession": "0001045810-25-000230",
+     "filed": "2025-11-19",
+     "url": "https://www.sec.gov/Archives/edgar/data/1045810/000104581025000230/nvda-20251026.htm"
+    }
+   ]
+  }
+ },
+ {
+  "company": "nvda",
+  "metric": "capex",
+  "period_start": "2026-01-26",
+  "period_end": "2026-04-26",
+  "value": 1757000000,
+  "unit": "USD",
+  "source": {
+   "type": "xbrl",
+   "tag": "PaymentsToAcquireProductiveAssets",
+   "how": "분기 값 그대로",
+   "filings": [
+    {
+     "form": "10-Q",
+     "accession": "0001045810-26-000052",
+     "filed": "2026-05-20",
+     "url": "https://www.sec.gov/Archives/edgar/data/1045810/000104581026000052/nvda-20260426.htm"
+    }
+   ]
+  }
+ },
+ {
+  "company": "nvda",
+  "metric": "capex",
+  "period_start": "2026-04-27",
+  "period_end": "2026-07-26",
+  "value": 2677000000,
+  "unit": "USD",
+  "source": {
+   "type": "xbrl",
+   "tag": "PaymentsToAcquireProductiveAssets",
+   "how": "누적 값의 차이",
+   "filings": [
+    {
+     "form": "10-Q",
+     "accession": "0001045810-26-000075",
+     "filed": "2026-08-26",
+     "url": "https://www.sec.gov/Archives/edgar/data/1045810/000104581026000075/nvda-20260726.htm"
+    },
+    {
+     "form": "10-Q",
+     "accession": "0001045810-26-000052",
+     "filed": "2026-05-20",
+     "url": "https://www.sec.gov/Archives/edgar/data/1045810/000104581026000052/nvda-20260426.htm"
+    }
+   ]
+  }
+ },
+ {
+  "company": "nvda",
+  "metric": "rpo",
+  "period_start": null,
+  "period_end": "2025-07-27",
+  "value": 1900000000,
+  "unit": "USD",
+  "source": {
+   "type": "xbrl",
+   "tag": "RevenueRemainingPerformanceObligation",
+   "how": "기간 말 값 그대로",
+   "filings": [
+    {
+     "form": "10-Q",
+     "accession": "0001045810-25-000209",
+     "filed": "2025-08-27",
+     "url": "https://www.sec.gov/Archives/edgar/data/1045810/000104581025000209/nvda-20250727.htm"
+    }
+   ]
+  }
+ },
+ {
+  "company": "nvda",
+  "metric": "rpo",
+  "period_start": null,
+  "period_end": "2025-10-26",
+  "value": 2500000000,
+  "unit": "USD",
+  "source": {
+   "type": "xbrl",
+   "tag": "RevenueRemainingPerformanceObligation",
+   "how": "기간 말 값 그대로",
+   "filings": [
+    {
+     "form": "10-Q",
+     "accession": "0001045810-25-000230",
+     "filed": "2025-11-19",
+     "url": "https://www.sec.gov/Archives/edgar/data/1045810/000104581025000230/nvda-20251026.htm"
+    }
+   ]
+  }
+ },
+ {
+  "company": "nvda",
+  "metric": "rpo",
+  "period_start": null,
+  "period_end": "2026-01-25",
+  "value": 2300000000,
+  "unit": "USD",
+  "source": {
+   "type": "xbrl",
+   "tag": "RevenueRemainingPerformanceObligation",
+   "how": "기간 말 값 그대로",
+   "filings": [
+    {
+     "form": "10-K",
+     "accession": "0001045810-26-000021",
+     "filed": "2026-02-25",
+     "url": "https://www.sec.gov/Archives/edgar/data/1045810/000104581026000021/nvda-20260125.htm"
+    }
+   ]
+  }
+ },
+ {
+  "company": "nvda",
+  "metric": "rpo",
+  "period_start": null,
+  "period_end": "2026-04-26",
+  "value": 2600000000,
+  "unit": "USD",
+  "source": {
+   "type": "xbrl",
+   "tag": "RevenueRemainingPerformanceObligation",
+   "how": "기간 말 값 그대로",
+   "filings": [
+    {
+     "form": "10-Q",
+     "accession": "0001045810-26-000052",
+     "filed": "2026-05-20",
+     "url": "https://www.sec.gov/Archives/edgar/data/1045810/000104581026000052/nvda-20260426.htm"
+    }
+   ]
+  }
+ },
+ {
+  "company": "nvda",
+  "metric": "rpo",
+  "period_start": null,
+  "period_end": "2026-07-26",
+  "value": 3200000000,
+  "unit": "USD",
+  "source": {
+   "type": "xbrl",
+   "tag": "RevenueRemainingPerformanceObligation",
+   "how": "기간 말 값 그대로",
+   "filings": [
+    {
+     "form": "10-Q",
+     "accession": "0001045810-26-000075",
+     "filed": "2026-08-26",
+     "url": "https://www.sec.gov/Archives/edgar/data/1045810/000104581026000075/nvda-20260726.htm"
+    }
+   ]
+  }
+ },
+ {
+  "company": "nvda",
+  "metric": "cash",
+  "period_start": null,
+  "period_end": "2025-07-27",
+  "value": 11639000000,
+  "unit": "USD",
+  "source": {
+   "type": "xbrl",
+   "tag": "CashAndCashEquivalentsAtCarryingValue",
+   "how": "기간 말 값 그대로",
+   "filings": [
+    {
+     "form": "10-Q",
+     "accession": "0001045810-25-000209",
+     "filed": "2025-08-27",
+     "url": "https://www.sec.gov/Archives/edgar/data/1045810/000104581025000209/nvda-20250727.htm"
+    }
+   ]
+  }
+ },
+ {
+  "company": "nvda",
+  "metric": "cash",
+  "period_start": null,
+  "period_end": "2025-10-26",
+  "value": 11486000000,
+  "unit": "USD",
+  "source": {
+   "type": "xbrl",
+   "tag": "CashAndCashEquivalentsAtCarryingValue",
+   "how": "기간 말 값 그대로",
+   "filings": [
+    {
+     "form": "10-Q",
+     "accession": "0001045810-25-000230",
+     "filed": "2025-11-19",
+     "url": "https://www.sec.gov/Archives/edgar/data/1045810/000104581025000230/nvda-20251026.htm"
+    }
+   ]
+  }
+ },
+ {
+  "company": "nvda",
+  "metric": "cash",
+  "period_start": null,
+  "period_end": "2026-01-25",
+  "value": 10605000000,
+  "unit": "USD",
+  "source": {
+   "type": "xbrl",
+   "tag": "CashAndCashEquivalentsAtCarryingValue",
+   "how": "기간 말 값 그대로",
+   "filings": [
+    {
+     "form": "10-Q",
+     "accession": "0001045810-26-000075",
+     "filed": "2026-08-26",
+     "url": "https://www.sec.gov/Archives/edgar/data/1045810/000104581026000075/nvda-20260726.htm"
+    }
+   ]
+  }
+ },
+ {
+  "company": "nvda",
+  "metric": "cash",
+  "period_start": null,
+  "period_end": "2026-04-26",
+  "value": 13237000000,
+  "unit": "USD",
+  "source": {
+   "type": "xbrl",
+   "tag": "CashAndCashEquivalentsAtCarryingValue",
+   "how": "기간 말 값 그대로",
+   "filings": [
+    {
+     "form": "10-Q",
+     "accession": "0001045810-26-000052",
+     "filed": "2026-05-20",
+     "url": "https://www.sec.gov/Archives/edgar/data/1045810/000104581026000052/nvda-20260426.htm"
+    }
+   ]
+  }
+ },
+ {
+  "company": "nvda",
+  "metric": "cash",
+  "period_start": null,
+  "period_end": "2026-07-26",
+  "value": 22443000000,
+  "unit": "USD",
+  "source": {
+   "type": "xbrl",
+   "tag": "CashAndCashEquivalentsAtCarryingValue",
+   "how": "기간 말 값 그대로",
+   "filings": [
+    {
+     "form": "10-Q",
+     "accession": "0001045810-26-000075",
+     "filed": "2026-08-26",
+     "url": "https://www.sec.gov/Archives/edgar/data/1045810/000104581026000075/nvda-20260726.htm"
+    }
+   ]
+  }
+ }
+]

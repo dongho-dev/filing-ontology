@@ -1,0 +1,42 @@
+[
+  {
+    "id": "nbis",
+    "name": "네비우스",
+    "name_en": "Nebius Group N.V.",
+    "ticker": "NBIS",
+    "cik": 1513845,
+    "role": "gpu_cloud",
+    "fiscal_year_end": "12-31",
+    "forms": ["6-K", "20-F"]
+  },
+  {
+    "id": "crwv",
+    "name": "코어위브",
+    "name_en": "CoreWeave, Inc.",
+    "ticker": "CRWV",
+    "cik": 1769628,
+    "role": "gpu_cloud",
+    "fiscal_year_end": "12-31",
+    "forms": ["10-Q", "10-K", "8-K"]
+  },
+  {
+    "id": "iren",
+    "name": "아이렌",
+    "name_en": "IREN Limited",
+    "ticker": "IREN",
+    "cik": 1878848,
+    "role": "gpu_cloud",
+    "fiscal_year_end": "06-30",
+    "forms": ["10-Q", "10-K", "8-K"]
+  },
+  {
+    "id": "nvda",
+    "name": "엔비디아",
+    "name_en": "NVIDIA Corporation",
+    "ticker": "NVDA",
+    "cik": 1045810,
+    "role": "gpu_supplier",
+    "fiscal_year_end": "01 말 (마지막 일요일)",
+    "forms": ["10-Q", "10-K", "8-K"]
+  }
+]
