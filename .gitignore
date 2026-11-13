@@ -1,0 +1,29 @@
+# 비밀 값
+.env*
+*.pem
+
+# 내려받은 원본 공시와 중간 산출물
+/data/
+/outputs/
+
+# Python
+__pycache__/
+*.py[cod]
+.venv/
+venv/
+.pytest_cache/
+*.egg-info/
+
+# Node
+node_modules/
+dist/
+.next/
+
+# 도구·편집기
+.claude/settings.local.json
+.omx/
+.vscode/
+.idea/
+.DS_Store
+Thumbs.db
+*.log
