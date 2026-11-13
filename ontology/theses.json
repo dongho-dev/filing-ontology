@@ -1,15 +1,36 @@
 [
  {
-  "id": "nbis-demand",
+  "id": "nbis-margin",
   "company": "nbis",
-  "statement": "네비우스는 수요가 공급을 넘는 동안 본다.",
+  "statement": "네비우스는 팔수록 더 남는다.",
   "created": "2026-11-13",
-  "example": true,
-  "note": "틀을 보여 주려고 지어낸 예시 가설입니다. 권고가 아닙니다.",
+  "note": "사용자의 가설 \"네비우스의 사업성이 점점 좋아진다\"를 셋으로 나눈 것 중 첫째(이익률). 조건은 초안이며 이 파일에서 고친다.",
   "conditions": [
-   {"id": "rpo-up", "name": "수주 잔고가 직전 분기보다 늘어난다", "metric": "rpo", "kind": "increase"},
-   {"id": "top-share", "name": "최대 고객 비중이 40% 아래다", "metric": "top_customer_share", "kind": "at_most", "threshold": 40, "near": 10},
-   {"id": "price-up", "name": "회사가 가격이 오른다고 말한다", "kind": "manual", "view": "nbis-pricing"}
+   {"id": "op-margin-up", "name": "영업이익률이 올라간다", "metric": "operating_margin", "kind": "increase"},
+   {"id": "ebitda-margin-up", "name": "조정 EBITDA 마진이 올라간다", "metric": "adj_ebitda_margin", "kind": "increase"},
+   {"id": "revenue-up", "name": "매출이 늘어난다", "metric": "revenue", "kind": "increase"}
+  ]
+ },
+ {
+  "id": "nbis-debt",
+  "company": "nbis",
+  "statement": "네비우스는 번 돈으로 빚을 감당할 수 있게 된다.",
+  "created": "2026-11-13",
+  "note": "사용자의 가설 \"네비우스의 사업성이 점점 좋아진다\"를 셋으로 나눈 것 중 둘째(빚 감당). 조건은 초안이며 이 파일에서 고친다.",
+  "conditions": [
+   {"id": "coverage-up", "name": "이자보상배율이 올라간다", "metric": "interest_coverage", "kind": "increase"},
+   {"id": "leverage-down", "name": "순부채 ÷ 조정 EBITDA가 내려간다", "metric": "net_debt_to_ebitda", "kind": "decrease"}
+  ]
+ },
+ {
+  "id": "nbis-capital",
+  "company": "nbis",
+  "statement": "네비우스는 투자한 만큼 벌어들인다.",
+  "created": "2026-11-13",
+  "note": "사용자의 가설 \"네비우스의 사업성이 점점 좋아진다\"를 셋으로 나눈 것 중 셋째(자본 효율). 조건은 초안이며 이 파일에서 고친다.",
+  "conditions": [
+   {"id": "turnover-up", "name": "자산 회전이 올라간다", "metric": "asset_turnover", "kind": "increase"},
+   {"id": "ocf-capex-up", "name": "영업현금흐름이 설비투자를 덮는 비율이 올라간다", "metric": "ocf_to_capex", "kind": "increase"}
   ]
  }
 ]

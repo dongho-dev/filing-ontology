@@ -64,7 +64,7 @@ def is_quarter(v: dict) -> bool:
 def add_derived(values: list[dict], metrics: list[dict], skips: list[dict] | None = None) -> None:
     """metrics.json의 derive 정의대로 계산 지표를 채운다. 재료 값이 둘 다 있는 기간만 만든다.
 
-    derive: {"op": "ratio" 또는 "diff", "a": 지표, "b": 지표, "scale": 곱할 수(기본 1), "b_positive": 분모가 0 이하면 만들지 않음}
+    derive: {"op": "ratio", "diff" 또는 "sum", "a": 지표, "b": 지표, "scale": 곱할 수(기본 1), "b_positive": 분모가 0 이하면 만들지 않음}
     분모 때문에 만들지 못한 기간은 skips에 이유와 함께 적는다.
     """
     names = {m["id"]: m["name"] for m in metrics}
@@ -78,8 +78,8 @@ def add_derived(values: list[dict], metrics: list[dict], skips: list[dict] | Non
             a, b = side["a"][key], side["b"][key]
             if key in have:
                 continue
-            if d["op"] == "diff":
-                value = a["value"] - b["value"]
+            if d["op"] in ("diff", "sum"):
+                value = a["value"] - b["value"] if d["op"] == "diff" else a["value"] + b["value"]
             else:
                 if not b["value"] or (d.get("b_positive") and b["value"] <= 0):
                     if skips is not None:
@@ -96,7 +96,8 @@ def add_derived(values: list[dict], metrics: list[dict], skips: list[dict] | Non
             values.append({
                 "company": key[0], "metric": m["id"], "period_start": a.get("period_start") if b.get("period_start") else None,
                 "period_end": key[1], "value": value, "unit": m["unit"],
-                "source": {"type": "derived", "how": f"{names[d['a']]}, {names[d['b']]} 값에서 계산", "filings": filings},
+                "source": {"type": "derived", "how": f"{names[d['a']]}, {names[d['b']]} 값에서 계산", "filings": filings,
+                           "inputs": [{"metric": x["metric"], "value": x["value"], "unit": x["unit"]} for x in (a, b)]},
                 "review": {"status": "inputs_unreviewed" if raw else "n/a"},
             })
 

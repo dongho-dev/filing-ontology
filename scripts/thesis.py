@@ -47,7 +47,7 @@ def judgments_from(actions: list[dict]) -> dict:
 
 
 def basis_of(v: dict) -> dict:
-    return {"period_end": v["period_end"], "value": v["value"], "label": v["source"].get("label"),
+    return {"company": v["company"], "metric": v["metric"], "period_end": v["period_end"], "value": v["value"], "label": v["source"].get("label"),
             "source_type": v["source"].get("type"), "review": v.get("review", {}).get("status", "n/a"),
             "filing": loop.latest_filing(v)}
 

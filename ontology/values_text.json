@@ -217,6 +217,96 @@
  },
  {
   "company": "nbis",
+  "metric": "adjusted_ebitda",
+  "period_start": "2025-07-01",
+  "period_end": "2025-09-30",
+  "value": -5200000,
+  "unit": "USD",
+  "source": {
+   "type": "text",
+   "form": "6-K",
+   "accession": "0001104659-25-110831",
+   "filed": "2025-11-13",
+   "url": "https://www.sec.gov/Archives/edgar/data/1513845/000110465925110831/tm2531034d1_ex99-1.htm",
+   "label": "Total adjusted EBITDA (loss)",
+   "quote": "Total adjusted EBITDA (loss) (45.9 ) (5.2 )",
+   "text_file": "data/raw/filings/nbis/0001104659-25-110831/tm2531034d1_ex99-1.htm.txt"
+  }
+ },
+ {
+  "company": "nbis",
+  "metric": "adjusted_ebitda",
+  "period_start": "2025-10-01",
+  "period_end": "2025-12-31",
+  "value": 15000000,
+  "unit": "USD",
+  "source": {
+   "type": "text",
+   "form": "6-K",
+   "accession": "0001104659-26-013946",
+   "filed": "2026-02-12",
+   "url": "https://www.sec.gov/Archives/edgar/data/1513845/000110465926013946/tm266173d1_ex99-1.htm",
+   "label": "Adjusted EBITDA/ (loss)",
+   "quote": "Adjusted EBITDA/ (loss) (63.9 ) 15.0",
+   "text_file": "data/raw/filings/nbis/0001104659-26-013946/tm266173d1_ex99-1.htm.txt"
+  }
+ },
+ {
+  "company": "nbis",
+  "metric": "adjusted_ebitda",
+  "period_start": "2026-01-01",
+  "period_end": "2026-03-31",
+  "value": 129500000,
+  "unit": "USD",
+  "source": {
+   "type": "text",
+   "form": "6-K",
+   "accession": "0001104659-26-064092",
+   "filed": "2026-05-20",
+   "url": "https://www.sec.gov/Archives/edgar/data/1513845/000110465926064092/nbis-20260331xex99d1.htm",
+   "label": "Total adjusted EBITDA / (loss)",
+   "quote": "Total adjusted EBITDA / (loss) ​ (53.7) ​ 129.5",
+   "text_file": "data/raw/filings/nbis/0001104659-26-064092/nbis-20260331xex99d1.htm.txt"
+  }
+ },
+ {
+  "company": "nbis",
+  "metric": "adjusted_ebitda",
+  "period_start": "2026-04-01",
+  "period_end": "2026-06-30",
+  "value": 236200000,
+  "unit": "USD",
+  "source": {
+   "type": "text",
+   "form": "6-K",
+   "accession": "0001104659-26-094844",
+   "filed": "2026-08-12",
+   "url": "https://www.sec.gov/Archives/edgar/data/1513845/000110465926094844/nbis-20260812xex99d1.htm",
+   "label": "Total adjusted EBITDA / (loss)",
+   "quote": "Total adjusted EBITDA / (loss) (21.0) ​ 236.2",
+   "text_file": "data/raw/filings/nbis/0001104659-26-094844/nbis-20260812xex99d1.htm.txt"
+  }
+ },
+ {
+  "company": "nbis",
+  "metric": "adjusted_ebitda",
+  "period_start": "2026-07-01",
+  "period_end": "2026-09-30",
+  "value": 465800000,
+  "unit": "USD",
+  "source": {
+   "type": "text",
+   "form": "6-K",
+   "accession": "0001104659-26-126238",
+   "filed": "2026-11-12",
+   "url": "https://www.sec.gov/Archives/edgar/data/1513845/000110465926126238/nbis-ex99d1.htm",
+   "label": "Total adjusted EBITDA / (loss)",
+   "quote": "Total adjusted EBITDA / (loss) (5.2) ​ 465.8",
+   "text_file": "data/raw/filings/nbis/0001104659-26-126238/nbis-ex99d1.htm.txt"
+  }
+ },
+ {
+  "company": "nbis",
   "metric": "capex",
   "period_start": "2025-07-01",
   "period_end": "2025-09-30",
@@ -451,6 +541,366 @@
  },
  {
   "company": "nbis",
+  "metric": "debt_current",
+  "period_start": null,
+  "period_end": "2025-09-30",
+  "value": 16000000,
+  "unit": "USD",
+  "source": {
+   "type": "text",
+   "form": "6-K",
+   "accession": "0001104659-25-110831",
+   "filed": "2025-11-13",
+   "url": "https://www.sec.gov/Archives/edgar/data/1513845/000110465925110831/tm2531034d1_ex99-2.htm",
+   "label": "Debt, current",
+   "quote": "Debt, current 12 6.1 16.0",
+   "text_file": "data/raw/filings/nbis/0001104659-25-110831/tm2531034d1_ex99-2.htm.txt"
+  }
+ },
+ {
+  "company": "nbis",
+  "metric": "debt_current",
+  "period_start": null,
+  "period_end": "2025-12-31",
+  "value": 24500000,
+  "unit": "USD",
+  "source": {
+   "type": "text",
+   "form": "6-K",
+   "accession": "0001104659-26-013946",
+   "filed": "2026-02-12",
+   "url": "https://www.sec.gov/Archives/edgar/data/1513845/000110465926013946/tm266173d1_ex99-1.htm",
+   "label": "Debt, current",
+   "quote": "Debt, current 6.1 24.5",
+   "text_file": "data/raw/filings/nbis/0001104659-26-013946/tm266173d1_ex99-1.htm.txt"
+  }
+ },
+ {
+  "company": "nbis",
+  "metric": "debt_current",
+  "period_start": null,
+  "period_end": "2026-03-31",
+  "value": 18400000,
+  "unit": "USD",
+  "source": {
+   "type": "text",
+   "form": "6-K",
+   "accession": "0001104659-26-064092",
+   "filed": "2026-05-20",
+   "url": "https://www.sec.gov/Archives/edgar/data/1513845/000110465926064092/nbis-20260331xex99d2.htm",
+   "label": "Debt, current",
+   "quote": "Debt, current ​ 12 ​ 24.5 ​ 18.4",
+   "text_file": "data/raw/filings/nbis/0001104659-26-064092/nbis-20260331xex99d2.htm.txt"
+  }
+ },
+ {
+  "company": "nbis",
+  "metric": "debt_current",
+  "period_start": null,
+  "period_end": "2026-06-30",
+  "value": 46700000,
+  "unit": "USD",
+  "source": {
+   "type": "text",
+   "form": "6-K",
+   "accession": "0001104659-26-094844",
+   "filed": "2026-08-12",
+   "url": "https://www.sec.gov/Archives/edgar/data/1513845/000110465926094844/nbis-20260812xex99d2.htm",
+   "label": "Debt, current",
+   "quote": "Debt, current ​ 12 ​ 24.5 ​ 46.7",
+   "text_file": "data/raw/filings/nbis/0001104659-26-094844/nbis-20260812xex99d2.htm.txt"
+  }
+ },
+ {
+  "company": "nbis",
+  "metric": "debt_current",
+  "period_start": null,
+  "period_end": "2026-09-30",
+  "value": 187500000,
+  "unit": "USD",
+  "source": {
+   "type": "text",
+   "form": "6-K",
+   "accession": "0001104659-26-126238",
+   "filed": "2026-11-12",
+   "url": "https://www.sec.gov/Archives/edgar/data/1513845/000110465926126238/nbis-ex99d2.htm",
+   "label": "Debt, current",
+   "quote": "Debt, current ​ 12 ​ 24.5 ​ 187.5",
+   "text_file": "data/raw/filings/nbis/0001104659-26-126238/nbis-ex99d2.htm.txt"
+  }
+ },
+ {
+  "company": "nbis",
+  "metric": "debt_noncurrent",
+  "period_start": null,
+  "period_end": "2025-09-30",
+  "value": 4090800000,
+  "unit": "USD",
+  "source": {
+   "type": "text",
+   "form": "6-K",
+   "accession": "0001104659-25-110831",
+   "filed": "2025-11-13",
+   "url": "https://www.sec.gov/Archives/edgar/data/1513845/000110465925110831/tm2531034d1_ex99-2.htm",
+   "label": "Debt, non-current",
+   "quote": "Debt, non-current 12 — 4,090.8",
+   "text_file": "data/raw/filings/nbis/0001104659-25-110831/tm2531034d1_ex99-2.htm.txt"
+  }
+ },
+ {
+  "company": "nbis",
+  "metric": "debt_noncurrent",
+  "period_start": null,
+  "period_end": "2025-12-31",
+  "value": 4103200000,
+  "unit": "USD",
+  "source": {
+   "type": "text",
+   "form": "6-K",
+   "accession": "0001104659-26-013946",
+   "filed": "2026-02-12",
+   "url": "https://www.sec.gov/Archives/edgar/data/1513845/000110465926013946/tm266173d1_ex99-1.htm",
+   "label": "Debt, non-current",
+   "quote": "Debt, non-current — 4,103.2",
+   "text_file": "data/raw/filings/nbis/0001104659-26-013946/tm266173d1_ex99-1.htm.txt"
+  }
+ },
+ {
+  "company": "nbis",
+  "metric": "debt_noncurrent",
+  "period_start": null,
+  "period_end": "2026-03-31",
+  "value": 8432000000,
+  "unit": "USD",
+  "source": {
+   "type": "text",
+   "form": "6-K",
+   "accession": "0001104659-26-064092",
+   "filed": "2026-05-20",
+   "url": "https://www.sec.gov/Archives/edgar/data/1513845/000110465926064092/nbis-20260331xex99d2.htm",
+   "label": "Debt, non-current",
+   "quote": "Debt, non-current ​ 12 ​ 4,103.2 ​ 8,432.0",
+   "text_file": "data/raw/filings/nbis/0001104659-26-064092/nbis-20260331xex99d2.htm.txt"
+  }
+ },
+ {
+  "company": "nbis",
+  "metric": "debt_noncurrent",
+  "period_start": null,
+  "period_end": "2026-06-30",
+  "value": 8499000000,
+  "unit": "USD",
+  "source": {
+   "type": "text",
+   "form": "6-K",
+   "accession": "0001104659-26-094844",
+   "filed": "2026-08-12",
+   "url": "https://www.sec.gov/Archives/edgar/data/1513845/000110465926094844/nbis-20260812xex99d2.htm",
+   "label": "Debt, non-current",
+   "quote": "Debt, non-current ​ 12 ​ 4,103.2 ​ 8,499.0",
+   "text_file": "data/raw/filings/nbis/0001104659-26-094844/nbis-20260812xex99d2.htm.txt"
+  }
+ },
+ {
+  "company": "nbis",
+  "metric": "debt_noncurrent",
+  "period_start": null,
+  "period_end": "2026-09-30",
+  "value": 14003300000,
+  "unit": "USD",
+  "source": {
+   "type": "text",
+   "form": "6-K",
+   "accession": "0001104659-26-126238",
+   "filed": "2026-11-12",
+   "url": "https://www.sec.gov/Archives/edgar/data/1513845/000110465926126238/nbis-ex99d2.htm",
+   "label": "Debt, non-current",
+   "quote": "Debt, non-current ​ 12 ​ 4,103.2 ​ 14,003.3",
+   "text_file": "data/raw/filings/nbis/0001104659-26-126238/nbis-ex99d2.htm.txt"
+  }
+ },
+ {
+  "company": "nbis",
+  "metric": "interest_expense",
+  "period_start": "2025-07-01",
+  "period_end": "2025-09-30",
+  "value": 14700000,
+  "unit": "USD",
+  "source": {
+   "type": "text",
+   "form": "6-K",
+   "accession": "0001104659-25-110831",
+   "filed": "2025-11-13",
+   "url": "https://www.sec.gov/Archives/edgar/data/1513845/000110465925110831/tm2531034d1_ex99-2.htm",
+   "label": "Interest expense",
+   "quote": "Interest expense 12 — (14.7",
+   "text_file": "data/raw/filings/nbis/0001104659-25-110831/tm2531034d1_ex99-2.htm.txt"
+  }
+ },
+ {
+  "company": "nbis",
+  "metric": "interest_expense",
+  "period_start": "2025-10-01",
+  "period_end": "2025-12-31",
+  "value": 38300000,
+  "unit": "USD",
+  "source": {
+   "type": "text",
+   "form": "6-K",
+   "accession": "0001104659-26-013946",
+   "filed": "2026-02-12",
+   "url": "https://www.sec.gov/Archives/edgar/data/1513845/000110465926013946/tm266173d1_ex99-1.htm",
+   "label": "Interest expense",
+   "quote": "Interest expense — (38.3 )",
+   "text_file": "data/raw/filings/nbis/0001104659-26-013946/tm266173d1_ex99-1.htm.txt"
+  }
+ },
+ {
+  "company": "nbis",
+  "metric": "interest_expense",
+  "period_start": "2026-01-01",
+  "period_end": "2026-03-31",
+  "value": 63700000,
+  "unit": "USD",
+  "source": {
+   "type": "text",
+   "form": "6-K",
+   "accession": "0001104659-26-064092",
+   "filed": "2026-05-20",
+   "url": "https://www.sec.gov/Archives/edgar/data/1513845/000110465926064092/nbis-20260331xex99d2.htm",
+   "label": "Interest expense",
+   "quote": "Interest expense ​ 3, 12 ​ — ​ (63.7)",
+   "text_file": "data/raw/filings/nbis/0001104659-26-064092/nbis-20260331xex99d2.htm.txt"
+  }
+ },
+ {
+  "company": "nbis",
+  "metric": "interest_expense",
+  "period_start": "2026-04-01",
+  "period_end": "2026-06-30",
+  "value": 119100000,
+  "unit": "USD",
+  "source": {
+   "type": "text",
+   "form": "6-K",
+   "accession": "0001104659-26-094844",
+   "filed": "2026-08-12",
+   "url": "https://www.sec.gov/Archives/edgar/data/1513845/000110465926094844/nbis-20260812xex99d2.htm",
+   "label": "Interest expense",
+   "quote": "Interest expense ​ 3, 12 ​ (4.8) ​ (119.1)",
+   "text_file": "data/raw/filings/nbis/0001104659-26-094844/nbis-20260812xex99d2.htm.txt"
+  }
+ },
+ {
+  "company": "nbis",
+  "metric": "interest_expense",
+  "period_start": "2026-07-01",
+  "period_end": "2026-09-30",
+  "value": 112500000,
+  "unit": "USD",
+  "source": {
+   "type": "text",
+   "form": "6-K",
+   "accession": "0001104659-26-126238",
+   "filed": "2026-11-12",
+   "url": "https://www.sec.gov/Archives/edgar/data/1513845/000110465926126238/nbis-ex99d2.htm",
+   "label": "Interest expense",
+   "quote": "Interest expense ​ 4, 12 ​ (14.7) ​ (112.5)",
+   "text_file": "data/raw/filings/nbis/0001104659-26-126238/nbis-ex99d2.htm.txt"
+  }
+ },
+ {
+  "company": "nbis",
+  "metric": "operating_cash_flow",
+  "period_start": "2025-07-01",
+  "period_end": "2025-09-30",
+  "value": -80600000,
+  "unit": "USD",
+  "source": {
+   "type": "text",
+   "form": "6-K",
+   "accession": "0001104659-26-126008",
+   "filed": "2026-11-12",
+   "url": "https://www.sec.gov/Archives/edgar/data/1513845/000110465926126008/tm2629571d1_ex99-1.htm",
+   "label": "Net cash provided by / (used in) operating activities",
+   "quote": "Net cash provided by / (used in) operating activities (80.6 )",
+   "text_file": "data/raw/filings/nbis/0001104659-26-126008/tm2629571d1_ex99-1.htm.txt"
+  }
+ },
+ {
+  "company": "nbis",
+  "metric": "operating_cash_flow",
+  "period_start": "2025-10-01",
+  "period_end": "2025-12-31",
+  "value": 834300000,
+  "unit": "USD",
+  "source": {
+   "type": "text",
+   "form": "6-K",
+   "accession": "0001104659-26-013946",
+   "filed": "2026-02-12",
+   "url": "https://www.sec.gov/Archives/edgar/data/1513845/000110465926013946/tm266173d1_ex99-1.htm",
+   "label": "Net cash provided by / (used in) operating activities",
+   "quote": "Net cash provided by / (used in) operating activities (74.6 ) 834.3",
+   "text_file": "data/raw/filings/nbis/0001104659-26-013946/tm266173d1_ex99-1.htm.txt"
+  }
+ },
+ {
+  "company": "nbis",
+  "metric": "operating_cash_flow",
+  "period_start": "2026-01-01",
+  "period_end": "2026-03-31",
+  "value": 2258000000,
+  "unit": "USD",
+  "source": {
+   "type": "text",
+   "form": "6-K",
+   "accession": "0001104659-26-064092",
+   "filed": "2026-05-20",
+   "url": "https://www.sec.gov/Archives/edgar/data/1513845/000110465926064092/nbis-20260331xex99d2.htm",
+   "label": "Net cash provided by / (used in) operating activities",
+   "quote": "Net cash provided by / (used in) operating activities ​ ​ ​ (197.5) ​ 2,258.0",
+   "text_file": "data/raw/filings/nbis/0001104659-26-064092/nbis-20260331xex99d2.htm.txt"
+  }
+ },
+ {
+  "company": "nbis",
+  "metric": "operating_cash_flow",
+  "period_start": "2026-04-01",
+  "period_end": "2026-06-30",
+  "value": 2246100000,
+  "unit": "USD",
+  "source": {
+   "type": "text",
+   "form": "6-K",
+   "accession": "0001104659-26-094568",
+   "filed": "2026-08-12",
+   "url": "https://www.sec.gov/Archives/edgar/data/1513845/000110465926094568/tm2622968d1_ex99-1.htm",
+   "label": "Net cash provided by / (used in) operating activities",
+   "quote": "Net cash provided by / (used in) operating activities (171.6 ) 2,246.1",
+   "text_file": "data/raw/filings/nbis/0001104659-26-094568/tm2622968d1_ex99-1.htm.txt"
+  }
+ },
+ {
+  "company": "nbis",
+  "metric": "operating_cash_flow",
+  "period_start": "2026-07-01",
+  "period_end": "2026-09-30",
+  "value": -273000000,
+  "unit": "USD",
+  "source": {
+   "type": "text",
+   "form": "6-K",
+   "accession": "0001104659-26-126008",
+   "filed": "2026-11-12",
+   "url": "https://www.sec.gov/Archives/edgar/data/1513845/000110465926126008/tm2629571d1_ex99-1.htm",
+   "label": "Net cash provided by / (used in) operating activities",
+   "quote": "Net cash provided by / (used in) operating activities (80.6 ) (273.0 )",
+   "text_file": "data/raw/filings/nbis/0001104659-26-126008/tm2629571d1_ex99-1.htm.txt"
+  }
+ },
+ {
+  "company": "nbis",
   "metric": "operating_income",
   "period_start": "2025-07-01",
   "period_end": "2025-09-30",
@@ -537,6 +987,96 @@
    "label": "income from operations",
    "quote": "income from operations of $50.4 million in the third quarter of 2026, compared with a loss from operations of $130.2 million in the comparative period",
    "text_file": "data/raw/filings/nbis/0001104659-26-126238/nbis-ex99d1.htm.txt"
+  }
+ },
+ {
+  "company": "nbis",
+  "metric": "ppe",
+  "period_start": null,
+  "period_end": "2025-09-30",
+  "value": 3314400000,
+  "unit": "USD",
+  "source": {
+   "type": "text",
+   "form": "6-K",
+   "accession": "0001104659-25-110831",
+   "filed": "2025-11-13",
+   "url": "https://www.sec.gov/Archives/edgar/data/1513845/000110465925110831/tm2531034d1_ex99-2.htm",
+   "label": "Property and equipment",
+   "quote": "Property and equipment 7 846.7 3,314.4",
+   "text_file": "data/raw/filings/nbis/0001104659-25-110831/tm2531034d1_ex99-2.htm.txt"
+  }
+ },
+ {
+  "company": "nbis",
+  "metric": "ppe",
+  "period_start": null,
+  "period_end": "2025-12-31",
+  "value": 5553300000,
+  "unit": "USD",
+  "source": {
+   "type": "text",
+   "form": "20-F",
+   "accession": "0001104659-26-052948",
+   "filed": "2026-04-30",
+   "url": "https://www.sec.gov/Archives/edgar/data/1513845/000110465926052948/nbis-20251231x20f.htm",
+   "label": "Property and equipment",
+   "quote": "Property and equipment 7 846.7 ​ 5,553.3",
+   "text_file": "data/raw/filings/nbis/0001104659-26-052948/nbis-20251231x20f.htm.txt"
+  }
+ },
+ {
+  "company": "nbis",
+  "metric": "ppe",
+  "period_start": null,
+  "period_end": "2026-03-31",
+  "value": 7131700000,
+  "unit": "USD",
+  "source": {
+   "type": "text",
+   "form": "6-K",
+   "accession": "0001104659-26-064092",
+   "filed": "2026-05-20",
+   "url": "https://www.sec.gov/Archives/edgar/data/1513845/000110465926064092/nbis-20260331xex99d2.htm",
+   "label": "Property and equipment",
+   "quote": "Property and equipment 7 5,553.3 ​ 7,131.7",
+   "text_file": "data/raw/filings/nbis/0001104659-26-064092/nbis-20260331xex99d2.htm.txt"
+  }
+ },
+ {
+  "company": "nbis",
+  "metric": "ppe",
+  "period_start": null,
+  "period_end": "2026-06-30",
+  "value": 13045200000,
+  "unit": "USD",
+  "source": {
+   "type": "text",
+   "form": "6-K",
+   "accession": "0001104659-26-094844",
+   "filed": "2026-08-12",
+   "url": "https://www.sec.gov/Archives/edgar/data/1513845/000110465926094844/nbis-20260812xex99d2.htm",
+   "label": "Property and equipment, net",
+   "quote": "Property and equipment, net 7 5,553.3 ​ 13,045.2",
+   "text_file": "data/raw/filings/nbis/0001104659-26-094844/nbis-20260812xex99d2.htm.txt"
+  }
+ },
+ {
+  "company": "nbis",
+  "metric": "ppe",
+  "period_start": null,
+  "period_end": "2026-09-30",
+  "value": 19341900000,
+  "unit": "USD",
+  "source": {
+   "type": "text",
+   "form": "6-K",
+   "accession": "0001104659-26-126238",
+   "filed": "2026-11-12",
+   "url": "https://www.sec.gov/Archives/edgar/data/1513845/000110465926126238/nbis-ex99d2.htm",
+   "label": "Property and equipment, net",
+   "quote": "Property and equipment, net 7 5,553.3 ​ 19,341.9",
+   "text_file": "data/raw/filings/nbis/0001104659-26-126238/nbis-ex99d2.htm.txt"
   }
  },
  {

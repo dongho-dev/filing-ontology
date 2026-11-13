@@ -1,7 +1,7 @@
 """글에서 뽑은 값(data/work/)을 검토 규칙에 따라 걸러 ontology/에 옮긴다.
 
 쓰는 법: python scripts/merge_text.py
-입력: data/work/nbis_values.json, data/work/text_values.json, data/work/*_relations.json
+입력: data/work/nbis_values.json, nbis_values2.json, text_values.json, data/work/*_relations.json
 출력: ontology/values_text.json, ontology/relations.json
 
 검토하며 정한 규칙(2026-11-13):
@@ -9,6 +9,9 @@
 - 같은 회사·지표·기간이 여러 문서에 있으면 나중에 제출된 문서의 값을 쓴다.
 - 기간 말 시점의 값(전력, 현금, 수주 잔고)은 시작일을 비운다.
 - 네비우스 2026년 3분기의 최대 고객 비중은 처음 뽑을 때 빠졌다(표의 열을 잘못 읽음). 표에서 다시 읽어 넣는다.
+- 차입금은 다섯 분기 모두 재무상태표의 두 줄(Debt, current / Debt, non-current)로 맞춘다(2026-11-13).
+  2026년 3분기는 주석의 합계(Total debt 14,162.8)로 뽑혔는데, 재무상태표 합(14,190.8)과 28.0 차이가 나고
+  앞 분기들과 기준이 달라서 쓰지 않고, 재무상태표의 두 줄을 표에서 읽어 넣는다. 합계는 계산 지표(debt)가 만든다.
 """
 import json
 import pathlib
@@ -24,10 +27,10 @@ def load(name: str) -> list[dict]:
     return json.loads(p.read_text(encoding="utf-8")) if p.exists() else []
 
 
-def table_row_quote(text_file: str, row_label: str, cells: int) -> str:
-    """한 칸이 한 줄로 풀린 표에서, 행 이름부터 값 cells개까지를 원문 그대로 이어 붙인다."""
+def table_row_quote(text_file: str, row_label: str, cells: int, after: str = "accounted for 10% or more") -> str:
+    """한 칸이 한 줄로 풀린 표에서, 행 이름부터 값 cells개까지를 원문 그대로 이어 붙인다. after가 든 줄 뒤에서 찾는다."""
     lines = (ROOT / text_file).read_text(encoding="utf-8").split("\n")
-    start = next(i for i, ln in enumerate(lines) if "accounted for 10% or more" in ln)
+    start = next(i for i, ln in enumerate(lines) if after in ln)
     i = next(k for k in range(start, len(lines)) if lines[k].replace("​", "").strip() == row_label)
     j, seen = i + 1, 0
     while seen < cells:
@@ -52,8 +55,36 @@ def nbis_q3_2026_top_customer() -> dict:
     }
 
 
+def nbis_q3_2026_debt() -> list[dict]:
+    """재무상태표의 차입금 두 줄. 열 순서는 (주석 번호, 2025-12-31, 2026-09-30)이다."""
+    tf = "data/raw/filings/nbis/0001104659-26-126238/nbis-ex99d2.htm.txt"
+    out = []
+    for metric, label, value in (("debt_current", "Debt, current", 187.5e6), ("debt_noncurrent", "Debt, non-current", 14003.3e6)):
+        out.append({
+            "company": "nbis", "metric": metric, "period_start": None, "period_end": "2026-09-30", "value": round(value), "unit": "USD",
+            "source": {
+                "type": "text", "form": "6-K", "accession": "0001104659-26-126238", "filed": "2026-11-12",
+                "url": "https://www.sec.gov/Archives/edgar/data/1513845/000110465926126238/nbis-ex99d2.htm",
+                "label": label, "quote": table_row_quote(tf, label, 3, after="CONSOLIDATED BALANCE SHEET"), "text_file": tf,
+            },
+        })
+    return out
+
+
+def second_batch() -> list[dict]:
+    """두 번째로 뽑은 값(조정 EBITDA, 이자비용, 영업현금흐름, 유형자산, 차입금)을 지표 이름에 맞춘다."""
+    out = []
+    for v in load("nbis_values2.json"):
+        if v["metric"] == "debt":
+            continue  # 주석의 합계. 위 규칙대로 쓰지 않는다
+        if v["metric"] == "debt_component":
+            v = dict(v, metric="debt_noncurrent" if "non-current" in v["source"]["label"] else "debt_current")
+        out.append(v)
+    return out + nbis_q3_2026_debt()
+
+
 def main() -> None:
-    values = load("nbis_values.json") + load("text_values.json") + [nbis_q3_2026_top_customer()]
+    values = load("nbis_values.json") + load("text_values.json") + [nbis_q3_2026_top_customer()] + second_batch()
     kept: dict[tuple, dict] = {}
     dropped = 0
     for v in values:

@@ -233,10 +233,11 @@ function showPanel(key) {
     const tag = src.tag ? ` · 항목 ${esc(src.tag)}` : "";
     const label = src.label ? ` · 원문 표현 "${esc(src.label)}"` : "";
     const quote = src.quote ? `<div class="q">${esc(src.quote)}</div>` : "";
+    const parts = src.inputs ? `<div class="d" style="white-space:normal">재료: ${src.inputs.map(x => `<button class="b sm" data-act="panel" data-key="${esc(cid + "|" + x.metric)}">${esc(M[x.metric]?.name || x.metric)} ${fmt(x.value, x.unit)}</button>`).join(" ")}</div>` : "";
     const rv = v.review || {};
     const fix = rv.status === "corrected" ? `<div class="d">원래 값 ${fmt(rv.original_value, m.unit)} · 정정 이유: ${esc(rv.note)}</div>` : "";
     const btn = rv.status === "unreviewed" ? `<br><button class="b sm" data-act="review" data-key="${esc(cid + "|" + mid + "|" + v.period_end)}"${API ? "" : " disabled"}>검토함으로 표시</button><span class="err" data-err="${esc(cid + "|" + mid + "|" + v.period_end)}"></span>` : "";
-    h += `<tr><td>${v.period_start ? v.period_start + " ~ " : ""}${v.period_end}</td><td>${fmt(v.value, m.unit)}${stTag(v)}${btn}</td><td>${links}${links ? " · " : ""}${esc(src.how || "")}${tag}${label}${quote}${fix}</td></tr>`;
+    h += `<tr><td>${v.period_start ? v.period_start + " ~ " : ""}${v.period_end}</td><td>${fmt(v.value, m.unit)}${stTag(v)}${btn}</td><td>${links}${links ? " · " : ""}${esc(src.how || "")}${tag}${label}${quote}${parts}${fix}</td></tr>`;
   }
   if (!API && s.some(v => v.review?.status === "unreviewed")) h += `<tr><td colspan="3"><div class="off">${OFF_MSG}</div></td></tr>`;
   document.getElementById("panel").innerHTML = h + "</tbody></table>";
@@ -280,7 +281,8 @@ function basisLine(b, unit) {
   const f = b.filing || {};
   const link = f.url ? `<a href="${esc(f.url)}" target="_blank" rel="noopener">${esc(f.form)} · ${esc(f.filed)} 제출</a>` : "근거 공시 없음";
   const st = ST[b.review] ? ` <span class="st ${ST[b.review][1]}">${ST[b.review][0]}</span>` : "";
-  return `<div>${esc(b.period_end)} 값 ${fmt(b.value, unit)}${st}${b.label ? ` · 원문 표현 "${esc(b.label)}"` : ""}<br>${link}</div>`;
+  const more = b.metric ? ` · <button class="b sm" data-act="panel" data-key="${esc(b.company + "|" + b.metric)}">값의 근거 보기</button>` : "";
+  return `<div>${esc(b.period_end)} 값 ${fmt(b.value, unit)}${st}${b.label ? ` · 원문 표현 "${esc(b.label)}"` : ""}<br>${link}${more}</div>`;
 }
 function judgeForm(t, c) {
   const key = `${t.id}|${c.id}|${t.period_end}`;
@@ -454,6 +456,7 @@ document.addEventListener("click", e => {
   if (!b || b.disabled) return;
   const card = b.closest(".al"), act = b.dataset.act;
   if (act === "goto") return showTab(b.dataset.id);
+  if (act === "panel") { showTab("fixed"); showPanel(b.dataset.key); document.getElementById("panel").scrollIntoView({block: "start"}); return; }
   if (act === "review") {
     const [company, metric, period_end] = b.dataset.key.split("|");
     post({type: "review", target: {company, metric, period_end}, note: ""}, card ? card.dataset.aid : b.dataset.key);
