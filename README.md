@@ -57,6 +57,7 @@ python scripts/serve.py            # http://localhost:8765 에서 본다. 화면
 - 엔비디아가 세 회사에 GPU를 공급한다는 관계와 그 근거 문장.
 - 화면은 탭 다섯 개와 질의 화면으로 나뉩니다. 개요(회사 하나: 핵심 숫자, 매출·마진 흐름, 부문 들여다보기, 모든 지표), 비교(공급 관계 그림과 지표별 회사 막대), 가설, 알림, 기록. 값을 누르면 오른쪽 서랍에 정의·추이·근거 공시가 나옵니다. 주소 뒤에 `#compare`처럼 탭 이름을 붙이면 그 탭이 바로 열립니다. 질의 화면은 질문 하나에 맞춘 화면이고 `views/*.json`으로 정의합니다(첫 화면: "네비우스가 분기마다 가격에 대해 한 말").
 - 쉬운 설명: `dashboard/nebius-story.html`(http://localhost:8765/nebius-story.html)은 네비우스의 서비스와 돈의 흐름을 PC방 비유로 처음부터 끝까지 풀어 쓴 한 장짜리 페이지입니다. 숫자는 2026년 3분기 공시 기준으로 고정되어 있어, 새 분기 공시가 나오면 손으로 고쳐야 합니다.
+- 돈의 흐름: `dashboard/nebius-flow.html`(http://localhost:8765/nebius-flow.html)은 분기마다 통장으로 들어온 돈과 나간 돈, 번 돈과 쓴 곳을 굵기가 금액인 띠 두 장으로 그린다. 분기를 넘기면 띠가 움직이고(2024년 3분기~2026년 3분기), 칸을 누르면 설명과 분기별 크기가 나온다. 주소 끝에 `#25Q4`처럼 붙이면 그 분기로 열린다.
 - 처음부터 지금까지: `dashboard/nebius-journey.html`(http://localhost:8765/nebius-journey.html)은 2024년 7월 러시아 사업 매각부터 2026년 3분기까지를 "무슨 일이 → 그래서 → 그런데"로 잇는 이야기 페이지입니다. 분기 비교와 같은 자료 파일을 읽습니다. 사건 재료는 `python scripts/fetch_filings.py nbis <시작일> <끝일>`로 받은 공시에서 뽑아 `data/work/nbis_letters*.json`에 두고, 만들 때 인용문이 원문에 그대로 있는지 검사합니다.
 - 분기 비교: `dashboard/nebius-quarters.html`(http://localhost:8765/nebius-quarters.html)은 네비우스의 11개 분기(2024년 1분기~2026년 3분기)를 두 분기씩 골라 나란히 보는 설명 페이지입니다. 자료는 `python -I scripts/build_nebius_quarters.py`가 공시 원문에서 다시 뽑아 `dashboard/nebius-quarters.data.js`로 씁니다(분기 합 = 누계, 매출 − 비용 = 영업이익을 검산). 새 분기가 나오면 스크립트의 파일 목록과 분기 목록에 한 줄씩 더하면 됩니다.
 - 고리: 감시 조건에 걸린 변화가 "알림" 탭에 뜨고, 화면에서 검토함 표시·값 정정·가려진 고객 잇기를 하면 `ontology/actions.jsonl`에 기록되어 다음 화면에 반영됩니다(구상 문서 16장).

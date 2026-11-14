@@ -1,0 +1,335 @@
+<!doctype html>
+<html lang="ko">
+<head>
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width,initial-scale=1">
+<title>네비우스 돈의 흐름</title>
+<style>
+:root{
+  --bg:#f6f4ef;--card:#ffffff;--ink:#1d1f23;--ink2:#4f5560;--mute:#868c97;--line:#e3e0d8;--soft:#efece5;
+  --s1:#2a78d6;--s2:#eb6834;--s3:#1baf7a;--s4:#eda100;--g1:#8e96a3;--g2:#c2c7cf;--g3:#646c78;
+  --good:#0ca30c;--crit:#d03b3b;
+}
+@media (prefers-color-scheme:dark){:root{
+  --bg:#14161a;--card:#1d2025;--ink:#eceef1;--ink2:#b5bbc6;--mute:#7f8692;--line:#30343b;--soft:#262a30;
+  --s1:#3987e5;--s2:#d95926;--s3:#199e70;--s4:#c98500;--g1:#737b88;--g2:#4b515b;--g3:#98a0ad;
+  --good:#3cc43c;--crit:#e25d5d;
+}}
+*{box-sizing:border-box}
+body{margin:0;background:var(--bg);color:var(--ink);font:17px/1.7 "Pretendard","Apple SD Gothic Neo","Malgun Gothic","Noto Sans KR",sans-serif;word-break:keep-all;overflow-wrap:anywhere}
+a{color:inherit}
+.wrap{max-width:940px;margin:0 auto;padding:0 16px 70px}
+nav.top .in{max-width:940px;margin:0 auto;padding:10px 16px 0;display:flex;gap:6px;overflow-x:auto;white-space:nowrap;font-size:14px}
+nav.top a{text-decoration:none;padding:4px 10px;border-radius:999px;background:var(--soft);color:var(--ink2)}
+nav.top a.home{background:none;font-weight:700;color:var(--ink);padding-left:0}
+h1{font-size:clamp(26px,5.4vw,38px);line-height:1.25;margin:26px 0 6px;letter-spacing:-.02em}
+.lead{font-size:17px;color:var(--ink2);margin:0 0 12px}
+.pick{position:sticky;top:0;z-index:6;background:var(--bg);border-bottom:1px solid var(--line);margin:0 -16px;padding:8px 16px}
+.pick .row{display:flex;gap:6px;align-items:center;overflow-x:auto;white-space:nowrap}
+button{font:inherit;font-size:14.5px;color:var(--ink2);background:var(--soft);border:1px solid transparent;border-radius:999px;padding:5px 12px;cursor:pointer;font-variant-numeric:tabular-nums}
+button.on{background:var(--ink);color:var(--bg);font-weight:700}
+button.ctl{background:var(--card);border-color:var(--line);color:var(--ink)}
+button:focus-visible{outline:2px solid var(--s1);outline-offset:1px}
+.now{margin:18px 0 6px}
+.now .q{font-size:14px;color:var(--mute);font-weight:700}
+.now h2{font-size:clamp(21px,4.4vw,28px);line-height:1.35;margin:2px 0 0;letter-spacing:-.01em}
+.ctx{display:grid;grid-template-columns:1fr 1fr;gap:8px;margin:10px 0 0}
+.ctx button,.ctx div{display:block;text-align:left;white-space:normal;border-radius:10px;padding:8px 12px;font-size:14px;line-height:1.5;color:var(--ink2);background:var(--soft);border:0}
+.ctx b{display:block;font-size:12px;color:var(--mute);font-weight:700}
+@media (max-width:560px){.ctx{grid-template-columns:1fr}}
+.card{background:var(--card);border:1px solid var(--line);border-radius:16px;padding:18px;margin:14px 0}
+.card h3{margin:0;font-size:17px}
+.card .sub{font-size:14.5px;color:var(--ink2);margin:2px 0 10px}
+.heads{display:flex;justify-content:space-between;font-size:13px;font-weight:700;color:var(--mute);margin-bottom:4px}
+.sk svg{display:block;overflow:visible}
+.sk text{font-size:13px;fill:var(--ink);paint-order:stroke;stroke:var(--card);stroke-width:4px;stroke-linejoin:round;font-variant-numeric:tabular-nums}
+.sk text.n{font-weight:700}
+.sk text.d{font-size:12px;fill:var(--ink2)}
+.sk text.v{font-size:12.5px}
+.sk .hit{cursor:pointer}
+.sk .rib{opacity:.38;transition:opacity .15s}
+.sk .rib.on{opacity:.75}
+.det{margin-top:12px;padding:12px 14px;background:var(--soft);border-radius:12px;font-size:15px;min-height:74px}
+.det b.t{display:inline-flex;align-items:center;gap:6px;font-size:15.5px}
+.det .sw{width:12px;height:12px;border-radius:3px;display:inline-block}
+.det p{margin:4px 0 0;color:var(--ink2)}
+.det .num{font-variant-numeric:tabular-nums;color:var(--ink);font-weight:700}
+.hist{display:flex;align-items:flex-end;gap:3px;height:44px;margin-top:8px}
+.hist i{flex:1;max-width:26px;border-radius:3px 3px 0 0;background:var(--g2);min-height:2px}
+.hist i.on{background:var(--ink)}
+.histq{display:flex;gap:3px;font-size:10.5px;color:var(--mute);font-variant-numeric:tabular-nums}
+.histq span{flex:1;max-width:26px;text-align:center}
+.film{display:flex;align-items:flex-end;gap:6px;height:92px;margin-top:10px}
+.film button{flex:1;display:flex;flex-direction:column;justify-content:flex-end;align-items:center;gap:3px;height:100%;background:none;border:0;border-radius:6px;padding:0;font-size:11.5px;color:var(--mute)}
+.film button i{display:block;width:100%;max-width:38px;border-radius:4px 4px 0 0;background:var(--g2)}
+.film button.on i{background:var(--s1)}
+.film button.on{color:var(--ink);font-weight:700}
+.film button b{font-weight:inherit;font-size:11px;font-variant-numeric:tabular-nums}
+.link{display:flex;gap:10px;align-items:flex-start;margin:6px 0;padding:10px 14px;border-left:4px solid var(--s2);background:var(--soft);border-radius:8px;font-size:15px;color:var(--ink2)}
+.evl{margin:6px 0 0;padding-left:20px;font-size:15px}
+.evl li{margin-bottom:5px}
+.evl .dt{font-size:13px;color:var(--mute);margin-right:6px}
+.evl a{font-size:12.5px;color:var(--mute);margin-left:4px;white-space:nowrap}
+footer{margin-top:30px;padding-top:16px;border-top:1px solid var(--line);font-size:13.5px;color:var(--mute);line-height:1.7}
+footer a{color:var(--ink2)}
+</style>
+</head>
+<body>
+<nav class="top"><div class="in">
+  <a class="home" href="./">← 대시보드</a><a href="nebius-journey.html">처음부터 지금까지</a><a href="nebius-quarters.html">분기 비교</a><a href="nebius-story.html">쉬운 설명</a>
+</div></nav>
+<div class="wrap">
+  <h1>네비우스의 돈은 어디서 와서 어디로 갔을까요?</h1>
+  <p class="lead">왼쪽에서 들어와 오른쪽으로 나가요. 띠가 굵을수록 큰돈이에요. 분기를 넘기면 띠가 움직이고, 칸을 누르면 그 돈이 무엇인지 나와요.</p>
+
+  <div class="pick"><div class="row" id="chips">
+    <button class="ctl" id="prev" aria-label="앞 분기">◀</button>
+    <span id="qs" style="display:contents"></span>
+    <button class="ctl" id="next" aria-label="다음 분기">▶</button>
+    <button class="ctl" id="play">▶ 이어 보기</button>
+  </div></div>
+
+  <div class="now"><div class="q" id="nq"></div><h2 id="nh"></h2></div>
+  <div class="ctx" id="ctx"></div>
+
+  <div class="card">
+    <h3>① 통장으로 들어온 돈 → 나간 돈</h3>
+    <p class="sub" id="s1"></p>
+    <div class="heads"><span>들어온 곳</span><span>네비우스 통장</span><span>나간 곳</span></div>
+    <div class="sk" id="k1"></div>
+    <div class="det" id="d1"></div>
+    <div class="film" id="film" aria-label="분기마다 움직인 돈의 크기"></div>
+    <p class="sub" style="margin:6px 0 0">아래 막대는 분기마다 통장을 거쳐 간 돈의 크기예요(억 달러). 위 그림은 분기마다 높이를 꽉 채워 그려서, 크기는 이 막대로 견줘 보세요.</p>
+  </div>
+
+  <div class="link" id="bridge"></div>
+
+  <div class="card">
+    <h3>② 번 돈은 어디에 썼나요? (장부로 본 석 달)</h3>
+    <p class="sub" id="s2"></p>
+    <div class="heads"><span>번 돈</span><span>석 달 장사</span><span>쓴 곳</span></div>
+    <div class="sk" id="k2"></div>
+    <div class="det" id="d2"></div>
+  </div>
+
+  <div class="card">
+    <h3>이 분기에 있었던 일</h3>
+    <ul class="evl" id="ev"></ul>
+  </div>
+
+  <footer>
+    <p>· 금액은 모두 회사가 미국 증권거래위원회(SEC)에 낸 공시에서 가져왔어요. ①의 "손님에게서 받은 돈"과 "장사를 굴리는 데 나간 돈"은 공시에 따로 없어 계산한 어림값이에요(받은 돈 = 매출 + 선불 증가 − 외상 증가, 나간 돈 = 받은 돈 − 영업현금흐름). 2024년 3분기는 이 계산에 필요한 값이 없어 장사 쪽을 한 칸으로 그렸어요.<br>
+    · ①의 "그 밖"은 다른 회사 투자·인수, 용도가 묶인 돈, 환율 차이처럼 따로 뽑지 않은 것을 모은 칸이에요. ②는 이자로 받은 돈·세금·한 번뿐인 평가이익을 뺀 그림이에요.<br>
+    · 4분기 값은 "1년 값 − 9개월 값"이에요. 이 페이지는 공시를 쉽게 풀어 쓴 설명이고, 주식을 사라거나 팔라는 뜻이 아니에요.</p>
+  </footer>
+</div>
+
+<script src="nebius-quarters.data.js"></script>
+<script>
+(function(){
+var D = window.NBQ, Q = D.quarters, S = D.series;
+var ok = function(v){ return v !== null && v !== undefined && !isNaN(v); };
+function eok(v){ var a = Math.abs(v) / 100, s = v < 0 ? '−' : ''; return s + (a >= 100 ? a.toFixed(0) : a >= 10 ? a.toFixed(1) : a.toFixed(2)) + '억'; }
+var qname = function(q){ return '20' + q.slice(0, 2) + '년 ' + q.slice(3) + '분기'; };
+var first = Q.indexOf('24Q3'), IDX = []; for (var i = first; i < Q.length; i++) IDX.push(i);
+
+// 칸 설명
+var INFO = {
+  got: ['손님에게서 받은 돈', 'var(--s1)', '손님이 실제로 보낸 돈이에요. 쓴 만큼 낸 요금에, 앞으로 쓸 몫을 미리 낸 선불을 더하고, 아직 안 낸 외상을 뺀 값이에요.'],
+  ocfIn: ['장사에서 들어온 돈', 'var(--s1)', '손님에게 받은 돈에서 장사에 쓴 돈을 빼고 남아 들어온 돈이에요.'],
+  fin: ['빌리고 투자받은 돈', 'var(--s2)', '빚을 내거나 주식을 팔아 받은 돈이에요. 장사와 상관없이 밖에서 구해 온 돈이에요.'],
+  draw: ['통장에서 꺼낸 돈', 'var(--g1)', '들어온 돈보다 나간 돈이 많아, 전에 모아 둔 현금을 꺼내 썼어요.'],
+  othIn: ['그 밖에 들어온 돈', 'var(--g2)', '투자했던 돈을 돌려받는 등 따로 뽑지 않은 것을 모은 칸이에요.'],
+  capex: ['GPU·건물을 산 돈', 'var(--s3)', 'GPU 서버를 사고 데이터센터를 짓는 데 쓴 돈이에요. 한 번 사면 5년쯤 쓰는 물건이라, 장부(②)에는 "낡는 값"으로 조금씩 나뉘어 들어가요.'],
+  opOut: ['장사를 굴리는 데 나간 돈', 'var(--s4)', '임차료, 전기, 월급, 이자처럼 매달 나가는 돈이에요.'],
+  ocfOut: ['장사에서 빠져나간 돈', 'var(--s4)', '손님에게 받은 돈보다 장사에 쓴 돈이 많아 빠져나간 돈이에요.'],
+  finOut: ['갚거나 낸 돈', 'var(--s2)', '빌려준 사람에게 갚거나 세금처럼 돈을 댄 쪽 일로 나간 돈이에요.'],
+  oth: ['그 밖에 나간 돈', 'var(--g2)', '다른 회사에 투자하거나 회사를 산 돈, 용도가 묶인 돈처럼 따로 뽑지 않은 것을 모은 칸이에요.'],
+  add: ['통장에 쌓인 돈', 'var(--g1)', '쓰고 남아 통장에 쌓인 현금이에요. 다음 분기에 쓸 수 있어요.'],
+  rev: ['매출', 'var(--s1)', '석 달 동안 손님에게 서비스를 해 주고 번 돈이에요. 아직 못 받은 외상도 들어가고, 미리 받은 선불은 서비스를 해 줄 때까지 안 들어가요.'],
+  hole: ['모자란 돈(손해)', 'var(--g1)', '번 돈보다 쓴 돈이 많아 생긴 구멍이에요. 이 구멍은 ①의 "빌리고 투자받은 돈"과 선불이 메웠어요.'],
+  cor: ['건물 임차료·전기·운영', 'var(--s4)', '데이터센터 자리를 빌리고 전기를 쓰고 돌리는 데 든 돈이에요.'],
+  pd: ['개발자', 'var(--g2)', '서비스를 만들고 고치는 사람들에게 든 돈이에요.'],
+  sga: ['영업·관리', 'var(--g3)', '손님을 찾고 회사를 꾸리는 데 든 돈이에요.'],
+  da: ['컴퓨터가 낡는 값', 'var(--s3)', '①에서 산 GPU·건물 값을 쓰는 햇수로 나눠 적은 돈이에요. 통장에서 나가진 않지만, 나중에 새로 사려면 그만큼 벌어 둬야 해요.'],
+  intr: ['이자', 'var(--s2)', '①에서 빌린 돈에 붙는 이자예요. 빚이 늘수록 커져요.'],
+  left: ['남은 돈', 'var(--ink)', '쓸 것을 다 쓰고 이자까지 낸 뒤 남은 돈이에요.']
+};
+// 분기마다 한마디와 덧붙임
+var NOTE = {
+  '24Q3': ['새 출발. 가진 것은 통장의 23억 달러였어요.', {}],
+  '24Q4': ['주식 거래가 다시 열리고, 7억 달러를 투자받았어요.', {fin: '12월에 Accel, 엔비디아, Orbis 등에게 주식을 주고 7억 달러를 받았어요.'}],
+  '25Q1': ['데이터센터를 다섯 곳으로 늘리느라 통장에서 10억 달러를 꺼냈어요.', {finOut: '네덜란드에 낸 배당 관련 세금 1.8억 달러예요.', draw: '석 달 만에 통장이 24억에서 14억 달러로 줄었어요.'}],
+  '25Q2': ['통장이 줄자 처음으로 빚을 냈어요.', {fin: '6월에 전환사채(나중에 주식으로 바꿔 받을 수 있는 빚) 10억 달러를 냈어요.'}],
+  '25Q3': ['마이크로소프트·메타와 계약하고, 이틀 뒤 43억 달러를 구했어요.', {fin: '9월에 전환사채 31.6억, 주식 공모 11.5억 달러.'}],
+  '25Q4': ['큰손이 요금을 미리 내기 시작했어요.', {got: '선불 잔액이 석 달 만에 0.2억에서 15.8억 달러로 뛰었어요.'}],
+  '26Q1': ['메타의 두 번째 계약과 엔비디아의 투자. 오가는 돈이 한 자리 커졌어요.', {fin: '전환사채 43억, 엔비디아 투자 20억 달러.'}],
+  '26Q2': ['약속한 자리를 지으려고 짓는 돈이 두 배로 뛰었어요.', {fin: '이 분기에는 새 빚 없이 주로 주식을 팔아 구했어요.'}],
+  '26Q3': ['장사만 보면 처음으로 돈이 남았어요. 대신 못 받은 외상이 쌓였어요.', {fin: '8월 전환사채, 7월 은행 대출 7.7억, 주식 판매.', got: '서비스는 했는데 아직 못 받은 외상이 석 달 사이 3억에서 40억 달러로 불어, 받은 돈이 앞 분기보다 줄었어요.'}]
+};
+function node(id, v){ return {id: id, v: v}; }
+function cashModel(i){
+  var p = i - 1, L = [], R = [], ocf = S.ocf[i], fin = S.fin[i], cap = S.capex[i], dC = S.cash[i] - S.cash[p], extra = '';
+  var can = ok(S.ar[i]) && ok(S.ar[p]) && ok(S.defrev[i]) && ok(S.defrev[p]);
+  var dD = can ? S.defrev[i] - S.defrev[p] : 0, dA = can ? S.ar[i] - S.ar[p] : 0, got = S.rev[i] + dD - dA;
+  if (can && got > 0 && got - ocf > 0){
+    L.push(node('got', got)); R.push(node('opOut', got - ocf));
+    extra = '매출 ' + eok(S.rev[i]) + (dD >= 0 ? ' + 선불 증가 ' : ' − 선불 감소 ') + eok(Math.abs(dD)) + (dA >= 0 ? ' − 외상 증가 ' : ' + 외상 회수 ') + eok(Math.abs(dA)) + ' = ' + eok(got) + ' 달러';
+  } else if (ocf >= 0) L.push(node('ocfIn', ocf)); else R.push(node('ocfOut', -ocf));
+  if (fin >= 5) L.push(node('fin', fin)); else if (fin <= -5) R.push(node('finOut', -fin));
+  R.unshift(node('capex', cap));
+  var oth = ocf + fin - cap - dC;
+  if (dC < 0) L.push(node('draw', -dC)); else R.push(node('add', dC));
+  if (oth > 5) R.push(node('oth', oth)); else if (oth < -5) L.push(node('othIn', -oth));
+  var order = {capex: 0, opOut: 1, ocfOut: 1, finOut: 2, oth: 3, add: 4};
+  R.sort(function(a, b){ return order[a.id] - order[b.id]; });
+  var sum = function(a){ return a.reduce(function(s, n){ return s + n.v; }, 0); };
+  return {L: L, R: R, total: Math.max(sum(L), sum(R)), extra: extra};
+}
+function plModel(i){
+  var L = [node('rev', S.rev[i])], R = [node('cor', S.cor[i]), node('pd', S.pd[i]), node('sga', S.sga[i]), node('da', S.da[i])];
+  if (S.int_exp[i] > 0.05) R.push(node('intr', S.int_exp[i]));
+  var net = S.op[i] - S.int_exp[i];
+  if (net >= 0) R.push(node('left', net)); else L.push(node('hole', -net));
+  return {L: L, R: R, total: L.reduce(function(s, n){ return s + n.v; }, 0), net: net};
+}
+var CM = {}, PM = {}; IDX.forEach(function(i){ CM[i] = cashModel(i); PM[i] = plModel(i); });
+function val(model, id){ var all = model.L.concat(model.R); for (var k = 0; k < all.length; k++) if (all[k].id === id) return all[k].v; return 0; }
+
+// 흐름도 그리기
+function layout(nodes, total, H, top, minH){
+  var gap = 8, avail = H - top - gap * (nodes.length - 1), hs = nodes.map(function(n){ return n.v / total * avail; });
+  var small = hs.filter(function(h){ return h < minH; }).length, big = hs.reduce(function(s, h){ return s + (h >= minH ? h : 0); }, 0);
+  var f = small ? Math.max(0.2, (avail - small * minH) / (big || 1)) : 1, y = top;
+  return nodes.map(function(n, k){ var h = hs[k] < minH ? minH : hs[k] * f, o = {n: n, y: y, h: h}; y += h + gap; return o; });
+}
+function draw(el, m, prevM, sel){
+  var W = el.clientWidth || 600, narrow = W < 520, H = narrow ? 400 : 380, top = 4, bw = 12, cx0 = W / 2 - 8, cx1 = W / 2 + 8;
+  var mh = narrow ? 38 : 30, Lb = layout(m.L, m.total, H, top, mh), Rb = layout(m.R, m.total, H, top, mh);
+  var cH = H - top, s = '<svg viewBox="0 0 ' + W + ' ' + H + '" width="' + W + '" height="' + H + '" role="img">';
+  function side(boxes, isL){
+    var acc = top, labels = '';
+    boxes.forEach(function(b){
+      var info = INFO[b.n.id], ch = b.n.v / m.total * cH, c0 = acc, c1 = acc + ch; acc = c1;
+      var x0 = isL ? bw : W - bw, xc = isL ? cx0 : cx1, mid = (x0 + xc) / 2, on = sel === b.n.id ? ' on' : '';
+      s += '<path class="rib hit' + on + '" data-id="' + b.n.id + '" fill="' + info[1] + '" d="M' + x0 + ',' + b.y + 'C' + mid + ',' + b.y + ' ' + mid + ',' + c0 + ' ' + xc + ',' + c0 + 'L' + xc + ',' + c1 + 'C' + mid + ',' + c1 + ' ' + mid + ',' + (b.y + b.h) + ' ' + x0 + ',' + (b.y + b.h) + 'Z"/>';
+      s += '<rect class="hit" data-id="' + b.n.id + '" x="' + (isL ? 0 : W - bw) + '" y="' + b.y + '" width="' + bw + '" height="' + b.h + '" rx="3" fill="' + info[1] + '"/>';
+      var tx = isL ? bw + 6 : W - bw - 6, an = isL ? 'start' : 'end', ty = b.y + Math.min(b.h / 2, 60) + (b.h < 44 ? 4 : -3);
+      var pv = prevM ? val(prevM, b.n.id) : null, dl = '';
+      if (pv !== null && b.h >= 44){ var df = b.n.v - pv; dl = pv ? (df >= 0 ? '▲ ' : '▼ ') + eok(Math.abs(df)) + ' (앞 분기 ' + eok(pv) + ')' : '이번 분기에 새로 생김'; }
+      if (narrow){
+        var ny = b.y + Math.min(b.h / 2, 50) - 3;
+        labels += '<text class="n hit" data-id="' + b.n.id + '" text-anchor="' + an + '" x="' + tx + '" y="' + ny + '">' + info[0] + '</text><text class="v" text-anchor="' + an + '" x="' + tx + '" y="' + (ny + 15) + '">' + eok(b.n.v) + '</text>';
+        return;
+      }
+      labels += '<text class="n hit" data-id="' + b.n.id + '" text-anchor="' + an + '" x="' + tx + '" y="' + ty + '">' + info[0] + ' ' + eok(b.n.v) + '</text>';
+      if (dl) labels += '<text class="d" text-anchor="' + an + '" x="' + tx + '" y="' + (ty + 17) + '">' + dl + '</text>';
+    });
+    return labels;
+  }
+  var lab = side(Lb, true) + side(Rb, false);
+  s += '<rect x="' + cx0 + '" y="' + top + '" width="16" height="' + cH + '" rx="4" fill="var(--ink)"/>';
+  el.innerHTML = s + lab + '</svg>';
+}
+function tween(el, from, to, prevM, key){
+  var t0 = null, ids = {};
+  function mix(side, t){
+    var out = [];
+    to[side].forEach(function(n){ var a = from ? val(from, n.id) : n.v; out.push({id: n.id, v: Math.max(a + (n.v - a) * t, n.v * 0.02 + 0.01)}); });
+    return out;
+  }
+  function step(ts){
+    if (key !== el._key) return;
+    if (!t0) t0 = ts;
+    var t = Math.min(1, (ts - t0) / 420), e = t < .5 ? 2 * t * t : 1 - Math.pow(-2 * t + 2, 2) / 2, L = mix('L', e), R = mix('R', e);
+    var tl = L.reduce(function(s, n){ return s + n.v; }, 0), tr = R.reduce(function(s, n){ return s + n.v; }, 0), tot = Math.max(tl, tr);
+    draw(el, t >= 1 ? to : {L: L, R: R, total: tot}, t >= 1 ? prevM : null, el._sel);
+    if (t < 1) requestAnimationFrame(step);
+  }
+  el._key = key;
+  if (!from || window.matchMedia('(prefers-reduced-motion: reduce)').matches){ draw(el, to, prevM, el._sel); return; }
+  requestAnimationFrame(step);
+}
+function detail(box, models, i, id, extraNote){
+  var info = INFO[id], v = val(models[i], id), pv = models[i - 1] ? val(models[i - 1], id) : null, q = Q[i];
+  var mx = Math.max.apply(null, IDX.map(function(j){ return val(models[j], id); })) || 1;
+  var h = '<b class="t"><span class="sw" style="background:' + info[1] + '"></span>' + info[0] + ' <span class="num">' + eok(v) + ' 달러</span></b>';
+  if (pv !== null) h += '<p class="num" style="font-weight:400">' + (pv ? '앞 분기 ' + eok(pv) + ' → 이번 ' + eok(v) + ' (' + (v >= pv ? '▲ ' : '▼ ') + eok(Math.abs(v - pv)) + ')' : '앞 분기에는 없던 칸이에요.') + '</p>';
+  h += '<p>' + info[2] + '</p>';
+  var more = (NOTE[q][1][id] || '') + (id === 'got' && models[i].extra ? ' 계산: ' + models[i].extra + '.' : '');
+  if (id === 'opOut') more = '①의 받은 돈에서 영업현금흐름을 뺀 어림값이에요.';
+  if (more) h += '<p>' + more + '</p>';
+  h += '<div class="hist">' + IDX.map(function(j){ return '<i class="' + (j === i ? 'on' : '') + '" style="height:' + Math.max(2, val(models[j], id) / mx * 100) + '%" title="' + Q[j] + ': ' + eok(val(models[j], id)) + '"></i>'; }).join('') + '</div>';
+  h += '<div class="histq">' + IDX.map(function(j){ return '<span>' + (j === i || j === IDX[0] || j === IDX[IDX.length - 1] ? Q[j] : '') + '</span>'; }).join('') + '</div>';
+  box.innerHTML = h;
+}
+var cur = IDX[IDX.length - 1], last = null, k1 = document.getElementById('k1'), k2 = document.getElementById('k2');
+function pickDefault(m, want){ for (var a = 0; a < want.length; a++) if (val(m, want[a])) return want[a]; return m.L[0].id; }
+function show(i, animate){
+  var q = Q[i], c = CM[i], p = PM[i], pc = CM[i - 1] || null, pp = PM[i - 1] || null;
+  cur = i;
+  [].forEach.call(document.querySelectorAll('#qs button'), function(b){
+    b.classList.toggle('on', +b.dataset.i === i);
+    if (+b.dataset.i === i){ var r = document.getElementById('chips'); r.scrollLeft = b.offsetLeft - r.offsetLeft - r.clientWidth / 2 + b.offsetWidth / 2; }
+  });
+  [].forEach.call(document.querySelectorAll('#film button'), function(b){ b.classList.toggle('on', +b.dataset.i === i); });
+  document.getElementById('nq').textContent = qname(q) + ' (' + q + ')';
+  document.getElementById('nh').textContent = NOTE[q][0];
+  var cx = '';
+  cx += Q[i - 1] && NOTE[Q[i - 1]] ? '<button data-i="' + (i - 1) + '"><b>← 바로 앞 ' + Q[i - 1] + '</b>' + NOTE[Q[i - 1]][0] + '</button>' : '<div><b>← 그 전에는</b>2024년 7월 러시아 사업을 팔고 현금 25억 달러쯤과 빚 없는 통장으로 새로 시작했어요.</div>';
+  cx += Q[i + 1] ? '<button data-i="' + (i + 1) + '"><b>바로 뒤 ' + Q[i + 1] + ' →</b>' + NOTE[Q[i + 1]][0] + '</button>' : '<div><b>회사가 말한 앞날 →</b>GPU·건물에 2026년 약 270억, 2027년 400억~450억 달러를 쓰겠다고 했어요.</div>';
+  document.getElementById('ctx').innerHTML = cx;
+  document.getElementById('s1').innerHTML = '이 석 달에 통장을 거쳐 간 돈은 <b>' + eok(c.total) + ' 달러</b>' + (pc ? ' (앞 분기 ' + eok(pc.total) + ')' : '') + '예요.';
+  document.getElementById('s2').innerHTML = '매출 <b>' + eok(S.rev[i]) + ' 달러</b>를 벌어 ' + (p.net >= 0 ? '쓸 것을 쓰고 이자까지 낸 뒤 <b>' + eok(p.net) + ' 달러</b>가 남았어요.' : S.op[i] > 0 ? '장사만 보면 ' + eok(S.op[i]) + ' 달러가 남았지만, 이자를 내고 나니 <b>' + eok(-p.net) + ' 달러</b>가 모자랐어요.' : '쓴 돈과 이자를 대기에 <b>' + eok(-p.net) + ' 달러</b>가 모자랐어요.') + ' 100원을 벌 때 ' + ((p.total - (p.net >= 0 ? p.net : 0) ) / S.rev[i] * 100).toFixed(0) + '원을 쓴 셈이에요.';
+  var capx = S.capex[i], da = S.da[i];
+  document.getElementById('bridge').innerHTML = '<span>두 그림은 이렇게 이어져요. ①에서 <b>GPU·건물을 산 돈 ' + eok(capx) + '</b>은 ②에 바로 들어가지 않고, 여러 해에 걸쳐 <b>"낡는 값" ' + eok(da) + '</b>처럼 조금씩 들어가요. ①에서 <b>빌린 돈</b>은 ②의 <b>이자 ' + eok(S.int_exp[i]) + '</b>가 돼요.' + (p.net < 0 ? ' ②에서 모자란 ' + eok(-p.net) + ' 달러는 ①의 왼쪽(빌린 돈·선불·통장)이 메웠어요.' : '') + '</span>';
+  k1._sel = k1._sel && val(c, k1._sel) ? k1._sel : pickDefault(c, ['fin', 'got', 'draw']);
+  k2._sel = k2._sel && val(p, k2._sel) ? k2._sel : pickDefault(p, ['da', 'hole']);
+  tween(k1, animate && last !== null ? CM[last] : null, c, pc, 'c' + i);
+  tween(k2, animate && last !== null ? PM[last] : null, p, pp, 'p' + i);
+  detail(document.getElementById('d1'), CM, i, k1._sel);
+  detail(document.getElementById('d2'), PM, i, k2._sel);
+  var ev = ((D.events || {})[q] || {}).events || [];
+  document.getElementById('ev').innerHTML = ev.slice(0, 5).map(function(x){
+    var d = x.date ? '<span class="dt">' + (+x.date.slice(5, 7)) + '월 ' + (+x.date.slice(8, 10)) + '일</span>' : '';
+    return '<li>' + d + x.ko + (x.url ? '<a href="' + x.url + '" target="_blank" rel="noopener">원문</a>' : '') + '</li>';
+  }).join('') || '<li>정리된 사건이 없어요.</li>';
+  last = i;
+  try { localStorage.setItem('nbflow', q); } catch (e) {}
+}
+// 조작
+var qs = document.getElementById('qs'), film = document.getElementById('film'), mxT = Math.max.apply(null, IDX.map(function(i){ return CM[i].total; }));
+IDX.forEach(function(i){
+  var b = document.createElement('button'); b.textContent = Q[i]; b.dataset.i = i; b.onclick = function(){ stop(); show(i, true); }; qs.appendChild(b);
+  var f = document.createElement('button'); f.dataset.i = i; f.title = qname(Q[i]) + ': ' + eok(CM[i].total) + ' 달러';
+  f.innerHTML = '<b>' + eok(CM[i].total).replace('억', '') + '</b><i style="height:' + Math.max(3, CM[i].total / mxT * 56) + 'px"></i>' + Q[i];
+  f.onclick = function(){ stop(); show(i, true); }; film.appendChild(f);
+});
+function sel(el, box, models){
+  el.addEventListener('click', function(e){
+    var t = e.target.closest('[data-id]'); if (!t) return;
+    el._sel = t.dataset.id; draw(el, models[cur], models[cur - 1] || null, el._sel); detail(box, models, cur, el._sel);
+  });
+}
+document.getElementById('ctx').addEventListener('click', function(e){ var b = e.target.closest('button[data-i]'); if (b){ stop(); show(+b.dataset.i, true); } });
+sel(k1, document.getElementById('d1'), CM); sel(k2, document.getElementById('d2'), PM);
+var timer = null, playBtn = document.getElementById('play');
+function stop(){ if (timer){ clearInterval(timer); timer = null; playBtn.textContent = '▶ 이어 보기'; } }
+playBtn.onclick = function(){
+  if (timer){ stop(); return; }
+  playBtn.textContent = '■ 멈춤';
+  if (cur === IDX[IDX.length - 1]) show(IDX[0], true);
+  timer = setInterval(function(){ if (cur >= IDX[IDX.length - 1]){ stop(); return; } show(cur + 1, true); }, 2600);
+};
+document.getElementById('prev').onclick = function(){ stop(); if (cur > IDX[0]) show(cur - 1, true); };
+document.getElementById('next').onclick = function(){ stop(); if (cur < IDX[IDX.length - 1]) show(cur + 1, true); };
+document.addEventListener('keydown', function(e){ if (e.key === 'ArrowLeft') document.getElementById('prev').click(); if (e.key === 'ArrowRight') document.getElementById('next').click(); });
+var start = cur; try { var sv = Q.indexOf(localStorage.getItem('nbflow')); if (IDX.indexOf(sv) >= 0) start = sv; } catch (e) {}
+var hq = Q.indexOf((location.hash || '').slice(1)); if (IDX.indexOf(hq) >= 0) start = hq;
+show(start, false);
+window.addEventListener('hashchange', function(){ var h = Q.indexOf(location.hash.slice(1)); if (IDX.indexOf(h) >= 0 && h !== cur){ stop(); show(h, true); } });
+var rt; window.addEventListener('resize', function(){ clearTimeout(rt); rt = setTimeout(function(){ show(cur, false); }, 120); });
+})();
+</script>
+</body>
+</html>
