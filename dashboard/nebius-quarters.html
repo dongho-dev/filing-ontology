@@ -1,0 +1,564 @@
+<!doctype html>
+<html lang="ko">
+<head>
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width,initial-scale=1">
+<title>네비우스 분기 비교</title>
+<style>
+:root{
+  --bg:#f6f4ef;--card:#ffffff;--ink:#1d1f23;--ink2:#4f5560;--mute:#868c97;--line:#e3e0d8;--soft:#efece5;
+  --s1:#2a78d6;--s2:#eb6834;--s3:#1baf7a;--s4:#eda100;
+  --c1:#8e96a3;--c2:#c9cdd4;--c3:#646c78;--c4:#a9afb9;
+  --good:#0ca30c;--crit:#d03b3b;--hl:#fff3cc;--hlline:#eda100;--a-soft:#e3eefb;--b-soft:#fde9df;
+}
+@media (prefers-color-scheme:dark){:root{
+  --bg:#14161a;--card:#1d2025;--ink:#eceef1;--ink2:#b5bbc6;--mute:#7f8692;--line:#30343b;--soft:#262a30;
+  --s1:#3987e5;--s2:#d95926;--s3:#199e70;--s4:#c98500;
+  --c1:#737b88;--c2:#434952;--c3:#98a0ad;--c4:#5b626d;
+  --good:#3cc43c;--crit:#e25d5d;--hl:#352e18;--hlline:#c98500;--a-soft:#1c2c42;--b-soft:#3b2318;
+}}
+*{box-sizing:border-box}
+html{scroll-behavior:smooth;scroll-padding-top:120px}
+body{margin:0;background:var(--bg);color:var(--ink);font:17px/1.75 "Pretendard","Apple SD Gothic Neo","Malgun Gothic","Noto Sans KR",sans-serif;word-break:keep-all;overflow-wrap:anywhere}
+a{color:inherit}
+.wrap{max-width:900px;margin:0 auto;padding:0 16px 80px}
+nav.top .in{max-width:900px;margin:0 auto;padding:10px 16px 0;display:flex;gap:6px;overflow-x:auto;white-space:nowrap;font-size:14px}
+nav.top a{text-decoration:none;padding:4px 10px;border-radius:999px;background:var(--soft);color:var(--ink2)}
+nav.top a.home{background:none;font-weight:700;color:var(--ink);padding-left:0}
+header.hero{padding:34px 0 6px}
+.kicker{font-size:14px;color:var(--mute)}
+h1{font-size:clamp(28px,6vw,42px);line-height:1.25;margin:8px 0 14px;letter-spacing:-.02em}
+.lead{font-size:19px;color:var(--ink2);margin:0 0 10px}
+h2{font-size:25px;line-height:1.35;margin:0 0 6px;letter-spacing:-.01em}
+h3{font-size:18px;margin:26px 0 8px}
+section{padding:42px 0 6px;border-top:1px solid var(--line);margin-top:36px}
+.no{display:inline-block;font-size:13px;font-weight:700;color:var(--ink2);background:var(--soft);border-radius:999px;padding:2px 12px;margin-bottom:10px}
+.sub{color:var(--ink2);margin:0 0 16px}
+p{margin:0 0 14px}
+/* 고르는 띠 */
+.pick{position:sticky;top:0;z-index:6;background:var(--bg);border-bottom:1px solid var(--line);margin:0 -16px;padding:10px 16px}
+.pick .row{display:flex;flex-wrap:wrap;gap:8px 10px;align-items:center}
+.pick label{font-size:14px;color:var(--ink2);display:flex;align-items:center;gap:6px}
+.dot{width:12px;height:12px;border-radius:50%;flex:none;display:inline-block}
+.dot.a{background:var(--s1)}.dot.b{background:var(--s2)}
+select,button{font:inherit;font-size:15px;color:var(--ink);background:var(--card);border:1px solid var(--line);border-radius:10px;padding:5px 10px;cursor:pointer}
+button.ghost{background:var(--soft);border-color:transparent;font-size:14px;padding:5px 12px;border-radius:999px;color:var(--ink2)}
+button.nav{width:36px;padding:5px 0}
+select:focus-visible,button:focus-visible{outline:2px solid var(--s1);outline-offset:1px}
+.pick .sp{flex:1}
+@media (max-width:720px){.pick .ghost,.pick .sp{display:none}.pick .row{gap:6px}.pick label{gap:4px;font-size:13px}.pick select{max-width:80px;font-size:14px;padding:5px 4px}button.nav{width:30px}}
+.card{background:var(--card);border:1px solid var(--line);border-radius:16px;padding:20px;margin:16px 0}
+.card h4{margin:0 0 4px;font-size:16.5px}
+.card .cap{font-size:14px;color:var(--mute);margin:10px 0 0;line-height:1.6}
+.cmp{display:flex;flex-wrap:wrap;gap:4px 10px;align-items:center;font-size:15px;margin:10px 0 0;padding:8px 12px;background:var(--soft);border-radius:10px;font-variant-numeric:tabular-nums}
+.cmp b{white-space:nowrap}
+.chg{font-weight:700;border-radius:999px;padding:1px 9px;font-size:13.5px;white-space:nowrap;background:var(--card);border:1px solid var(--line)}
+.chg.good{color:#fff;background:var(--good);border-color:transparent}.chg.bad{color:#fff;background:var(--crit);border-color:transparent}
+.say{background:var(--hl);border-left:4px solid var(--hlline);border-radius:10px;padding:14px 16px;margin:16px 0}
+.say b:first-child{display:block;font-size:14px;margin-bottom:2px}
+.sum{margin:0;padding:0;list-style:none}
+.sum li{padding:9px 0 9px 26px;border-bottom:1px solid var(--line);position:relative}
+.sum li:last-child{border-bottom:0}
+.sum li::before{content:"";position:absolute;left:4px;top:19px;width:8px;height:8px;border-radius:50%;background:var(--ink)}
+.tw{overflow-x:auto}
+table{width:100%;border-collapse:collapse;font-size:15px}
+th,td{text-align:left;padding:9px 8px;border-bottom:1px solid var(--line);vertical-align:middle}
+th{font-size:13px;color:var(--mute);font-weight:600;white-space:nowrap}
+td.r,th.r{text-align:right;font-variant-numeric:tabular-nums;white-space:nowrap}
+tr.grp td{font-size:13px;font-weight:700;color:var(--ink2);background:var(--soft);padding:5px 8px;border-bottom:0}
+td .hint{display:block;font-size:12.5px;color:var(--mute);line-height:1.4}
+th.qa{box-shadow:inset 0 -3px 0 var(--s1)}th.qb{box-shadow:inset 0 -3px 0 var(--s2)}
+.chart{width:100%;margin-top:8px}
+.chart svg{display:block}
+.chart text{fill:var(--mute);font-size:11.5px;font-variant-numeric:tabular-nums}
+.chart text.v{fill:var(--ink2)}
+.chart text.sel{fill:var(--ink);font-weight:700}
+.lg{display:flex;flex-wrap:wrap;gap:6px 16px;font-size:14px;color:var(--ink2);margin:6px 0 0;padding:0;list-style:none}
+.lg li{display:flex;align-items:center;gap:6px}
+.sw{width:12px;height:12px;border-radius:3px;flex:none}
+/* 100원 막대 */
+.hrow{display:grid;grid-template-columns:54px 1fr 92px;gap:8px;align-items:center;padding:3px 0}
+.hrow .q{font-size:14px;font-variant-numeric:tabular-nums;color:var(--ink2);border-left:4px solid transparent;padding-left:6px}
+.hrow.a .q{border-color:var(--s1);font-weight:700;color:var(--ink)}.hrow.b .q{border-color:var(--s2);font-weight:700;color:var(--ink)}
+.hrow .res{font-size:14px;font-variant-numeric:tabular-nums;text-align:right;white-space:nowrap}
+.hrow.a .res,.hrow.b .res{font-weight:700}
+.htrack{position:relative;height:22px}
+.hbar{display:flex;gap:2px;height:22px}
+.hbar>div{min-width:2px}
+.hbar>div:last-child{border-radius:0 4px 4px 0}
+.hline{position:absolute;top:-4px;bottom:-4px;width:2px;background:var(--ink)}
+.ev{display:grid;grid-template-columns:1fr 1fr;gap:12px}
+@media (max-width:720px){.ev{grid-template-columns:1fr}}
+.evc{background:var(--card);border:1px solid var(--line);border-radius:16px;padding:16px;border-top:4px solid var(--c2)}
+.evc.a{border-top-color:var(--s1)}.evc.b{border-top-color:var(--s2)}
+.evc h4{margin:0 0 8px;font-size:17px}
+.evc ul{margin:0;padding-left:18px;font-size:15px}
+.evc li{margin-bottom:8px}
+.evc li a{font-size:12.5px;color:var(--mute);margin-left:4px;white-space:nowrap}
+.evc .none{font-size:14.5px;color:var(--mute)}
+.evc h5{font-size:13px;color:var(--mute);margin:12px 0 4px;font-weight:600}
+.g3{display:grid;grid-template-columns:repeat(3,1fr);gap:12px}
+@media (max-width:720px){.g3{grid-template-columns:1fr}}
+.fact{background:var(--card);border:1px solid var(--line);border-radius:16px;padding:16px}
+.fact .l{font-size:14px;color:var(--mute)}
+.fact .v{font-size:28px;font-weight:800;line-height:1.2;margin:4px 0;font-variant-numeric:tabular-nums;letter-spacing:-.02em}
+.fact .d{font-size:14px;color:var(--ink2);line-height:1.55}
+footer{margin-top:50px;padding-top:20px;border-top:1px solid var(--line);font-size:14px;color:var(--mute);line-height:1.7}
+footer a{color:var(--ink2)}
+</style>
+</head>
+<body>
+<nav class="top"><div class="in">
+  <a class="home" href="./">← 대시보드</a><a href="nebius-story.html">쉬운 설명(한 분기)</a>
+  <a href="#score">성적표</a><a href="#events">있었던 일</a><a href="#rev">매출</a><a href="#hundred">100원의 행방</a><a href="#cloud">AI 클라우드</a><a href="#build">짓는 돈</a><a href="#cash">현금</a><a href="#promise">약속·선불</a><a href="#debt">빚·이자</a><a href="#next">앞날</a><a href="#all">전체 사건</a>
+</div></nav>
+
+<div class="wrap">
+<header class="hero">
+  <div class="kicker">네비우스(Nebius) 분기 비교 · 2024년 3분기 ~ 2026년 3분기</div>
+  <h1>분기마다 무엇이<br>달라졌을까요?</h1>
+  <p class="lead">"쉬운 설명" 페이지가 사진 한 장이었다면, 이 페이지는 9개 분기를 이어 붙인 동영상이에요. 아래에서 두 분기를 고르면 모든 그림과 숫자가 그 두 분기를 나란히 보여 줘요. 순서는 돈이 도는 순서 그대로예요. 손님이 낸 돈 → 쓴 돈 → 남은 돈 → 새로 지은 것 → 통장 → 빚.</p>
+</header>
+
+<div class="pick" id="pick">
+  <div class="row">
+    <label><span class="dot b"></span>먼저 <select id="selB" aria-label="먼저 분기"></select></label>
+    <label><span class="dot a"></span>나중 <select id="selA" aria-label="나중 분기"></select></label>
+    <button class="nav" id="prev" title="한 분기 앞으로" aria-label="한 분기 앞으로">◀</button>
+    <button class="nav" id="next" title="한 분기 뒤로" aria-label="한 분기 뒤로">▶</button>
+    <span class="sp"></span>
+    <button class="ghost" data-preset="prev">바로 앞 분기와</button>
+    <button class="ghost" data-preset="year">1년 전과</button>
+    <button class="ghost" data-preset="first">맨 처음과</button>
+  </div>
+</div>
+
+<section id="score" style="border-top:0;margin-top:0;padding-top:26px">
+  <span class="no">한눈에 보기</span>
+  <h2 id="score-title">두 분기 성적표</h2>
+  <p class="sub">파란색은 나중 분기, 주황색은 먼저 분기예요. 좋아진 변화는 초록, 나빠진 변화는 빨강으로 칠했어요. 좋고 나쁨을 말하기 어려운 것은 색이 없어요.</p>
+  <div class="card"><h4>이 사이에 달라진 것</h4><ul class="sum" id="summary"></ul></div>
+  <div class="card"><div class="tw"><table id="scoretable"></table></div>
+  <p class="cap">빈칸(—)은 받아 둔 공시에 그 분기 값이 없다는 뜻이에요. 맨 아래 "주의할 점"에 이유가 있어요.</p></div>
+</section>
+
+<section id="events">
+  <span class="no">이야기</span>
+  <h2>그 분기에 있었던 일</h2>
+  <p class="sub">회사가 실적 발표문에 직접 적은 일들이에요. 숫자가 왜 움직였는지 실마리가 여기 있어요. "원문"을 누르면 그 발표문이 열려요. 발표문에 적힌 운영 숫자까지 보려면 맨 아래 <a href="#all">전체 사건</a>으로 가세요.</p>
+  <div class="ev" id="evpair"></div>
+</section>
+
+<section id="rev">
+  <span class="no">1 · 손님이 낸 돈</span>
+  <h2>매출: 석 달마다 번 돈</h2>
+  <p class="sub">PC방으로 치면 석 달 동안 손님들이 낸 요금을 모두 더한 값이에요.</p>
+  <div class="card"><h4>분기 매출 (억 달러)</h4><div class="chart" id="ch-rev"></div><div class="cmp" id="cmp-rev"></div>
+  <p class="cap">9개 분기 내내 한 번도 줄지 않았어요. 가장 크게 뛴 때는 2025년 2분기로, 석 달 만에 두 배가 됐어요. 회사는 늘어난 까닭을 "컴퓨터를 더 많이 들여놓았고, 가격과 가동률도 좋았다"고 설명해요.</p></div>
+  <div class="card"><h4>앞 분기보다 얼마나 늘었나 (%)</h4><div class="chart" id="ch-growth"></div><div class="cmp" id="cmp-growth"></div>
+  <p class="cap">2025년부터는 키가 석 달마다 40~100%씩 자란 셈이에요. 다만 2026년 3분기 68%에는 한 번만 생기는 제휴 매출 3.25억 달러가 들어 있어요. 그걸 빼면 앞 분기보다 약 13% 늘어난 거예요(제휴 매출이 2분기에 하나도 없었다고 가정한 가장 낮은 계산).</p></div>
+</section>
+
+  <div class="card"><h4>지금 속도로 1년을 달리면: 연환산 매출 ARR (억 달러)</h4><div class="chart" id="ch-arr"></div><div class="cmp" id="cmp-arr"></div>
+  <p class="cap">ARR은 회사가 실적 발표문에 적는 값으로, "분기 끝 무렵의 속도가 1년 내내 이어지면 얼마를 벌까"를 어림한 숫자예요. 2025년 9월 말 5.5억 달러에서 1년 만에 64억 달러가 됐어요. 그런데 회사는 2026년 3분기 발표문에서 "이제 ARR은 우리 사업을 재는 알맞은 자가 아니다"라고 말했어요. 앞으로는 매출과 이익으로 봐 달라는 뜻이에요.</p></div>
+</section>
+
+<section id="hundred">
+  <span class="no">2 · 쓴 돈과 남은 돈</span>
+  <h2>100원을 벌 때 얼마를 썼나요?</h2>
+  <p class="sub">분기마다 매출을 100원으로 줄이고, 그때 쓴 돈을 옆으로 쌓았어요. 검은 선이 100원이에요. 막대가 검은 선을 넘으면 번 것보다 더 쓴 거예요.</p>
+  <div class="card"><h4>매출 100원당 쓴 돈</h4>
+    <ul class="lg"><li><span class="sw" style="background:var(--c1)"></span>건물 임차료·전기·운영</li><li><span class="sw" style="background:var(--c2)"></span>개발자</li><li><span class="sw" style="background:var(--c3)"></span>영업·관리</li><li><span class="sw" style="background:var(--s4)"></span>컴퓨터가 낡는 값</li></ul>
+    <div id="hstack" style="margin-top:12px"></div>
+    <div class="cmp" id="cmp-opm"></div>
+    <p class="cap">2024년 4분기에는 100원을 벌려고 488원을 썼어요. 2026년 3분기에는 95원을 써서 처음으로 5원이 남았어요. 손님이 늘어도 관리 인원이나 개발자를 똑같이 늘릴 필요는 없어서, 매출이 커질수록 100원당 쓰는 돈이 줄어든 거예요.</p>
+  </div>
+  <div class="say"><b>눈여겨볼 두 군데</b>① 2026년 2분기에 "개발자" 칸이 갑자기 커져요(100원당 17원 → 33원). 인수한 회사(Eigen AI) 사람들에게 준 주식과 보상 1.16억 달러가 그 분기에 한꺼번에 잡혔기 때문이에요. ② "컴퓨터가 낡는 값"은 2026년 1분기에 100원당 85원에서 53원으로 크게 줄어요. 매출이 늘어난 것 말고도, 그때부터 컴퓨터 수명을 4년에서 5년으로 늘려 잡은 영향이 있어요.</div>
+  <div class="card"><h4>장사에서 남은 돈: 영업이익 (억 달러)</h4><div class="chart" id="ch-op"></div><div class="cmp" id="cmp-op"></div>
+  <p class="cap">8개 분기 연속 손해를 보다가 2026년 3분기에 처음으로 0 위로 올라왔어요.</p></div>
+</section>
+
+<section id="cloud">
+  <span class="no">3 · 본업만 떼어 보기</span>
+  <h2>AI 클라우드 사업의 마진</h2>
+  <p class="sub">컴퓨터가 낡는 값과 이자를 빼기 전, 매출 100원 가운데 남는 돈이에요. 회사가 가장 내세우는 성적표예요.</p>
+  <div class="card"><h4>AI 클라우드 조정 EBITDA 마진 (%)</h4>
+    <div class="chart" id="ch-cm"></div><div class="cmp" id="cmp-cm"></div>
+    <p class="cap">−66% → 53%. 일곱 분기 동안 한 번도 내려가지 않았어요. 2026년 3분기 53.2% 가운데 한 번만 생기는 제휴 매출을 빼면 약 29.8%예요(제휴 매출에 비용이 안 들었다고 본 계산). 그렇게 보면 2026년 1분기(44.6%)보다 낮아요. 다만 1~2분기에도 제휴 매출이 합쳐서 0.84억 달러 있었는데 분기별로는 공시에 없어서, 그 두 분기의 "뺀 값"은 그릴 수 없어요.</p>
+  </div>
+  <div class="card"><h4>100원 가운데 사람에게 준 돈과 그 밖의 비용 (원)</h4>
+    <ul class="lg"><li><span class="sw" style="background:var(--s3)"></span>사람에게 준 돈</li><li><span class="sw" style="background:var(--c3)"></span>건물·전기 등 그 밖의 비용</li></ul>
+    <div class="chart" id="ch-cr"></div><div class="cmp" id="cmp-cr"></div>
+    <p class="cap">사람에게 준 돈은 100원당 88원에서 14원까지 내려왔어요. 매출이 몇 배로 늘어도 직원은 그만큼 필요하지 않기 때문이에요. 건물·전기 같은 그 밖의 비용은 78원에서 25원까지 내려갔다가 2026년 3분기에 33원으로 다시 올랐어요. 컴퓨터를 더 놓으면 자리와 전기도 그만큼 더 들어서, 사람 값만큼 쉽게 줄지 않아요.</p>
+  </div>
+</section>
+
+<section id="build">
+  <span class="no">4 · 새로 지은 것</span>
+  <h2>컴퓨터와 건물에 쓴 돈</h2>
+  <p class="sub">손님을 더 받으려면 먼저 컴퓨터와 건물을 사야 해요. 이 돈은 위의 "쓴 돈"에 바로 들어가지 않고, 여러 해에 걸쳐 "낡는 값"으로 조금씩 들어가요.</p>
+  <div class="card"><h4>분기마다 새 장비·건물에 쓴 돈 (억 달러)</h4><div class="chart" id="ch-capex"></div><div class="cmp" id="cmp-capex"></div>
+  <p class="cap" id="cap-capex"></p></div>
+  <div class="card"><h4>가진 장비·건물의 값 (억 달러)</h4><div class="chart" id="ch-ppe"></div><div class="cmp" id="cmp-ppe"></div>
+  <p class="cap">2024년 말 8억 달러에서 2026년 9월 말 193억 달러로 23배가 됐어요. 계약한 전기도 2026년 2월 2GW, 5월 3.5GW, 11월 4GW로 늘었어요.</p></div>
+</section>
+
+<section id="cash">
+  <span class="no">5 · 통장</span>
+  <h2>현금은 어디서 들어와 어디로 나갔나요?</h2>
+  <p class="sub">세 그림의 눈금을 똑같이 맞췄어요. 막대 길이를 서로 견주어 보세요.</p>
+  <div class="g3" id="cumfacts"></div>
+  <div class="card"><h4>① 장사에서 들어온 돈 (억 달러)</h4><div class="chart" id="ch-ocf"></div><div class="cmp" id="cmp-ocf"></div>
+  <p class="cap">2025년 4분기부터 세 분기 동안 갑자기 커진 건 큰손들이 몇 년 치 요금을 미리 냈기 때문이에요(6번 그림). 2026년 3분기에는 선불을 34억 달러나 받고도 마이너스가 됐어요. 서비스는 했는데 아직 못 받은 돈(외상)이 석 달 사이 3억에서 40억 달러로 불어났기 때문이에요.</p></div>
+  <div class="say"><b>선불이 얼마나 큰가요</b>회사는 2026년 3분기에 맺은 계약에서 "손님이 미리 낸 돈이 그 계약에 필요한 장비 값의 100% 이상을 댔다"고 했어요. 2분기에는 50~60%였어요. 새 PC방을 지을 돈을 단골이 먼저 내 주는 셈이에요.</div>
+  <div class="card"><h4>② 빌리고 투자받은 돈 (억 달러)</h4><div class="chart" id="ch-fin"></div><div class="cmp" id="cmp-fin"></div>
+  <p class="cap">막대가 큰 분기마다 큰 자금 조달이 있었어요. 2025년 2분기와 3분기에 전환사채, 3분기에 주식 공모. 2026년 1분기에 전환사채와 엔비디아의 20억 달러 투자 계약. 2분기에 주식 판매. 3분기에 전환사채와 은행 대출.</p></div>
+  <div class="card"><h4>③ 컴퓨터·건물에 나간 돈 (억 달러)</h4><div class="chart" id="ch-capex2"></div>
+  <p class="cap">①과 ②를 더한 것과 ③이 거의 같은 크기로 움직여요. 들어오는 대로 짓는 데 쓰고 있다는 뜻이에요.</p></div>
+  <div class="card"><h4>통장에 남은 현금 (억 달러)</h4><div class="chart" id="ch-cashbal"></div><div class="cmp" id="cmp-cashbal"></div></div>
+</section>
+
+<section id="promise">
+  <span class="no">6 · 손님과의 약속</span>
+  <h2>미리 받은 돈, 못 받은 돈, 약속받은 일감</h2>
+  <p class="sub">정액권을 판 PC방처럼, 돈과 서비스가 오가는 때가 서로 달라요.</p>
+  <div class="card"><h4>미리 받은 돈: 선수금 잔액 (억 달러)</h4><div class="chart" id="ch-defrev"></div><div class="cmp" id="cmp-defrev"></div>
+  <p class="cap">2025년 9월 말까지는 0.2억 달러도 안 됐어요. 2025년 4분기에 16억 달러로 뛰었고, 그 뒤 세 분기 동안 94억 달러까지 쌓였어요. 받은 돈이지만 앞으로 그만큼 컴퓨터를 빌려줘야 하는 숙제예요.</p></div>
+  <div class="card"><h4>아직 못 받은 돈: 외상 (억 달러)</h4><div class="chart" id="ch-ar"></div><div class="cmp" id="cmp-ar"></div>
+  <p class="cap">2026년 6월 말 2.9억 달러였다가 9월 말 40억 달러가 됐어요. 이 가운데 75%가 손님 한 곳(공시의 "손님 D")이에요. 다음 분기에 이 돈이 걷히는지가 중요해요.</p></div>
+  <div class="card"><h4>약속받은 일감: 수주 잔고 (억 달러)</h4><div class="chart" id="ch-rpo"></div><div class="cmp" id="cmp-rpo"></div>
+  <p class="cap">336억 → 375억 → 387억 달러. 늘어나는 속도는 느려졌어요(+39억, 그다음 +12억). 대신 "2년 안에 매출이 될 몫"은 29% → 36% → 40%로 커졌어요. 약속이 실제 매출로 바뀌는 날이 가까워지고 있다는 뜻이에요. 2025년까지의 값은 받아 둔 공시에서 아직 읽지 않았어요.</p></div>
+</section>
+
+<section id="debt">
+  <span class="no">7 · 빚과 이자</span>
+  <h2>빌린 돈과 그 이자</h2>
+  <p class="sub">돈을 빌려 지었으니 이자를 내야 해요. 장사에서 남은 돈이 이자보다 많아야 버틸 수 있어요.</p>
+  <div class="card"><h4>빌린 돈 (억 달러)</h4><div class="chart" id="ch-debt"></div><div class="cmp" id="cmp-debt"></div>
+  <p class="cap">2024년 말에는 빚이 거의 없었어요(0.06억 달러). 2025년 6월 첫 전환사채를 시작으로 네 번 더 빌려 142억 달러가 됐어요.</p></div>
+  <div class="card"><h4>분기 이자비용 (억 달러)</h4><div class="chart" id="ch-int"></div><div class="cmp" id="cmp-int"></div>
+  <p class="cap">2026년 3분기에 이자비용이 조금 줄어든 건 빚이 줄어서가 아니에요. 짓고 있는 건물 몫의 이자 0.92억 달러를 비용에 넣지 않고 건물 값에 얹었기 때문이에요(상반기 여섯 달 동안 얹은 것은 0.60억 달러). 건물이 완성되면 이 이자도 비용으로 넘어와요.</p></div>
+  <div class="card"><h4>장사에서 남은 돈 ÷ 이자 (배)</h4><div class="chart" id="ch-cov"></div><div class="cmp" id="cmp-cov"></div>
+  <p class="cap">검은 선(1배)을 넘어야 이자를 내고도 남아요. −8.9배에서 0.45배까지 올라왔지만 아직 선 아래예요. 이자가 막 생긴 2025년 2분기는 −23배라 그림에서 뺐어요.</p></div>
+</section>
+
+<section id="next">
+  <span class="no">8 · 다음 장면</span>
+  <h2>회사가 말한 앞날</h2>
+  <p class="sub">2026년 3분기 발표문에 회사가 직접 적은 계획이에요. 약속이 아니라 예상이에요.</p>
+  <div class="g3">
+    <div class="fact"><div class="l">2026년 한 해 장비·건물</div><div class="v">약 270억 달러</div><div class="d">원래 계획(200~250억)보다 늘렸어요. 9월까지 154억을 썼으니, 10~12월 석 달에만 약 116억 달러를 쓴다는 계산이에요.</div></div>
+    <div class="fact"><div class="l">2026년 한 해 매출</div><div class="v">30억 달러쯤</div><div class="d">예상 범위(30~34억)의 아래쪽. 일부 데이터센터가 늦어졌기 때문이에요. 9월까지 19.6억을 벌었으니 10~12월은 약 10억 달러라는 계산이에요.</div></div>
+    <div class="fact"><div class="l">2027년 한 해</div><div class="v">매출 120~130억</div><div class="d">2026년의 약 4배. 장비·건물에는 400~450억 달러를 쓰고, 2027년 4분기에 세금 내기 전 이익이 0을 넘는 것이 목표예요.</div></div>
+  </div>
+  <div class="say"><b>이 숫자로 알 수 있는 것</b>10~12월 매출 예상(약 10억 달러)은 7~9월(9.8억 달러)과 거의 같아요. 7~9월에는 한 번만 생기는 제휴 매출 3.25억 달러가 들어 있었으니, 본업은 그만큼 더 늘어야 같은 숫자가 나와요. 그리고 2027년에 쓰겠다는 400~450억 달러는 같은 해 벌겠다는 돈의 3배가 넘어요. "빌린 돈과 선불로 짓는다"는 이 회사의 모양은 내년에도 이어져요.</div>
+</section>
+
+<section id="all">
+  <span class="no">전체 흐름</span>
+  <h2>분기별로 있었던 일 모두 보기</h2>
+  <p class="sub">2025년 3분기부터 다섯 분기의 실적 발표문에서 가져왔어요.</p>
+  <div id="evall"></div>
+</section>
+
+<footer>
+  <p><b>주의할 점</b><br>
+  · 4분기 값은 회사가 따로 적지 않아 "1년 값 − 9개월 값"으로 구했어요. 그래서 2월 실적 발표문에 나온 4분기 숫자와 조금 다를 수 있어요(예: 2025년 4분기 영업손실은 여기서 2.50억 달러, 발표문 기준 대시보드에서는 2.35억 달러).<br>
+  · 현금흐름표는 연초부터의 누계라서, 분기 값은 "이번 누계 − 직전 누계"로 구했어요.<br>
+  · 2025년 3월 말과 6월 말의 통장·빚·장비 잔액은 받아 둔 공시에 없어 비어 있어요. 2024년 3분기의 현금흐름도 같은 이유로 비어 있어요.<br>
+  · 2026년 1·2분기의 제휴 매출은 합계(0.84억 달러)만 공시에 있어요.<br>
+  · "제휴 매출을 뺀" 값은 공시에 없는 값으로, 이 프로젝트에서 계산했어요.</p>
+  <p><b>숫자의 출처</b> · 회사가 미국 증권거래위원회(SEC)에 낸 공시예요.
+  <a href="https://www.sec.gov/Archives/edgar/data/1513845/000110465925110831/tm2531034d1_ex99-2.htm" target="_blank" rel="noopener">2025년 3분기 재무제표</a> ·
+  <a href="https://www.sec.gov/Archives/edgar/data/1513845/000110465926052948/nbis-20251231x20f.htm" target="_blank" rel="noopener">2025년 연간보고서</a> ·
+  <a href="https://www.sec.gov/Archives/edgar/data/1513845/000110465926064092/nbis-20260331xex99d2.htm" target="_blank" rel="noopener">2026년 1분기</a> ·
+  <a href="https://www.sec.gov/Archives/edgar/data/1513845/000110465926094844/nbis-20260812xex99d2.htm" target="_blank" rel="noopener">2분기</a> ·
+  <a href="https://www.sec.gov/Archives/edgar/data/1513845/000110465926126238/nbis-ex99d2.htm" target="_blank" rel="noopener">3분기</a><br>
+  이 페이지는 공시를 쉽게 풀어 쓴 설명이고, 주식을 사라거나 팔라는 뜻이 아니에요.</p>
+</footer>
+</div>
+
+<script src="nebius-quarters.data.js"></script>
+<script>
+(function(){
+var D = window.NBQ, Q = D.quarters, S = D.series, N = Q.length;
+var ok = function(v){ return v !== null && v !== undefined && !isNaN(v); };
+function map2(a, b, f){ return a.map(function(x, i){ return ok(x) && ok(b[i]) ? f(x, b[i]) : null; }); }
+// 계산해서 만드는 흐름
+S.opm = map2(S.op, S.rev, function(o, r){ return o / r * 100; });
+S.cost100 = map2(S.op, S.rev, function(o, r){ return (r - o) / r * 100; });
+S.growth = S.rev.map(function(v, i){ return i ? (v / S.rev[i - 1] - 1) * 100 : null; });
+S.c_margin = map2(S.c_ebitda, S.c_rev, function(e, r){ return e / r * 100; });
+S.c_emp_r = map2(S.c_emp, S.c_rev, function(e, r){ return e / r * 100; });
+S.c_oth_r = map2(S.c_oth, S.c_rev, function(e, r){ return e / r * 100; });
+S.capx = map2(S.capex, S.rev, function(c, r){ return c / r; });
+S.cov = map2(S.op, S.int_exp, function(o, i){ return i > 0 ? o / i : null; });
+S.covShow = S.cov.map(function(v, i){ return Q[i] === '25Q2' ? null : v; });
+
+var qname = function(q){ return '20' + q.slice(0, 2) + '년 ' + q.slice(3) + '분기'; };
+function usd(v){
+  var a = Math.abs(v), s = v < 0 ? '−' : '';
+  if (a < 0.005) return '0달러';
+  if (a < 10) return s + Math.round(a * 100).toLocaleString('ko-KR') + '만 달러';
+  if (a < 1000) return s + (a / 100).toFixed(2) + '억 달러';
+  if (a < 10000) return s + (a / 100).toFixed(1) + '억 달러';
+  return s + Math.round(a / 100).toLocaleString('ko-KR') + '억 달러';
+}
+function eok(v){ var a = Math.abs(v) / 100, s = v < 0 ? '−' : ''; return s + (a >= 100 ? a.toFixed(0) : a >= 10 ? a.toFixed(1) : a.toFixed(2)); }
+function sg(v, d){ return (v < 0 ? '−' : '') + Math.abs(v).toFixed(d); }
+var U = {
+  usd: {f: usd},
+  pct: {f: function(v){ return sg(v, 1) + '%'; }, d: '%p'},
+  won: {f: function(v){ return sg(v, 0) + '원'; }, d: '원'},
+  x: {f: function(v){ return sg(v, 2) + '배'; }, d: '배'},
+  mul: {f: function(v){ return v.toFixed(1) + '배'; }, d: '배'}
+};
+// 성적표에 올리는 항목. good: 1 = 늘면 좋음, -1 = 줄면 좋음, 0 = 좋고 나쁨을 말하기 어려움
+var M = [
+  {g: '손님이 낸 돈'},
+  {k: 'rev', n: '매출', h: '석 달 동안 번 돈', u: 'usd', good: 1},
+  {k: 'partner', n: '그 가운데 제휴 매출', h: '한 번만 생기는 돈', u: 'usd', good: 0},
+  {k: 'arr', n: '연환산 매출(ARR)', h: '지금 속도로 1년이면', u: 'usd', good: 1},
+  {k: 'top_cust', n: '가장 큰 손님의 몫', h: '낮을수록 덜 기대는 것', u: 'pct', good: -1},
+  {g: '쓴 돈과 남은 돈'},
+  {k: 'cost100', n: '100원 벌 때 쓴 돈', h: '100원보다 적어야 남아요', u: 'won', good: -1},
+  {k: 'op', n: '장사에서 남은 돈', h: '영업이익', u: 'usd', good: 1},
+  {k: 'da', n: '컴퓨터가 낡는 값', h: '감가상각', u: 'usd', good: 0},
+  {k: 'c_margin', n: 'AI 클라우드 마진', h: '낡는 값·이자 빼기 전', u: 'pct', good: 1},
+  {g: '새로 지은 것'},
+  {k: 'capex', n: '새 장비·건물에 쓴 돈', h: '설비투자', u: 'usd', good: 0},
+  {k: 'capx', n: '매출의 몇 배를 썼나', h: '1이면 번 만큼 쓴 것', u: 'mul', good: 0},
+  {k: 'ppe', n: '가진 장비·건물', h: '분기 말 잔액', u: 'usd', good: 0},
+  {g: '통장'},
+  {k: 'ocf', n: '장사에서 들어온 현금', h: '선불 포함', u: 'usd', good: 1},
+  {k: 'fin', n: '빌리고 투자받은 돈', h: '빚, 주식 판매 등', u: 'usd', good: 0},
+  {k: 'cash', n: '통장에 남은 현금', h: '분기 말 잔액', u: 'usd', good: 0},
+  {g: '손님과의 약속'},
+  {k: 'defrev', n: '미리 받은 돈', h: '선수금 잔액', u: 'usd', good: 0},
+  {k: 'ar', n: '아직 못 받은 돈', h: '외상 잔액', u: 'usd', good: 0},
+  {k: 'rpo', n: '약속받은 일감', h: '수주 잔고', u: 'usd', good: 1},
+  {g: '빚과 이자'},
+  {k: 'debt', n: '빌린 돈', h: '분기 말 잔액', u: 'usd', good: 0},
+  {k: 'int_exp', n: '이자비용', h: '석 달 치', u: 'usd', good: -1},
+  {k: 'cov', n: '남은 돈 ÷ 이자', h: '1배를 넘어야 남아요', u: 'x', good: 1}
+];
+var MK = {}; M.forEach(function(m){ if (m.k) MK[m.k] = m; });
+MK.growth = {k: 'growth', n: '앞 분기 대비 성장', u: 'pct', good: 1};
+MK.opm = {k: 'opm', n: '100원당 남는 돈', u: 'won', good: 1};
+MK.c_emp_r = {k: 'c_emp_r', n: '사람에게 준 돈', u: 'won', good: -1};
+MK.c_oth_r = {k: 'c_oth_r', n: '그 밖의 비용', u: 'won', good: -1};
+
+var A = N - 1, B = N - 2;
+// 변화 설명: {text, cls}
+function change(k){
+  var m = MK[k], a = S[k][A], b = S[k][B];
+  if (!ok(a) || !ok(b)) return null;
+  var u = U[m.u], diff = a - b, text;
+  if (m.u === 'usd'){
+    if (b > 0 && a > 0){
+      var r = a / b;
+      text = r >= 2 ? r.toFixed(1) + '배' : (diff >= 0 ? '+' : '−') + Math.abs((r - 1) * 100).toFixed(0) + '%';
+    } else text = (diff >= 0 ? '+' : '−') + usd(Math.abs(diff));
+  } else {
+    var dd = m.u === 'x' ? 2 : m.u === 'won' ? 0 : 1;
+    text = (diff >= 0 ? '+' : '−') + Math.abs(diff).toFixed(dd) + u.d;
+  }
+  var same = Math.abs(diff) < 1e-9;
+  var cls = same || !m.good ? '' : (diff * m.good > 0 ? 'good' : 'bad');
+  return {text: same ? '같음' : text, cls: cls, arrow: same ? '' : diff > 0 ? '▲ ' : '▼ '};
+}
+function fv(k, i){ var v = S[k][i]; return ok(v) ? U[MK[k].u].f(v) : '—'; }
+function cmp(id, k){
+  var el = document.getElementById(id); if (!el) return;
+  var c = change(k);
+  el.innerHTML = '<span class="dot b"></span><span>' + Q[B] + '</span> <b>' + fv(k, B) + '</b> <span>→</span> <span class="dot a"></span><span>' + Q[A] + '</span> <b>' + fv(k, A) + '</b>' +
+    (c ? ' <span class="chg ' + c.cls + '">' + c.arrow + c.text + '</span>' : ' <span class="chg">견줄 값이 없어요</span>');
+}
+
+// 세로 막대
+function cols(id, vals, o){
+  o = o || {};
+  var el = document.getElementById(id); if (!el) return;
+  var W = el.clientWidth || 600, have = vals.filter(ok);
+  var mx = Math.max.apply(null, have.concat([0, o.ref ? o.ref.v : 0, ok(o.max) ? o.max : 0]));
+  var mn = Math.min.apply(null, have.concat([0, ok(o.min) ? o.min : 0]));
+  var H = o.h || 210, pt = 22, pb = mn < 0 ? 46 : 26;
+  var plotH = H - pt - pb, y = function(v){ return pt + (mx - v) / (mx - mn || 1) * plotH; };
+  var band = W / N, bw = Math.min(24, band * 0.5), y0 = y(0), f = o.fmt || function(v){ return v; };
+  var s = '<svg viewBox="0 0 ' + W + ' ' + H + '" width="' + W + '" height="' + H + '" role="img" aria-label="' + (o.label || '') + '">';
+  s += '<line x1="0" x2="' + W + '" y1="' + y0 + '" y2="' + y0 + '" stroke="var(--line)"/>';
+  if (o.ref){ var yr = y(o.ref.v); s += '<line x1="0" x2="' + W + '" y1="' + yr + '" y2="' + yr + '" stroke="var(--ink)" stroke-width="1.5"/><text class="sel" x="' + (W - 2) + '" y="' + (yr - 5) + '" text-anchor="end">' + o.ref.label + '</text>'; }
+  vals.forEach(function(v, i){
+    var cx = band * (i + .5), x = cx - bw / 2, sel = i === A || i === B;
+    if (sel) s += '<rect x="' + (cx - band / 2 + 2) + '" y="0" width="' + (band - 4) + '" height="' + H + '" rx="6" fill="var(--' + (i === A ? 'a' : 'b') + '-soft)"/>';
+    s += '<text class="' + (sel ? 'sel' : '') + '" text-anchor="middle" x="' + cx + '" y="' + (H - 8) + '">' + Q[i] + '</text>';
+    if (!ok(v)){ s += '<text text-anchor="middle" x="' + cx + '" y="' + (y0 - 6) + '">—</text>'; return; }
+    var y1 = y(v), h = Math.max(1, Math.abs(y1 - y0)), r = Math.min(4, h, bw / 2), up = v >= 0 ? 1 : -1;
+    var c = i === A ? 'var(--s1)' : i === B ? 'var(--s2)' : 'var(--c4)';
+    var d = 'M' + x + ',' + y0 + 'V' + (y1 + up * r) + 'Q' + x + ',' + y1 + ' ' + (x + r) + ',' + y1 + 'H' + (x + bw - r) + 'Q' + (x + bw) + ',' + y1 + ' ' + (x + bw) + ',' + (y1 + up * r) + 'V' + y0 + 'Z';
+    s += '<path d="' + d + '" fill="' + c + '"><title>' + Q[i] + ': ' + f(v) + '</title></path>';
+    if (o.mark && ok(o.mark.vals[i])){
+      var ym = y(o.mark.vals[i]);
+      s += '<circle cx="' + cx + '" cy="' + ym + '" r="6" fill="var(--s4)" stroke="var(--card)" stroke-width="2"><title>' + o.mark.name + ' ' + f(o.mark.vals[i]) + '</title></circle>';
+      s += '<text class="sel" x="' + (cx + 10) + '" y="' + (ym + 4) + '">' + f(o.mark.vals[i]) + '</text>';
+    }
+    s += '<text class="' + (sel ? 'sel' : 'v') + '" text-anchor="middle" x="' + cx + '" y="' + (v >= 0 ? y1 - 6 : y1 + 14) + '">' + f(v) + '</text>';
+  });
+  el.innerHTML = s + '</svg>';
+}
+// 선 두 개
+function lines(id, ser, o){
+  o = o || {};
+  var el = document.getElementById(id); if (!el) return;
+  var W = el.clientWidth || 600, H = o.h || 220, pt = 22, pb = 26, all = [];
+  ser.forEach(function(sr){ all = all.concat(sr.vals.filter(ok)); });
+  var mx = Math.max.apply(null, all.concat([0])), mn = Math.min.apply(null, all.concat([0]));
+  var band = W / N, y = function(v){ return pt + (mx - v) / (mx - mn || 1) * (H - pt - pb); }, f = o.fmt || function(v){ return v; };
+  var s = '<svg viewBox="0 0 ' + W + ' ' + H + '" width="' + W + '" height="' + H + '" role="img">';
+  s += '<line x1="0" x2="' + W + '" y1="' + y(0) + '" y2="' + y(0) + '" stroke="var(--line)"/>';
+  for (var i = 0; i < N; i++){
+    var cx = band * (i + .5), sel = i === A || i === B;
+    if (sel) s += '<rect x="' + (cx - band / 2 + 2) + '" y="0" width="' + (band - 4) + '" height="' + H + '" rx="6" fill="var(--' + (i === A ? 'a' : 'b') + '-soft)"/>';
+    s += '<text class="' + (sel ? 'sel' : '') + '" text-anchor="middle" x="' + cx + '" y="' + (H - 8) + '">' + Q[i] + '</text>';
+  }
+  ser.forEach(function(sr, si){
+    var pts = [];
+    sr.vals.forEach(function(v, i){ if (ok(v)) pts.push([band * (i + .5), y(v), v, i]); });
+    s += '<polyline fill="none" stroke="' + sr.color + '" stroke-width="2" points="' + pts.map(function(p){ return p[0] + ',' + p[1]; }).join(' ') + '"/>';
+    pts.forEach(function(p){
+      var sel = p[3] === A || p[3] === B;
+      s += '<circle cx="' + p[0] + '" cy="' + p[1] + '" r="' + (sel ? 5 : 4) + '" fill="' + sr.color + '" stroke="var(--card)" stroke-width="2"><title>' + Q[p[3]] + ' ' + sr.name + ': ' + f(p[2]) + '</title></circle>';
+      var other = ser[1 - si] && ser[1 - si].vals[p[3]], above = !ok(other) || p[2] >= other;
+      if (sel || p[3] === pts[0][3] || p[3] === pts[pts.length - 1][3]) s += '<text class="' + (sel ? 'sel' : 'v') + '" text-anchor="middle" x="' + p[0] + '" y="' + (above ? p[1] - 9 : p[1] + 18) + '">' + f(p[2]) + '</text>';
+    });
+  });
+  el.innerHTML = s + '</svg>';
+}
+function spark(k){
+  var v = S[k], have = v.filter(ok); if (have.length < 2) return '';
+  var W = 96, H = 26, mx = Math.max.apply(null, have), mn = Math.min.apply(null, have), pts = [], dots = '';
+  v.forEach(function(x, i){
+    if (!ok(x)) return;
+    var px = 4 + i * (W - 8) / (N - 1), py = 4 + (mx - x) / (mx - mn || 1) * (H - 8);
+    pts.push(px.toFixed(1) + ',' + py.toFixed(1));
+    if (i === A || i === B) dots += '<circle cx="' + px.toFixed(1) + '" cy="' + py.toFixed(1) + '" r="3.5" fill="var(--' + (i === A ? 's1' : 's2') + ')" stroke="var(--card)" stroke-width="1.5"/>';
+  });
+  return '<svg width="' + W + '" height="' + H + '" viewBox="0 0 ' + W + ' ' + H + '" aria-hidden="true"><polyline fill="none" stroke="var(--c1)" stroke-width="1.5" points="' + pts.join(' ') + '"/>' + dots + '</svg>';
+}
+function scoreTable(){
+  var h = '<tr><th>항목</th><th class="r qb">' + Q[B] + '</th><th class="r qa">' + Q[A] + '</th><th class="r">변화</th><th>9개 분기 흐름</th></tr>';
+  M.forEach(function(m){
+    if (m.g){ h += '<tr class="grp"><td colspan="5">' + m.g + '</td></tr>'; return; }
+    var c = change(m.k);
+    h += '<tr><td>' + m.n + '<span class="hint">' + m.h + '</span></td><td class="r">' + fv(m.k, B) + '</td><td class="r"><b>' + fv(m.k, A) + '</b></td><td class="r">' +
+      (c ? '<span class="chg ' + c.cls + '">' + c.arrow + c.text + '</span>' : '—') + '</td><td>' + spark(m.k) + '</td></tr>';
+  });
+  document.getElementById('scoretable').innerHTML = h;
+}
+function summary(){
+  var a = Q[A], b = Q[B], L = [], v = function(k, i){ return S[k][i]; };
+  var gap = A - B, span = gap === 1 ? '석 달 사이' : gap % 4 === 0 ? gap / 4 + '년 사이' : gap * 3 + '개월 사이';
+  var r = v('rev', A) / v('rev', B);
+  L.push('<b>매출</b>은 ' + span + ' ' + usd(v('rev', B)) + '에서 ' + usd(v('rev', A)) + '로 ' + (r >= 2 ? '<b>' + r.toFixed(1) + '배</b>가 됐어요.' : '<b>' + ((r - 1) * 100).toFixed(0) + '%</b> 늘었어요.'));
+  var ca = v('cost100', A), cb = v('cost100', B), word = function(c){ return c > 100 ? (c - 100).toFixed(0) + '원 손해' : (100 - c).toFixed(0) + '원 남음'; };
+  L.push('<b>100원을 벌 때</b> ' + b + '에는 ' + cb.toFixed(0) + '원을 썼고(' + word(cb) + '), ' + a + '에는 ' + ca.toFixed(0) + '원을 썼어요(' + word(ca) + ').');
+  if (ok(v('c_margin', A)) && ok(v('c_margin', B))) L.push('<b>AI 클라우드 마진</b>은 ' + sg(v('c_margin', B), 1) + '%에서 ' + sg(v('c_margin', A), 1) + '%가 됐어요.' + (ok(v('partner', A)) && v('partner', A) > 0 ? ' 다만 ' + a + ' 매출에는 한 번만 생기는 제휴 매출 ' + usd(v('partner', A)) + '가 들어 있어요.' : ''));
+  if (ok(v('capex', A)) && ok(v('capex', B))) L.push('<b>새 장비·건물</b>에는 ' + b + '에 ' + usd(v('capex', B)) + ', ' + a + '에 ' + usd(v('capex', A)) + '를 썼어요. 각각 그 분기 매출의 ' + v('capx', B).toFixed(1) + '배, ' + v('capx', A).toFixed(1) + '배예요.');
+  if (ok(v('ocf', A)) && ok(v('ocf', B))) L.push('<b>장사에서 들어온 현금</b>은 ' + usd(v('ocf', B)) + ' → ' + usd(v('ocf', A)) + ', <b>빌리고 투자받은 돈</b>은 ' + usd(v('fin', B)) + ' → ' + usd(v('fin', A)) + '예요.');
+  if (ok(v('debt', A)) && ok(v('debt', B))) L.push('<b>빚</b>은 ' + usd(v('debt', B)) + '에서 ' + usd(v('debt', A)) + '로, <b>석 달 이자</b>는 ' + usd(v('int_exp', B)) + '에서 ' + usd(v('int_exp', A)) + '로 달라졌어요.');
+  else L.push('<b>석 달 이자</b>는 ' + usd(v('int_exp', B)) + '에서 ' + usd(v('int_exp', A)) + '로 달라졌어요.');
+  document.getElementById('summary').innerHTML = L.map(function(x){ return '<li>' + x + '</li>'; }).join('');
+  document.getElementById('score-title').textContent = qname(b) + '와 ' + qname(a) + ' 성적표';
+}
+function hstack(){
+  var segs = [['cor', 'var(--c1)', '건물 임차료·전기·운영'], ['pd', 'var(--c2)', '개발자'], ['sga', 'var(--c3)', '영업·관리'], ['da', 'var(--s4)', '컴퓨터가 낡는 값']];
+  var mx = Math.max.apply(null, S.cost100), h = '';
+  Q.forEach(function(q, i){
+    var r = S.rev[i], c = S.cost100[i];
+    h += '<div class="hrow' + (i === A ? ' a' : i === B ? ' b' : '') + '"><div class="q">' + q + '</div><div class="htrack"><div class="hbar" style="width:' + (c / mx * 100) + '%">' +
+      segs.map(function(sg_){ var w = S[sg_[0]][i] / r * 100; return '<div style="flex:' + w + ';background:' + sg_[1] + '" title="' + q + ' ' + sg_[2] + ': 100원당 ' + w.toFixed(0) + '원"></div>'; }).join('') +
+      '</div><div class="hline" style="left:' + (100 / mx * 100) + '%" title="100원"></div></div><div class="res">' + c.toFixed(0) + '원 · ' + (c > 100 ? '−' + (c - 100).toFixed(0) : '+' + (100 - c).toFixed(0)) + '</div></div>';
+  });
+  document.getElementById('hstack').innerHTML = h;
+}
+function evItems(q, kind){
+  var e = (D.events || {})[q]; return e && e[kind] ? e[kind] : [];
+}
+function evCard(q, cls, full){
+  var ev = evItems(q, 'events'), dr = evItems(q, 'drivers'), kp = evItems(q, 'kpis');
+  var h = '<div class="evc ' + cls + '"><h4>' + qname(q) + '</h4>';
+  if (!ev.length && !dr.length && !kp.length) return h + '<div class="none">이 분기는 받아 둔 실적 발표문이 없어요. 숫자는 뒤 분기 공시에 실린 "1년 전 값"에서 가져왔어요.</div></div>';
+  var li = function(x){ return '<li>' + x.ko + (x.url ? '<a href="' + x.url + '" target="_blank" rel="noopener" title="' + (x.quote || '').replace(/"/g, '&quot;') + '">원문</a>' : '') + '</li>'; };
+  if (ev.length) h += '<ul>' + ev.map(li).join('') + '</ul>';
+  if (dr.length) h += '<h5>회사가 말한 까닭</h5><ul>' + dr.map(li).join('') + '</ul>';
+  if (kp.length && full) h += '<h5>발표문에 적힌 숫자</h5><ul>' + kp.map(function(x){ return li({ko: x.ko + ': ' + x.value, url: x.url, quote: x.quote}); }).join('') + '</ul>';
+  return h + '</div>';
+}
+function events(){
+  document.getElementById('evpair').innerHTML = evCard(Q[B], 'b') + evCard(Q[A], 'a');
+  var withEv = Q.filter(function(q){ return (D.events || {})[q]; });
+  document.getElementById('evall').innerHTML = withEv.length ? '<div class="ev">' + withEv.map(function(q){ var i = Q.indexOf(q); return evCard(q, i === A ? 'a' : i === B ? 'b' : '', true); }).join('') + '</div>' : '<p class="sub">아직 정리된 사건이 없어요.</p>';
+}
+function cum(){
+  var from = Q.indexOf('24Q4'), sum = function(k){ var t = 0; for (var i = from; i < N; i++) t += S[k][i]; return t; };
+  var r = sum('rev'), c = sum('capex'), o = sum('ocf'), f = sum('fin');
+  document.getElementById('cumfacts').innerHTML =
+    '<div class="fact"><div class="l">8개 분기 동안 번 돈(매출)</div><div class="v">' + eok(r) + '억 달러</div><div class="d">2024년 4분기부터 2026년 3분기까지.</div></div>' +
+    '<div class="fact"><div class="l">같은 동안 장비·건물에 쓴 돈</div><div class="v">' + eok(c) + '억 달러</div><div class="d">번 돈의 ' + (c / r).toFixed(1) + '배.</div></div>' +
+    '<div class="fact"><div class="l">그 돈은 어디서 왔나</div><div class="v">' + eok(f) + '억 + ' + eok(o) + '억</div><div class="d">빌리고 투자받은 돈 ' + eok(f) + '억, 장사에서 들어온 돈 ' + eok(o) + '억 달러(대부분 선불).</div></div>';
+  document.getElementById('cap-capex').textContent = '2024년 4분기 4억 달러에서 2026년 3분기 73억 달러로 17배가 됐어요. 그런데도 매출의 몇 배를 쓰는지는 크게 줄지 않았어요(11.9배 → 7.4배). 매출이 느는 만큼 짓는 돈도 같이 늘고 있다는 뜻이에요.';
+}
+function render(){
+  var e = function(v){ return eok(v); }, p1 = function(v){ return sg(v, 1); }, p0 = function(v){ return sg(v, 0); };
+  summary(); scoreTable(); events(); hstack();
+  cols('ch-rev', S.rev, {fmt: e}); cmp('cmp-rev', 'rev');
+  cols('ch-growth', S.growth, {fmt: p0, h: 180}); cmp('cmp-growth', 'growth');
+  cols('ch-arr', S.arr, {fmt: e, h: 190}); cmp('cmp-arr', 'arr');
+  cmp('cmp-opm', 'cost100');
+  cols('ch-op', S.op, {fmt: e, h: 200}); cmp('cmp-op', 'op');
+  var mark = S.c_margin.map(function(){ return null; }); mark[Q.indexOf('26Q3')] = (S.c_ebitda[N - 1] - S.partner[N - 1]) / (S.c_rev[N - 1] - S.partner[N - 1]) * 100;
+  cols('ch-cm', S.c_margin, {fmt: p1, h: 250, mark: {name: '제휴 매출을 뺀 마진', vals: mark}}); cmp('cmp-cm', 'c_margin');
+  lines('ch-cr', [{name: '사람에게 준 돈', color: 'var(--s3)', vals: S.c_emp_r}, {name: '그 밖의 비용', color: 'var(--c3)', vals: S.c_oth_r}], {fmt: p0});
+  var el = document.getElementById('cmp-cr'), ce = change('c_emp_r'), co = change('c_oth_r');
+  el.innerHTML = '<span>사람에게 준 돈</span> <b>' + fv('c_emp_r', B) + ' → ' + fv('c_emp_r', A) + '</b>' + (ce ? ' <span class="chg ' + ce.cls + '">' + ce.arrow + ce.text + '</span>' : '') +
+    ' <span>· 그 밖의 비용</span> <b>' + fv('c_oth_r', B) + ' → ' + fv('c_oth_r', A) + '</b>' + (co ? ' <span class="chg ' + co.cls + '">' + co.arrow + co.text + '</span>' : '');
+  cols('ch-capex', S.capex, {fmt: e}); cmp('cmp-capex', 'capex');
+  cols('ch-ppe', S.ppe, {fmt: e, h: 190}); cmp('cmp-ppe', 'ppe');
+  var top = Math.max.apply(null, S.capex.concat(S.fin, S.ocf).filter(ok)), bot = Math.min.apply(null, S.fin.concat(S.ocf).filter(ok));
+  cols('ch-ocf', S.ocf, {fmt: e, h: 200, max: top, min: bot}); cmp('cmp-ocf', 'ocf');
+  cols('ch-fin', S.fin, {fmt: e, h: 200, max: top, min: bot}); cmp('cmp-fin', 'fin');
+  cols('ch-capex2', S.capex, {fmt: e, h: 200, max: top, min: bot});
+  cols('ch-cashbal', S.cash, {fmt: e, h: 180}); cmp('cmp-cashbal', 'cash');
+  cols('ch-defrev', S.defrev, {fmt: e, h: 190}); cmp('cmp-defrev', 'defrev');
+  cols('ch-ar', S.ar, {fmt: e, h: 180}); cmp('cmp-ar', 'ar');
+  cols('ch-rpo', S.rpo, {fmt: function(v){ return Math.round(v / 100); }, h: 180}); cmp('cmp-rpo', 'rpo');
+  cols('ch-debt', S.debt, {fmt: e, h: 190}); cmp('cmp-debt', 'debt');
+  cols('ch-int', S.int_exp, {fmt: e, h: 180}); cmp('cmp-int', 'int_exp');
+  cols('ch-cov', S.covShow, {fmt: function(v){ return sg(v, 2); }, h: 220, ref: {v: 1, label: '1배'}}); cmp('cmp-cov', 'cov');
+}
+// 고르기
+var selA = document.getElementById('selA'), selB = document.getElementById('selB');
+Q.forEach(function(q, i){ selA.add(new Option(q + ' (' + qname(q) + ')', i)); selB.add(new Option(q + ' (' + qname(q) + ')', i)); });
+function set(a, b){
+  a = Math.max(0, Math.min(N - 1, a)); b = Math.max(0, Math.min(N - 1, b));
+  if (a === b){ if (a > 0) b = a - 1; else a = 1; }
+  if (a < b){ var t = a; a = b; b = t; }
+  A = a; B = b; selA.value = A; selB.value = B;
+  try { localStorage.setItem('nbq', A + ',' + B); } catch (e) {}
+  render();
+}
+selA.onchange = function(){ set(+selA.value, B); };
+selB.onchange = function(){ set(A, +selB.value); };
+document.getElementById('prev').onclick = function(){ if (B > 0) set(A - 1, B - 1); };
+document.getElementById('next').onclick = function(){ if (A < N - 1) set(A + 1, B + 1); };
+[].forEach.call(document.querySelectorAll('[data-preset]'), function(b){
+  b.onclick = function(){ var p = b.dataset.preset; set(A, p === 'prev' ? A - 1 : p === 'year' ? Math.max(0, A - 4) : 0); };
+});
+var saved = null; try { saved = (localStorage.getItem('nbq') || '').split(',').map(Number); } catch (e) {}
+cum();
+if (saved && saved.length === 2 && saved[0] < N && saved[1] < N && saved[0] !== saved[1] && !isNaN(saved[0]) && !isNaN(saved[1])) set(saved[0], saved[1]); else set(N - 1, N - 2);
+var rt; window.addEventListener('resize', function(){ clearTimeout(rt); rt = setTimeout(render, 120); });
+})();
+</script>
+</body>
+</html>
