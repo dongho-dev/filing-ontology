@@ -1,0 +1,429 @@
+<!doctype html>
+<html lang="ko">
+<head>
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width,initial-scale=1">
+<title>네비우스 쉬운 설명</title>
+<style>
+:root{
+  --bg:#f6f4ef;--card:#ffffff;--ink:#1d1f23;--ink2:#4f5560;--mute:#868c97;--line:#e3e0d8;--soft:#efece5;
+  --s1:#2a78d6;--s2:#eb6834;--s3:#1baf7a;--s4:#eda100;
+  --c1:#8e96a3;--c2:#c2c7cf;--c3:#646c78;
+  --good:#0ca30c;--crit:#d03b3b;--hl:#fff3cc;--hlline:#eda100;
+}
+@media (prefers-color-scheme:dark){:root{
+  --bg:#14161a;--card:#1d2025;--ink:#eceef1;--ink2:#b5bbc6;--mute:#7f8692;--line:#30343b;--soft:#262a30;
+  --s1:#3987e5;--s2:#d95926;--s3:#199e70;--s4:#c98500;
+  --c1:#737b88;--c2:#4b515b;--c3:#98a0ad;
+  --good:#3cc43c;--crit:#e25d5d;--hl:#352e18;--hlline:#c98500;
+}}
+*{box-sizing:border-box}
+html{scroll-behavior:smooth}
+body{margin:0;background:var(--bg);color:var(--ink);font:17px/1.75 "Pretendard","Apple SD Gothic Neo","Malgun Gothic","Noto Sans KR",sans-serif;word-break:keep-all;overflow-wrap:anywhere}
+a{color:inherit}
+.wrap{max-width:860px;margin:0 auto;padding:0 16px 80px}
+nav.top{position:sticky;top:0;z-index:5;background:var(--bg);border-bottom:1px solid var(--line)}
+nav.top .in{max-width:860px;margin:0 auto;padding:10px 16px;display:flex;gap:6px;overflow-x:auto;white-space:nowrap;font-size:14px}
+nav.top a{text-decoration:none;padding:4px 10px;border-radius:999px;background:var(--soft);color:var(--ink2)}
+nav.top a.home{background:none;font-weight:700;color:var(--ink);padding-left:0}
+header.hero{padding:44px 0 8px}
+.kicker{font-size:14px;color:var(--mute);letter-spacing:.02em}
+h1{font-size:clamp(28px,6vw,44px);line-height:1.25;margin:8px 0 14px;letter-spacing:-.02em}
+.lead{font-size:19px;color:var(--ink2);margin:0 0 22px}
+h2{font-size:26px;line-height:1.35;margin:0 0 6px;letter-spacing:-.01em}
+h3{font-size:18px;margin:26px 0 8px}
+section{padding:46px 0 6px;border-top:1px solid var(--line);margin-top:40px}
+.no{display:inline-block;font-size:13px;font-weight:700;color:var(--ink2);background:var(--soft);border-radius:999px;padding:2px 12px;margin-bottom:10px}
+.sub{color:var(--ink2);margin:0 0 18px}
+p{margin:0 0 14px}
+b.n{font-variant-numeric:tabular-nums;white-space:nowrap}
+.card{background:var(--card);border:1px solid var(--line);border-radius:16px;padding:20px;margin:18px 0}
+.card h4{margin:0 0 4px;font-size:16px}
+.card .cap{font-size:14px;color:var(--mute);margin:10px 0 0;line-height:1.6}
+.grid{display:grid;gap:12px}
+.g3{grid-template-columns:repeat(3,1fr)}.g2{grid-template-columns:repeat(2,1fr)}.g4{grid-template-columns:repeat(4,1fr)}
+@media (max-width:720px){.g3,.g4{grid-template-columns:1fr 1fr}.g2{grid-template-columns:1fr}}
+@media (max-width:460px){.g3,.g4{grid-template-columns:1fr}}
+.fact{background:var(--card);border:1px solid var(--line);border-radius:16px;padding:16px}
+.fact .l{font-size:14px;color:var(--mute)}
+.fact .l.t{font-size:16.5px;font-weight:700;color:var(--ink);margin-bottom:4px}
+.fact .v{font-size:30px;font-weight:800;line-height:1.2;margin:4px 0;font-variant-numeric:tabular-nums;letter-spacing:-.02em}
+.fact .d{font-size:14px;color:var(--ink2);line-height:1.55}
+.say{background:var(--hl);border-left:4px solid var(--hlline);border-radius:10px;padding:14px 16px;margin:18px 0}
+.say b:first-child{display:block;font-size:14px;margin-bottom:2px}
+/* 비유 표 */
+table{width:100%;border-collapse:collapse;font-size:15.5px}
+th,td{text-align:left;padding:10px 8px;border-bottom:1px solid var(--line);vertical-align:top}
+th{font-size:13px;color:var(--mute);font-weight:600}
+td.r,th.r{text-align:right;font-variant-numeric:tabular-nums;white-space:nowrap}
+tr:last-child td{border-bottom:0}
+.tw{overflow-x:auto}
+/* 한눈에 보기 고리 */
+.loop{display:grid;grid-template-columns:repeat(3,1fr);gap:14px;counter-reset:st}
+@media (max-width:720px){.loop{grid-template-columns:1fr}}
+.step{background:var(--card);border:1px solid var(--line);border-radius:16px;padding:16px;position:relative}
+.step .num{width:28px;height:28px;border-radius:50%;background:var(--ink);color:var(--bg);display:inline-flex;align-items:center;justify-content:center;font-weight:700;font-size:14px;margin-right:8px}
+.step h4{display:inline;font-size:17px;margin:0}
+.step p{font-size:15px;color:var(--ink2);margin:8px 0 6px;line-height:1.6}
+.step .big{font-size:15px;font-weight:700;font-variant-numeric:tabular-nums}
+.step .ico{font-size:26px;float:right;line-height:1}
+/* 막대 */
+.stack{display:flex;gap:2px;height:44px;margin:14px 0 10px}
+.stack>div{display:flex;align-items:center;justify-content:center;color:#fff;font-weight:700;font-size:14px;min-width:3px;overflow:hidden}
+.stack>div:first-child{border-radius:6px 0 0 6px}.stack>div:last-child{border-radius:0 6px 6px 0}
+.lg{display:flex;flex-wrap:wrap;gap:6px 18px;font-size:14.5px;color:var(--ink2);margin:6px 0 0;padding:0;list-style:none}
+.lg li{display:flex;align-items:center;gap:6px}
+.sw{width:12px;height:12px;border-radius:3px;flex:none}
+.hb{display:grid;grid-template-columns:150px 1fr;gap:6px 12px;align-items:center;margin:12px 0}
+@media (max-width:560px){.hb{grid-template-columns:1fr}.hb .nm{margin-top:8px}}
+.hb .nm{font-size:15px}
+.hb .tr{display:flex;align-items:center;gap:8px}
+.hb .bar{height:22px;border-radius:0 4px 4px 0;min-width:3px}
+.hb .val{font-weight:700;font-variant-numeric:tabular-nums;white-space:nowrap;font-size:15px}
+.rows{margin:8px 0 0}
+.rows>div{display:flex;justify-content:space-between;gap:12px;padding:9px 0;border-bottom:1px solid var(--line);font-size:15.5px}
+.rows>div:last-child{border-bottom:0;font-weight:800}
+.amt{font-variant-numeric:tabular-nums;white-space:nowrap;font-weight:700}
+.amt i{font-style:normal;display:inline-block;width:1.1em;text-align:center;border-radius:4px;margin-right:4px;color:#fff;font-size:13px;line-height:1.4}
+.amt.p i{background:var(--good)}.amt.m i{background:var(--crit)}
+.chips{display:flex;flex-wrap:wrap;gap:6px;margin:8px 0 0}
+.chip{font-size:13.5px;background:var(--soft);border-radius:999px;padding:3px 11px;color:var(--ink2);font-variant-numeric:tabular-nums}
+.chart{width:100%;margin-top:8px}
+.chart svg{display:block}
+.chart text{fill:var(--ink2);font-size:12px;font-variant-numeric:tabular-nums}
+.chart text.v{fill:var(--ink);font-weight:700}
+.q{display:grid;grid-template-columns:36px 1fr;gap:10px;align-items:start;padding:14px 0;border-bottom:1px solid var(--line)}
+.q:last-child{border-bottom:0}
+.q .n{width:32px;height:32px;border-radius:50%;background:var(--s1);color:#fff;font-weight:800;display:flex;align-items:center;justify-content:center}
+.q h4{margin:2px 0 4px;font-size:17px}
+.q p{font-size:15.5px;color:var(--ink2);margin:0}
+dl{margin:0}
+dt{font-weight:700;margin-top:14px}
+dd{margin:2px 0 0;color:var(--ink2);font-size:15.5px}
+footer{margin-top:50px;padding-top:20px;border-top:1px solid var(--line);font-size:14px;color:var(--mute);line-height:1.7}
+footer a{color:var(--ink2)}
+</style>
+</head>
+<body>
+<nav class="top"><div class="in">
+  <a class="home" href="./">← 대시보드</a>
+  <a href="#loop">한눈에</a><a href="#sell">파는 것</a><a href="#build">짓는 돈</a><a href="#cust">손님</a>
+  <a href="#hundred">100원의 행방</a><a href="#margin">마진의 숨은 그림</a><a href="#cash">현금</a><a href="#debt">빚과 이자</a><a href="#watch">지켜볼 것</a><a href="#words">낱말</a>
+</div></nav>
+
+<div class="wrap">
+
+<header class="hero">
+  <div class="kicker">네비우스(Nebius) 쉬운 설명 · 2026년 7~9월(3분기) 공시 기준</div>
+  <h1>네비우스는 AI가 쓰는<br>초대형 PC방이에요</h1>
+  <p class="lead">PC방이 게임하는 사람에게 컴퓨터를 빌려주듯, 네비우스는 AI를 만드는 회사에 아주 비싼 컴퓨터를 빌려주고 돈을 받아요. 이 PC방이 무엇을 팔고, 돈이 어디서 들어와 어디로 나가는지 처음부터 끝까지 따라가 볼게요.</p>
+  <div class="grid g3">
+    <div class="fact"><div class="l">석 달 동안 번 돈(매출)</div><div class="v">9.8억 달러</div><div class="d">1년 전 같은 석 달(1.5억)의 <b>6.7배</b>. 1달러를 1,400원쯤으로 어림하면 약 1조 4천억 원.</div></div>
+    <div class="fact"><div class="l">석 달 동안 새 컴퓨터·건물에 쓴 돈</div><div class="v">73억 달러</div><div class="d">번 돈의 <b>7.4배</b>. 1만 원 벌 때 7만 4천 원을 새 장비에 쓴 셈.</div></div>
+    <div class="fact"><div class="l">손님이 앞으로 쓰기로 약속한 금액</div><div class="v">387억 달러</div><div class="d">지금 석 달 매출의 <b>39배</b>. 이 가운데 40%는 2년 안에 매출이 돼요.</div></div>
+  </div>
+</header>
+
+<section id="loop">
+  <span class="no">한눈에 보기</span>
+  <h2>돈은 이렇게 한 바퀴 돌아요</h2>
+  <p class="sub">아래 여섯 칸이 이 페이지 전체의 줄거리예요. 뒤에서 한 칸씩 자세히 봅니다.</p>
+  <div class="loop">
+    <div class="step"><span class="ico">🏦</span><span class="num">1</span><h4>돈을 모은다</h4><p>PC방을 차릴 돈이 없으니 먼저 빌리거나 투자를 받아요.</p><div class="big">9개월 동안 166억 달러</div></div>
+    <div class="step"><span class="ico">🖥️</span><span class="num">2</span><h4>컴퓨터와 건물을 산다</h4><p>엔비디아에서 GPU를 사고, 데이터센터를 짓거나 빌려요.</p><div class="big">9개월 동안 154억 달러</div></div>
+    <div class="step"><span class="ico">⚡</span><span class="num">3</span><h4>전기를 꽂고 켠다</h4><p>GPU는 전기를 엄청 먹어요. 그래서 전기부터 미리 계약해요.</p><div class="big">계약한 전기 4GW 이상</div></div>
+    <div class="step"><span class="ico">🤖</span><span class="num">4</span><h4>손님이 빌려 쓴다</h4><p>AI 회사가 GPU로 AI를 공부시키고 대답하게 해요.</p><div class="big">큰손 3곳이 매출의 70%</div></div>
+    <div class="step"><span class="ico">💵</span><span class="num">5</span><h4>돈이 들어온다</h4><p>쓴 만큼 내는 돈도 있고, 큰손은 몇 년 치를 미리 내기도 해요.</p><div class="big">미리 받은 돈 94억 달러</div></div>
+    <div class="step"><span class="ico">🧾</span><span class="num">6</span><h4>비용과 이자를 낸다</h4><p>전기·임차료·월급을 내고, 빌린 돈의 이자를 내요. 남으면 다시 2번으로.</p><div class="big">100원 벌면 5원 남고, 이자가 11원</div></div>
+  </div>
+  <div class="say"><b>가장 중요한 한 줄</b>지금 네비우스는 <b>번 돈으로 짓는 게 아니라, 빌린 돈과 손님이 미리 낸 돈으로 짓고 있어요.</b> 그래서 "다 지은 뒤에 이자를 내고도 돈이 남느냐"가 이 회사의 숙제예요.</div>
+</section>
+
+<section id="sell">
+  <span class="no">1장</span>
+  <h2>무엇을 파나요?</h2>
+  <p class="sub">파는 물건은 딱 하나, "AI용 컴퓨터를 쓰는 시간"이에요.</p>
+  <p>AI는 두 가지 일을 해요. 엄청나게 많은 글과 그림을 읽으며 <b>공부하는 일(학습)</b>, 그리고 사람이 물어보면 <b>대답하는 일(추론)</b>. 둘 다 GPU라는 특별한 계산 부품이 수만 개씩 필요해요. GPU는 비싸고, 사려고 줄을 서도 구하기 어렵고, 전기도 많이 먹어요. 그래서 많은 AI 회사는 직접 사지 않고 빌려 써요. 그걸 빌려주는 곳이 네비우스예요.</p>
+
+  <div class="card"><h4>PC방으로 바꿔 보면</h4>
+  <div class="tw"><table>
+    <tr><th>PC방</th><th>네비우스</th><th>실제 숫자</th></tr>
+    <tr><td>컴퓨터</td><td>GPU가 들어 있는 서버. 엔비디아에서 사요.</td><td>가진 장비·건물 값 193억 달러</td></tr>
+    <tr><td>가게 건물</td><td>데이터센터. 컴퓨터만 가득한 큰 창고예요.</td><td>핀란드, 미국, 영국, 프랑스, 이스라엘, 아이슬란드</td></tr>
+    <tr><td>전기 요금</td><td>전기. PC방보다 훨씬 중요해요.</td><td>계약 4GW 이상 (큰 원자력 발전기 4대쯤, 어림)</td></tr>
+    <tr><td>1시간 요금</td><td>쓴 만큼 내기</td><td>필요할 때만 잠깐 쓰는 손님</td></tr>
+    <tr><td>정액권·통째 대관</td><td>자리를 몇 년 예약하는 계약</td><td>메타, 마이크로소프트와 여러 해 계약</td></tr>
+    <tr><td>게임 한 판당 요금</td><td>토큰 공장(Token Factory)</td><td>AI가 읽고 쓴 글자 조각(토큰) 수만큼 계산</td></tr>
+  </table></div></div>
+
+  <h3>돈을 받는 방법 네 가지</h3>
+  <div class="grid g2">
+    <div class="fact"><div class="l t">① 쓴 만큼 내기</div><div class="d">GPU를 쓴 시간만큼 내요. 예약이 필요 없지만 손님이 언제든 떠날 수 있어요.</div></div>
+    <div class="fact"><div class="l t">② 자리 예약</div><div class="d">"GPU 몇 대를 몇 년 동안 쓰겠다"고 약속해요. 네비우스는 그 약속을 믿고 건물을 지어요. 큰손은 돈을 미리 내기도 해요.</div></div>
+    <div class="fact"><div class="l t">③ 토큰 공장</div><div class="d">2025년 11월에 시작. 손님은 컴퓨터를 신경 쓰지 않고, AI가 처리한 글자 조각 수만큼만 내요. DeepSeek, Llama, Qwen 같은 공개 AI를 바로 쓸 수 있어요.</div></div>
+    <div class="fact"><div class="l t">④ 전략적 제휴</div><div class="d">다른 회사와 손잡고 시설을 늘리는 일을 돕고 받는 돈이에요. 회사 스스로 "되풀이되지 않고, 언제 얼마가 생길지 예측하기 어렵다"고 말해요. 이번 석 달에 <b>3.25억 달러</b>.</div></div>
+  </div>
+  <div class="card"><h4>이번 석 달 매출 9.8억 달러 가운데</h4>
+    <div class="stack" role="img" aria-label="매출 구성">
+      <div style="flex:648.7;background:var(--s1)">AI 클라우드 본업 6.49억</div>
+      <div style="flex:325.1;background:var(--s4)">제휴 3.25억</div>
+      <div style="flex:7;background:var(--c2)"></div>
+    </div>
+    <ul class="lg"><li><span class="sw" style="background:var(--s1)"></span>GPU 빌려주기·토큰 공장 등 본업 66%</li><li><span class="sw" style="background:var(--s4)"></span>전략적 제휴 33%</li><li><span class="sw" style="background:var(--c2)"></span>다른 사업 1%</li></ul>
+    <p class="cap">다른 사업은 자율주행차와 배달 로봇을 만드는 Avride(석 달 매출 130만 달러), 코딩을 가르치는 TripleTen(900만 달러)이에요. 둘 다 아직 버는 돈보다 쓰는 돈이 많아서, 석 달에 합쳐 5,240만 달러를 까먹었어요.</p>
+  </div>
+</section>
+
+<section id="build">
+  <span class="no">2장</span>
+  <h2>PC방을 차리려면 먼저 돈이 엄청 들어요</h2>
+  <p class="sub">손님을 받기 전에 컴퓨터와 건물부터 사야 해요. 그래서 번 돈보다 쓰는 돈이 훨씬 커요.</p>
+  <div class="card"><h4>2026년 7~9월 석 달</h4>
+    <div class="hb">
+      <div class="nm">번 돈(매출)</div><div class="tr"><div class="bar" style="width:13.4%;background:var(--s1)"></div><span class="val">9.8억 달러</span></div>
+      <div class="nm">새 장비·건물에 쓴 돈</div><div class="tr"><div class="bar" style="width:78%;background:var(--c3)"></div><span class="val">73.0억 달러</span></div>
+    </div>
+    <p class="cap">용돈으로 바꾸면, 한 달에 1만 원을 버는 친구가 같은 달에 7만 4천 원짜리 게임기를 사는 것과 같아요. 모자라는 돈은 어디선가 가져와야 해요(6장).</p>
+  </div>
+  <div class="grid g3">
+    <div class="fact"><div class="l">가진 장비·건물</div><div class="v">193억 달러</div><div class="d">1년 전 33억 달러에서 5.8배로 늘었어요.</div></div>
+    <div class="fact"><div class="l">계약한 전기</div><div class="v">4GW+</div><div class="d">2월 2GW → 5월 3.5GW → 11월 4GW. 2025년 말에 실제로 켜져 있던 건 0.17GW였어요. 대부분 아직 짓는 중이에요.</div></div>
+    <div class="fact"><div class="l">컴퓨터의 수명</div><div class="v">5년</div><div class="d">2026년부터 4년에서 5년으로 늘려 잡았어요. 수명을 길게 잡으면 해마다 낡는 값이 줄어요.</div></div>
+  </div>
+  <h3>건물을 마련하는 네 가지 방법</h3>
+  <div class="tw"><table>
+    <tr><th>방법</th><th>뜻</th><th>예</th></tr>
+    <tr><td>직접 짓기</td><td>땅을 사서 처음부터 설계해요. 가장 효율이 좋지만 오래 걸려요.</td><td>핀란드, 미국 미주리</td></tr>
+    <tr><td>있던 건물 고치기</td><td>건물과 전기 시설이 이미 있는 곳을 고쳐 써요. 더 빨라요.</td><td></td></tr>
+    <tr><td>맞춤으로 지어 빌리기</td><td>땅 주인이 네비우스 설계대로 지어 주고, 네비우스는 빌려 써요.</td><td>미국 뉴저지</td></tr>
+    <tr><td>자리만 빌리기</td><td>남의 데이터센터 한쪽을 빌려 컴퓨터만 넣어요. 가장 빨라요.</td><td>캔자스시티, 영국, 프랑스, 이스라엘, 아이슬란드</td></tr>
+  </table></div>
+  <div class="say"><b>재미있는 사실</b>컴퓨터는 뜨거워져요. 핀란드 데이터센터는 그 열을 버리지 않고 동네 난방에 보내요. 2025년에 약 20GWh의 열을 다시 썼고, 근처 집들의 난방비가 10%쯤 줄었다고 회사는 말해요.</div>
+  <h3>"낡는 값"이 왜 중요할까요</h3>
+  <p>100만 원짜리 컴퓨터를 5년 쓴다면 해마다 20만 원어치씩 낡는 셈이에요. 돈이 실제로 나가지는 않지만, 5년 뒤 새 컴퓨터를 사려면 그만큼을 벌어 둬야 해요. 이걸 <b>감가상각</b>이라고 해요. 네비우스는 이번 석 달에 <b class="n">3.55억 달러</b>어치가 낡았어요. 1년 전(0.99억)의 3.6배예요. 컴퓨터를 많이 살수록 이 값도 따라 커져요.</p>
+</section>
+
+<section id="cust">
+  <span class="no">3장</span>
+  <h2>손님은 누구인가요?</h2>
+  <p class="sub">손님 수는 많지만, 돈은 큰손 몇 곳에서 나와요.</p>
+  <div class="card"><h4>이번 석 달 매출을 손님별로 나누면</h4>
+    <div class="stack" role="img" aria-label="손님별 매출 비중">
+      <div style="flex:33;background:var(--s1)">손님 E 33%</div>
+      <div style="flex:22;background:var(--s2)">D 22%</div>
+      <div style="flex:15;background:var(--s3)">C 15%</div>
+      <div style="flex:30;background:var(--c1)">나머지 30%</div>
+    </div>
+    <p class="cap">공시는 큰 손님을 A~E 글자로만 적어요. 연간보고서는 메타, 마이크로소프트와 여러 해짜리 계약을 맺었다고 밝히지만, 어느 글자가 누구인지는 밝히지 않아요. PC방 매출의 70%가 단골 세 명에게서 나오는 셈이라, 한 명만 떠나도 타격이 커요.</p>
+  </div>
+  <div class="grid g3">
+    <div class="fact"><div class="l">약속받은 일감(수주 잔고)</div><div class="v">387억 달러</div><div class="d">계약서에 도장은 찍었지만 아직 서비스하지 않은 금액. 약 155억 달러(40%)가 2년 안에 매출이 돼요.</div></div>
+    <div class="fact"><div class="l">미리 받은 돈(선수금)</div><div class="v">94억 달러</div><div class="d">작년 말 16억 달러에서 9개월 만에 78억 달러 늘었어요.</div></div>
+    <div class="fact"><div class="l">아직 못 받은 돈(외상)</div><div class="v">+33억 달러</div><div class="d">9개월 동안 늘어난 금액. 이 외상의 75%가 손님 D 한 곳이에요.</div></div>
+  </div>
+  <div class="say"><b>미리 받은 돈은 공짜가 아니에요</b>정액권을 판 PC방은 돈은 먼저 받았지만, 그만큼 자리를 내줘야 하는 숙제가 남아요. 회계에서는 이 돈을 "잠깐 빌린 돈"처럼 보고 이자까지 계산해요. 이번 석 달 이자비용 1.1억 달러 가운데 절반쯤(0.59억)이 이런 선불과 장비 외상에 붙은 이자예요.</div>
+</section>
+
+<section id="hundred">
+  <span class="no">4장</span>
+  <h2>100원을 벌면 어디로 갈까요?</h2>
+  <p class="sub">2026년 7~9월 회사 전체 매출 9.8억 달러를 100원으로 줄여서 봤어요.</p>
+  <div class="card"><h4>100원의 행방</h4>
+    <div class="stack" role="img" aria-label="매출 100원의 쓰임">
+      <div style="flex:22.4;background:var(--c1)">22</div>
+      <div style="flex:12.1;background:var(--c2);color:var(--ink)">12</div>
+      <div style="flex:24.2;background:var(--c3)">24</div>
+      <div style="flex:36.2;background:var(--s2)">36</div>
+      <div style="flex:5.1;background:var(--s1)">5</div>
+    </div>
+    <ul class="lg">
+      <li><span class="sw" style="background:var(--c1)"></span>건물 임차료·전기·운영 22원</li>
+      <li><span class="sw" style="background:var(--c2)"></span>서비스를 만드는 개발자 12원</li>
+      <li><span class="sw" style="background:var(--c3)"></span>영업·관리 24원</li>
+      <li><span class="sw" style="background:var(--s2)"></span>컴퓨터가 낡는 값 36원</li>
+      <li><span class="sw" style="background:var(--s1)"></span>남는 돈(영업이익) 5원</li>
+    </ul>
+    <p class="cap">가장 큰 덩어리는 컴퓨터가 낡는 값(36원)이에요. 1년 전에는 100원을 벌면 89원을 손해 봤는데, 이번에 처음으로 5원이 남았어요. 실제 금액으로는 5,040만 달러예요.</p>
+  </div>
+  <div class="card"><h4>그런데 5원으로 끝이 아니에요</h4>
+    <div class="rows">
+      <div><span>장사에서 남은 돈</span><span class="amt p"><i>+</i>5.1원</span></div>
+      <div><span>빌린 돈에 낸 이자</span><span class="amt m"><i>−</i>11.5원</span></div>
+      <div><span>은행에 넣어 둔 돈에서 받은 이자</span><span class="amt p"><i>+</i>3.1원</span></div>
+      <div><span>그 밖의 수입</span><span class="amt p"><i>+</i>2.2원</span></div>
+      <div><span>빚을 주식으로 바꿔 주면서 얹어 준 값</span><span class="amt m"><i>−</i>5.0원</span></div>
+      <div><span>지분을 가진 회사의 손실</span><span class="amt m"><i>−</i>0.3원</span></div>
+      <div><span>세금 돌려받음</span><span class="amt p"><i>+</i>2.6원</span></div>
+      <div><span>마지막에 남은 돈(순손실 3,750만 달러)</span><span class="amt m"><i>−</i>3.8원</span></div>
+    </div>
+    <p class="cap">장사만 보면 5원이 남지만 이자가 11원이라, 다 더하고 빼면 4원쯤 모자라요.</p>
+  </div>
+  <div class="card"><h4>분기마다 번 돈(매출)</h4>
+    <div class="chart" id="ch-rev"></div>
+    <p class="cap">단위는 억 달러. 2년이 채 안 되는 사이에 0.35억에서 9.81억으로 28배가 됐어요.</p>
+  </div>
+</section>
+
+<section id="margin">
+  <span class="no">5장</span>
+  <h2>성적표 "마진"과 그 안의 숨은 그림</h2>
+  <p class="sub">회사가 가장 자주 내세우는 성적표는 "조정 EBITDA 마진"이에요.</p>
+  <p><b>조정 EBITDA</b>는 컴퓨터가 낡는 값, 이자, 세금, 주식으로 준 보너스를 <b>빼기 전</b>의 이익이에요. PC방으로 치면 "컴퓨터 값과 대출 이자는 잠깐 잊고, 오늘 장사만 봤을 때 남은 돈"이에요. <b>마진</b>은 그 돈이 매출 100원 가운데 몇 원인지를 말해요.</p>
+  <div class="card"><h4>AI 클라우드 사업의 100원 (2026년 7~9월)</h4>
+    <p style="font-size:15px;margin:10px 0 0"><b>회사가 발표한 그대로</b> · 매출 9.74억 달러</p>
+    <div class="stack" role="img" aria-label="발표 기준 100원">
+      <div style="flex:13.9;background:var(--c1)">14</div>
+      <div style="flex:32.9;background:var(--c3)">33</div>
+      <div style="flex:53.2;background:var(--s1)">남는 돈 53원</div>
+    </div>
+    <p style="font-size:15px;margin:14px 0 0"><b>제휴 매출 3.25억을 빼고 보면</b> · 매출 6.49억 달러</p>
+    <div class="stack" role="img" aria-label="제휴 매출을 뺀 100원">
+      <div style="flex:20.8;background:var(--c1)">21</div>
+      <div style="flex:49.4;background:var(--c3)">49</div>
+      <div style="flex:29.8;background:var(--s1)">남는 돈 30원</div>
+    </div>
+    <ul class="lg"><li><span class="sw" style="background:var(--c1)"></span>사람에게 준 돈(1.35억 달러)</li><li><span class="sw" style="background:var(--c3)"></span>건물·전기 등 그 밖의 비용(3.21억 달러)</li><li><span class="sw" style="background:var(--s1)"></span>남는 돈</li></ul>
+    <p class="cap">아래 막대는 "제휴 매출에는 비용이 하나도 안 들었다"고 가정하고 통째로 뺀 계산이에요. 실제로는 비용이 조금 들었을 테니, 진짜 값은 30원과 53원 사이 어딘가예요.</p>
+  </div>
+  <div class="say"><b>시험 점수로 비유하면</b>이번 시험에서 53점을 받았는데, 그 가운데 큰 몫이 이번에만 나온 보너스 문제에서 왔어요. 회사도 이 돈이 "되풀이되지 않는다"고 말해요. 보너스 문제를 빼면 30점쯤이에요. 다음 시험에 보너스가 없어도 점수가 오르는지 봐야 실력을 알 수 있어요.</div>
+  <div class="card"><h4>AI 클라우드 마진의 흐름</h4>
+    <ul class="lg"><li><span class="sw" style="background:var(--s1)"></span>회사가 발표한 마진</li><li><span class="sw" style="background:var(--s4)"></span>제휴 매출을 뺀 마진</li></ul>
+    <div class="chart" id="ch-margin"></div>
+    <p class="cap">단위는 %. 2025년 1분기에는 100원을 벌 때 66원을 손해 봤어요. 손님이 늘수록 한 사람당 드는 비용이 줄어 마진이 올라갔어요. 2026년 1~2분기에도 제휴 매출이 합쳐서 0.84억 달러 있었지만, 어느 분기 것인지 공시에 없어서 따로 그리지 않았어요.</p>
+  </div>
+  <p>회사 전체 마진은 47.5%로 AI 클라우드(53.2%)보다 낮아요. 자율주행과 교육 사업이 5,240만 달러를 까먹었기 때문이에요(5.18억 − 0.52억 = 4.66억 달러).</p>
+</section>
+
+<section id="cash">
+  <span class="no">6장</span>
+  <h2>현금은 어디서 와서 어디로 갔나요?</h2>
+  <p class="sub">2026년 1~9월, 9개월 동안 통장에 들어오고 나간 돈이에요.</p>
+  <div class="card"><h4>들어온 돈</h4>
+    <div class="hb">
+      <div class="nm">빌리고 투자받은 돈</div><div class="tr"><div class="bar" style="width:78%;background:var(--s2)"></div><span class="val">166억 달러</span></div>
+      <div class="nm">장사에서 들어온 돈</div><div class="tr"><div class="bar" style="width:19.9%;background:var(--s1)"></div><span class="val">42억 달러</span></div>
+    </div>
+    <div class="chips"><span class="chip">전환사채(빚) 100.9억</span><span class="chip">주식을 판 돈 39.1억</span><span class="chip">엔비디아의 투자 20.0억</span><span class="chip">은행 대출 7.7억</span><span class="chip">수수료 등 −1.6억</span></div>
+    <h4 style="margin-top:22px">나간 돈</h4>
+    <div class="hb">
+      <div class="nm">컴퓨터·건물</div><div class="tr"><div class="bar" style="width:72.5%;background:var(--c3)"></div><span class="val">154억 달러</span></div>
+      <div class="nm">그 밖의 투자</div><div class="tr"><div class="bar" style="width:2.3%;background:var(--c1)"></div><span class="val">5억 달러</span></div>
+    </div>
+    <div class="chips"><span class="chip">다른 회사에 빌려준 돈 3.5억</span><span class="chip">회사 세 곳 인수 2.5억</span></div>
+    <p class="cap">그 결과 자유롭게 쓸 수 있는 현금은 37억 달러에서 74억 달러로 늘었어요. 용도가 정해져 묶인 돈 12억 달러는 따로 있어요.</p>
+  </div>
+  <h3>"장사에서 들어온 42억"을 뜯어 보면</h3>
+  <div class="card">
+    <div class="rows">
+      <div><span>손님이 미리 낸 돈이 늘어남</span><span class="amt p"><i>+</i>78억 달러</span></div>
+      <div><span>서비스는 했지만 아직 못 받은 돈(외상)이 늘어남</span><span class="amt m"><i>−</i>33억 달러</span></div>
+      <div><span>그 밖의 장사에서 오간 돈</span><span class="amt m"><i>−</i>3억 달러</span></div>
+      <div><span>장사에서 들어온 돈</span><span class="amt p"><i>+</i>42억 달러</span></div>
+    </div>
+    <p class="cap">미리 받은 78억 달러가 없었다면 장사에서는 오히려 36억 달러가 나간 셈이에요. 7~9월 석 달만 보면 장사에서 2.7억 달러가 빠져나갔어요. 선불 34억 달러가 들어왔는데도요.</p>
+  </div>
+  <div class="say"><b>돌고 도는 돈</b>엔비디아는 네비우스에 GPU를 파는 회사예요. 그런데 2026년 3월에는 네비우스에 20억 달러를 투자하기도 했어요. 컴퓨터 가게가 단골 PC방에 투자하고, PC방은 그 돈으로 다시 그 가게의 컴퓨터를 사는 모양이에요.</div>
+</section>
+
+<section id="debt">
+  <span class="no">7장</span>
+  <h2>빚과 이자</h2>
+  <p class="sub">빌린 돈이 1년 만에 41억 달러에서 142억 달러가 됐어요.</p>
+  <p>빚의 대부분은 <b>전환사채</b>예요. "나중에 돈 대신 회사 주식으로 받아 가도 되는 빚"이에요. 주가가 오르면 빌려준 사람이 주식으로 바꿔 이득을 볼 수 있어서, 대신 이자를 아주 낮게 받아요. 네비우스의 전환사채는 겉으로 적힌 이자가 연 0.5~4.5%예요. 담보를 맡기고 빌린 대출도 7.5억 달러 있어요.</p>
+  <div class="grid g3">
+    <div class="fact"><div class="l">빌린 돈</div><div class="v">142억 달러</div><div class="d">현금 74억 달러를 빼면 순수한 빚은 68억 달러.</div></div>
+    <div class="fact"><div class="l">석 달 이자비용</div><div class="v">1.1억 달러</div><div class="d">1년 전 0.15억 달러의 7.7배.</div></div>
+    <div class="fact"><div class="l">남은 돈 ÷ 이자</div><div class="v">0.45배</div><div class="d">이자 100원을 내야 하는데 장사에서 남은 돈은 45원.</div></div>
+  </div>
+  <div class="card"><h4>석 달 이자를 뜯어 보면</h4>
+    <div class="rows">
+      <div><span>빚에 붙은 이자 가운데 비용으로 적은 것</span><span class="amt">0.54억 달러</span></div>
+      <div><span>손님 선불과 장비 외상에 붙은 이자</span><span class="amt">0.59억 달러</span></div>
+      <div><span>이자비용</span><span class="amt">1.13억 달러</span></div>
+    </div>
+    <p class="cap">여기에 안 보이는 이자가 더 있어요. 아직 짓고 있는 데이터센터에 들어간 빚의 이자 0.92억 달러는 비용에 넣지 않고 "건물 값"에 얹어요. 이것까지 합치면 빚 이자는 석 달에 1.46억 달러예요. 건물이 다 지어지면 이 이자도 비용으로 넘어와요.</p>
+  </div>
+  <p>낡는 값을 빼기 전 이익(조정 EBITDA 4.66억 달러)으로 보면 이자의 4.1배를 벌어요. 낡는 값을 뺀 뒤(영업이익 0.50억 달러)로 보면 0.45배예요. 두 숫자의 차이가 곧 컴퓨터가 낡는 값이에요. 컴퓨터는 5년 뒤 다시 사야 하니, 이 페이지는 0.45배 쪽을 더 중요하게 봐요.</p>
+</section>
+
+<section id="watch">
+  <span class="no">8장</span>
+  <h2>그래서 무엇을 지켜보면 될까요?</h2>
+  <p class="sub">다음 공시가 나오면 이 네 가지를 먼저 확인하면 돼요.</p>
+  <div class="card">
+    <div class="q"><div class="n">1</div><div><h4>보너스를 빼고도 마진이 오르나요?</h4><p>제휴 매출을 뺀 AI 클라우드 마진은 약 30%예요. 다음 분기에 제휴 매출이 줄어도 발표 마진이 버티는지 봐요.</p></div></div>
+    <div class="q"><div class="n">2</div><div><h4>장사에서 남은 돈이 이자를 넘나요?</h4><p>지금은 0.45배. 1배를 넘어야 이자를 내고도 남아요. 짓는 중인 건물이 완성되면 이자비용이 더 늘어난다는 점도 기억해요.</p></div></div>
+    <div class="q"><div class="n">3</div><div><h4>선불 없이도 현금이 들어오나요?</h4><p>이번 석 달은 선불 34억 달러를 받고도 장사에서 2.7억 달러가 나갔어요. 외상(33억 달러)이 제때 걷히는지 봐요.</p></div></div>
+    <div class="q"><div class="n">4</div><div><h4>큰손에게 너무 기대지 않나요?</h4><p>손님 한 곳이 매출의 33%, 세 곳이 70%예요. 이 비중이 줄어드는지 봐요.</p></div></div>
+  </div>
+</section>
+
+<section id="words">
+  <span class="no">낱말 풀이</span>
+  <h2>어려운 낱말</h2>
+  <dl>
+    <dt>GPU</dt><dd>한꺼번에 아주 많은 계산을 하는 부품. 원래 게임 그래픽용이었는데 AI 계산에 딱 맞아요.</dd>
+    <dt>데이터센터</dt><dd>컴퓨터 수만 대와 전기·냉방 장치를 모아 둔 건물.</dd>
+    <dt>토큰</dt><dd>AI가 글을 읽고 쓸 때 쪼개는 글자 조각. 토큰 공장은 이 조각 수로 요금을 매겨요.</dd>
+    <dt>매출</dt><dd>물건이나 서비스를 팔고 받기로 한 돈. 비용을 빼기 전이에요.</dd>
+    <dt>설비투자</dt><dd>오래 쓸 장비와 건물을 사는 데 쓴 돈.</dd>
+    <dt>감가상각</dt><dd>장비가 낡는 만큼을 해마다 비용으로 나눠 적는 것.</dd>
+    <dt>영업이익</dt><dd>매출에서 장사에 든 비용(낡는 값 포함)을 모두 뺀 돈.</dd>
+    <dt>조정 EBITDA</dt><dd>낡는 값, 이자, 세금, 주식 보상 등을 빼기 전의 이익. 회사가 정한 기준이라 회사마다 조금씩 달라요.</dd>
+    <dt>수주 잔고</dt><dd>계약은 했지만 아직 서비스하지 않아 매출이 되지 않은 금액.</dd>
+    <dt>선수금</dt><dd>서비스를 하기 전에 손님에게 미리 받은 돈.</dd>
+    <dt>전환사채</dt><dd>나중에 돈 대신 주식으로 바꿔 받을 수 있는 빚.</dd>
+  </dl>
+</section>
+
+<footer>
+  <p><b>숫자의 출처</b> · 모두 회사가 미국 증권거래위원회(SEC)에 낸 공시에서 가져왔어요.<br>
+  <a href="https://www.sec.gov/Archives/edgar/data/1513845/000110465926126238/nbis-ex99d2.htm" target="_blank" rel="noopener">2026년 3분기 재무제표</a> ·
+  <a href="https://www.sec.gov/Archives/edgar/data/1513845/000110465926126238/nbis-ex99d1.htm" target="_blank" rel="noopener">3분기 경영진 설명</a> ·
+  <a href="https://www.sec.gov/Archives/edgar/data/1513845/000110465926094844/nbis-20260812xex99d2.htm" target="_blank" rel="noopener">2026년 2분기 재무제표</a> ·
+  <a href="https://www.sec.gov/Archives/edgar/data/1513845/000110465926052948/nbis-20251231x20f.htm" target="_blank" rel="noopener">2025년 연간보고서</a></p>
+  <p>원화로 바꾼 값과 "1GW는 큰 원자력 발전기 1대쯤"은 감을 잡기 위한 어림이에요. "제휴 매출을 뺀 마진"은 공시에 없는 값으로, 이 프로젝트에서 계산했어요. 이 페이지는 공시를 쉽게 풀어 쓴 설명이고, 주식을 사라거나 팔라는 뜻이 아니에요.</p>
+</footer>
+</div>
+
+<script>
+function cols(id, labels, vals, o){
+  o = o || {};
+  var el = document.getElementById(id);
+  function draw(){
+    var mx = Math.max.apply(null, vals.concat([0])), mn = Math.min.apply(null, vals.concat([0]));
+    var W = el.clientWidth || 600, H = o.h || 230, pt = 24, pb = mn < 0 ? 62 : 42;
+    var y = function(v){ return pt + (mx - v) / (mx - mn) * (H - pt - pb); };
+    var band = W / vals.length, bw = Math.min(24, band * 0.5), y0 = y(0);
+    var s = '<svg viewBox="0 0 ' + W + ' ' + H + '" width="' + W + '" height="' + H + '" role="img" aria-label="' + (o.label || '') + '">';
+    s += '<line x1="0" x2="' + W + '" y1="' + y0 + '" y2="' + y0 + '" stroke="var(--line)"/>';
+    vals.forEach(function(v, i){
+      var x = band * (i + .5) - bw / 2, y1 = y(v), h = Math.max(1, Math.abs(y1 - y0)), r = Math.min(4, h, bw / 2);
+      var c = (o.colors && o.colors[i]) || 'var(--s1)', d;
+      if (v >= 0) d = 'M' + x + ',' + y0 + 'V' + (y1 + r) + 'Q' + x + ',' + y1 + ' ' + (x + r) + ',' + y1 + 'H' + (x + bw - r) + 'Q' + (x + bw) + ',' + y1 + ' ' + (x + bw) + ',' + (y1 + r) + 'V' + y0 + 'Z';
+      else d = 'M' + x + ',' + y0 + 'V' + (y1 - r) + 'Q' + x + ',' + y1 + ' ' + (x + r) + ',' + y1 + 'H' + (x + bw - r) + 'Q' + (x + bw) + ',' + y1 + ' ' + (x + bw) + ',' + (y1 - r) + 'V' + y0 + 'Z';
+      var t = o.fmt ? o.fmt(v) : v;
+      s += '<path d="' + d + '" fill="' + c + '"><title>' + labels[i].replace('\n', ' ') + ': ' + t + '</title></path>';
+      s += '<text class="v" text-anchor="middle" x="' + (x + bw / 2) + '" y="' + (v >= 0 ? y1 - 6 : y1 + 15) + '">' + t + '</text>';
+      labels[i].split('\n').forEach(function(ln, k){
+        s += '<text text-anchor="middle" x="' + (x + bw / 2) + '" y="' + (H - 20 + k * 14) + '">' + ln + '</text>';
+      });
+    });
+    el.innerHTML = s + '</svg>';
+  }
+  draw();
+  window.addEventListener('resize', draw);
+}
+cols('ch-rev',
+  ['24Q4','25Q1','25Q2','25Q3','25Q4','26Q1','26Q2','26Q3'],
+  [0.35, 0.51, 1.05, 1.46, 2.28, 3.99, 5.82, 9.81],
+  {label: '분기 매출(억 달러)', fmt: function(v){ return v.toFixed(2); }});
+cols('ch-margin',
+  ['25Q1','25Q2','25Q3','25Q4','26Q1','26Q2','26Q3','26Q3\n제휴 빼면'],
+  [-66.2, 10.1, 19.1, 24.2, 44.6, 49.7, 53.2, 29.8],
+  {label: 'AI 클라우드 조정 EBITDA 마진(%)', h: 260,
+   colors: [null, null, null, null, null, null, null, 'var(--s4)'],
+   fmt: function(v){ return (v < 0 ? '−' + (-v).toFixed(1) : v.toFixed(1)); }});
+</script>
+</body>
+</html>
