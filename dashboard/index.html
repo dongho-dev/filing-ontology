@@ -3,105 +3,237 @@
 <head>
 <meta charset="utf-8">
 <meta name="viewport" content="width=device-width, initial-scale=1">
-<title>공시 비교 대시보드</title>
+<title>공시 온톨로지</title>
 <style>
-:root{--bg:#f7f6f3;--card:#fff;--ink:#1f1e1c;--ink2:#5c5a55;--ink3:#8a877f;--line:#e3e0d8;--line2:#cfcbc0;--mark:#2f6fb5;--new:#eaf2fb;--newink:#1d4f86;--sel:#f0eee8}
-@media (prefers-color-scheme:dark){:root{--bg:#1b1a18;--card:#242321;--ink:#eceae4;--ink2:#b3b0a7;--ink3:#86837b;--line:#35332f;--line2:#4a4843;--mark:#7fb2ea;--new:#1f2f42;--newink:#a9cdf3;--sel:#2d2b28}}
+:root{
+  color-scheme:light;
+  --page:#f4f3ef;--surface:#fcfcfb;--raise:#ffffff;--ink:#0b0b0b;--ink2:#52514e;--ink3:#898781;
+  --grid:#e8e7e1;--axis:#c3c2b7;--line:rgba(11,11,11,.09);--wash:#efeee9;--hover:#f3f2ee;
+  --s1:#2a78d6;--s1soft:#b7d3f6;--s2:#eb6834;--s3:#1baf7a;--s4:#eda100;
+  --cost1:#8f8c84;--cost2:#cfccc3;
+  --good:#0ca30c;--warn:#fab219;--crit:#d03b3b;--goodtxt:#006300;--crittxt:#b42e2e;
+  --accent:#2a78d6;--accentwash:#e8f1fc;--accentink:#1c5cab;
+  --shadow:0 1px 2px rgba(0,0,0,.04),0 4px 16px rgba(0,0,0,.04);
+}
+@media (prefers-color-scheme:dark){:root:not([data-theme=light]){
+  color-scheme:dark;
+  --page:#0f0f0e;--surface:#1a1a19;--raise:#202020;--ink:#f0efec;--ink2:#c3c2b7;--ink3:#898781;
+  --grid:#2c2c2a;--axis:#45453f;--line:rgba(255,255,255,.09);--wash:#262624;--hover:#262624;
+  --s1:#3987e5;--s1soft:#1c3f6b;--s2:#d95926;--s3:#199e70;--s4:#c98500;
+  --cost1:#77756e;--cost2:#45443f;
+  --goodtxt:#0ca30c;--crittxt:#e66767;
+  --accent:#3987e5;--accentwash:#16263a;--accentink:#9ec5f4;
+  --shadow:none;
+}}
+:root[data-theme=dark]{color-scheme:dark;--page:#0f0f0e;--surface:#1a1a19;--raise:#202020;--ink:#f0efec;--ink2:#c3c2b7;--ink3:#898781;--grid:#2c2c2a;--axis:#45453f;--line:rgba(255,255,255,.09);--wash:#262624;--hover:#262624;--s1:#3987e5;--s1soft:#1c3f6b;--s2:#d95926;--s3:#199e70;--s4:#c98500;--cost1:#77756e;--cost2:#45443f;--goodtxt:#0ca30c;--crittxt:#e66767;--accent:#3987e5;--accentwash:#16263a;--accentink:#9ec5f4;--shadow:none}
 *{box-sizing:border-box}
-body{margin:0;background:var(--bg);color:var(--ink);font:15px/1.6 system-ui,"Malgun Gothic",sans-serif}
-main{max-width:1120px;margin:0 auto;padding:24px 16px 48px}
-h1{font-size:20px;font-weight:600;margin:0}
-h2{font-size:15px;font-weight:600;margin:32px 0 10px}
-.top{display:flex;flex-wrap:wrap;align-items:center;gap:12px 20px;margin-bottom:16px}
-.top label{font-size:13px;color:var(--ink2)}
-select{font:inherit;padding:6px 10px;border:1px solid var(--line2);border-radius:8px;background:var(--card);color:var(--ink)}
+html,body{margin:0;background:var(--page);color:var(--ink);font:14px/1.55 system-ui,-apple-system,"Segoe UI","Malgun Gothic",sans-serif}
+button,select,input{font:inherit;color:inherit}
+a{color:var(--accent)}
+.bar{position:sticky;top:0;z-index:20;background:color-mix(in srgb,var(--page) 88%,transparent);backdrop-filter:blur(8px);border-bottom:1px solid var(--line)}
+.bar-in{max-width:1200px;margin:0 auto;padding:10px 16px;display:flex;align-items:center;gap:8px 20px;flex-wrap:wrap}
+.brand{font-weight:700;font-size:15px;letter-spacing:-.01em;margin-right:4px}
+nav.tabs{display:flex;gap:2px;flex-wrap:wrap}
+nav.tabs button{border:0;background:none;padding:6px 12px;border-radius:8px;color:var(--ink2);cursor:pointer;font-size:14px}
+nav.tabs button:hover{background:var(--hover);color:var(--ink)}
+nav.tabs button[aria-pressed=true]{background:var(--ink);color:var(--surface)}
+nav.tabs .n{display:inline-block;min-width:18px;padding:0 5px;margin-left:4px;border-radius:9px;background:var(--crit);color:#fff;font-size:11px;line-height:18px;text-align:center}
+.gen{margin-left:auto;font-size:12px;color:var(--ink3)}
+main{max-width:1200px;margin:0 auto;padding:20px 16px 64px}
 .muted{color:var(--ink3);font-size:12px}
-.news{display:flex;flex-wrap:wrap;gap:8px}
-.news a{display:block;text-decoration:none;color:var(--ink2);font-size:13px;background:var(--card);border:1px solid var(--line);border-radius:8px;padding:8px 12px}
-.news a.fresh{background:var(--new);border-color:transparent;color:var(--newink)}
-.news b{font-weight:600;color:inherit}
-.wrap{overflow-x:auto;background:var(--card);border:1px solid var(--line);border-radius:12px}
-table{border-collapse:collapse;width:100%;min-width:760px}
-th,td{padding:10px 12px;border-bottom:1px solid var(--line);text-align:left;vertical-align:top}
-tr:last-child td{border-bottom:0}
-thead th{font-weight:400;font-size:12px;color:var(--ink2);background:var(--card)}
-thead th b{display:block;font-size:15px;font-weight:600;color:var(--ink)}
-th.m{width:150px;font-weight:400;color:var(--ink2);font-size:13px}
-td.c{cursor:pointer}
-td.c:hover,td.c.on{background:var(--sel)}
-td.c:focus-visible{outline:2px solid var(--mark);outline-offset:-2px}
-td.sup,th.sup{border-left:2px solid var(--line2)}
-.v{font-size:17px;font-weight:600;white-space:nowrap}
-.d{font-size:12px;color:var(--ink2);white-space:nowrap}
-.tag{display:inline-block;font-size:11px;padding:0 6px;border-radius:6px;background:var(--new);color:var(--newink);margin-left:6px;vertical-align:2px;font-weight:400}
-.none{color:var(--ink3);font-size:13px}
-svg.sp{display:block;margin-top:4px}
-.panel{background:var(--card);border:1px solid var(--line);border-radius:12px;padding:16px}
-.panel h3{font-size:15px;margin:0 0 4px}
-.panel p{margin:4px 0;font-size:13px;color:var(--ink2)}
-.panel table{min-width:0;margin-top:10px;font-size:13px}
-.panel th{font-weight:400;color:var(--ink2);font-size:12px}
-.panel td{vertical-align:top}
-.q{border-left:2px solid var(--line2);padding-left:10px;color:var(--ink2);font-size:13px;margin:4px 0}
-a{color:var(--mark)}
-.rel{display:grid;gap:8px}
-.rel>div{background:var(--card);border:1px solid var(--line);border-radius:8px;padding:10px 12px;font-size:13px}
-footer{margin-top:32px;font-size:12px;color:var(--ink3)}
-.tabs{display:flex;flex-wrap:wrap;gap:6px;margin:0 0 8px}
-.tabs button{font:inherit;font-size:13px;padding:6px 12px;border:1px solid var(--line2);border-radius:8px;background:var(--card);color:var(--ink2);cursor:pointer}
-.tabs button[aria-pressed=true]{background:var(--sel);color:var(--ink);border-color:var(--ink3)}
-.qa{background:var(--card);border:1px solid var(--line);border-radius:8px;padding:12px 14px;margin-bottom:8px;font-size:14px}
-.qa b{font-weight:600;display:block;margin-bottom:2px}
-.qa svg{display:block;max-width:100%;height:auto;margin-top:6px}
-.st{display:inline-block;font-size:11px;padding:0 6px;border-radius:6px;border:1px solid var(--line2);color:var(--ink3);margin-left:6px;vertical-align:1px;font-weight:400;white-space:nowrap}
-.st.done{border-color:transparent;background:var(--sel);color:var(--ink2)}
-.st.hot{border-color:var(--ink2);color:var(--ink);font-weight:600}
-.th table{min-width:680px;font-size:13px}
-.th .st{margin-left:0}
-.th h3 .st{margin-left:6px}
-.al{background:var(--card);border:1px solid var(--line);border-radius:12px;padding:14px 16px;margin-bottom:10px;font-size:14px}
-.al h3{font-size:15px;margin:0 0 4px}
+h2.sec{font-size:13px;font-weight:600;color:var(--ink2);margin:28px 0 10px;display:flex;align-items:baseline;gap:10px;flex-wrap:wrap}
+h2.sec .muted{font-weight:400}
+.card{background:var(--surface);border:1px solid var(--line);border-radius:14px;box-shadow:var(--shadow)}
+.pad{padding:16px 18px}
+.pills{display:flex;gap:6px;flex-wrap:wrap}
+.pill{display:inline-flex;align-items:center;gap:8px;border:1px solid var(--line);background:var(--surface);border-radius:999px;padding:6px 14px 6px 10px;cursor:pointer;font-size:14px}
+.pill:hover{background:var(--hover)}
+.pill[aria-pressed=true]{border-color:var(--ink);box-shadow:inset 0 0 0 1px var(--ink)}
+.pill .tk{color:var(--ink3);font-size:12px}
+.dot{display:inline-block;width:10px;height:10px;border-radius:50%;flex:none}
+/* 회사 머리 */
+.co-head{display:flex;align-items:flex-end;justify-content:space-between;gap:12px;flex-wrap:wrap;margin:18px 0 6px}
+.co-head h1{font-size:26px;letter-spacing:-.02em;margin:0;line-height:1.2}
+.co-head .sub{color:var(--ink2);font-size:13px;margin-top:4px}
+.chip{display:inline-flex;align-items:center;gap:6px;font-size:12px;padding:3px 10px;border-radius:999px;background:var(--wash);color:var(--ink2);text-decoration:none;white-space:nowrap}
+.chip.fresh{background:var(--accentwash);color:var(--accentink)}
+.chip b{font-weight:600}
+/* 가설 띠 */
+.strip{display:grid;grid-template-columns:repeat(auto-fit,minmax(280px,1fr));gap:10px;margin-top:14px}
+.th-mini{display:flex;gap:12px;align-items:flex-start;padding:12px 14px;cursor:pointer;text-align:left;border:1px solid var(--line);background:var(--surface);border-radius:12px;width:100%}
+.th-mini:hover{background:var(--hover)}
+.th-mini .stmt{font-weight:600;font-size:14px;line-height:1.35}
+.th-mini .cnd{font-size:12px;color:var(--ink2);margin-top:4px}
+.th-mini>div{flex:1;min-width:0}
+/* 상태 표시 */
+.status{display:inline-flex;align-items:center;gap:5px;font-size:12px;font-weight:600;padding:2px 9px 2px 4px;border-radius:999px;background:var(--wash);color:var(--ink);white-space:nowrap}
+.status i{font-style:normal;display:inline-grid;place-items:center;width:16px;height:16px;border-radius:50%;color:#fff;font-size:10px;line-height:1}
+.status.held i{background:var(--good)}.status.near i,.status.reversed i{background:var(--warn);color:#0b0b0b}.status.broken i{background:var(--crit)}.status.unknown i{background:var(--ink3)}
+.status.big{font-size:14px;padding:4px 12px 4px 5px}.status.big i{width:20px;height:20px;font-size:12px}
+/* KPI */
+.kpis{display:grid;grid-template-columns:repeat(auto-fit,minmax(180px,1fr));gap:10px;margin-top:16px}
+.kpi{padding:14px 16px;cursor:pointer;text-align:left;border:1px solid var(--line);background:var(--surface);border-radius:14px;box-shadow:var(--shadow);display:flex;flex-direction:column;gap:2px;min-width:0}
+.kpi:hover{border-color:var(--axis)}
+.kpi .lab{font-size:12px;color:var(--ink2)}
+.kpi .val{font-size:26px;font-weight:650;letter-spacing:-.02em;line-height:1.2;white-space:nowrap}
+.kpi .per{font-size:11px;color:var(--ink3)}
+.delta{font-size:12px;font-weight:600;white-space:nowrap}
+.delta.good{color:var(--goodtxt)}.delta.bad{color:var(--crittxt)}.delta.flat{color:var(--ink2)}
+.delta .base{font-weight:400;color:var(--ink3)}
+.kpi svg{margin-top:6px}
+/* 차트 격자 */
+.grid2{display:grid;grid-template-columns:repeat(auto-fit,minmax(min(100%,520px),1fr));gap:12px}
+.grid3{display:grid;grid-template-columns:repeat(auto-fit,minmax(min(100%,300px),1fr));gap:12px}
+.chart-card{padding:16px 18px 10px}
+.chart-card h3{font-size:15px;margin:0;font-weight:600;letter-spacing:-.01em}
+.chart-card .cap{font-size:12px;color:var(--ink2);margin:2px 0 8px}
+.legend{display:flex;flex-wrap:wrap;gap:4px 14px;font-size:12px;color:var(--ink2);margin:4px 0 6px}
+.legend span{display:inline-flex;align-items:center;gap:6px}
+.legend .sw{width:12px;height:12px;border-radius:3px}
+.legend .ln{width:14px;height:0;border-top:2px solid}
+svg.viz{display:block;width:100%;height:auto;overflow:visible}
+svg.viz text{font-family:inherit}
+.tick{font-size:11px;fill:var(--ink3);font-variant-numeric:tabular-nums}
+.vlab{font-size:12px;fill:var(--ink);font-weight:600}
+.vlab2{font-size:11px;fill:var(--ink2)}
+.hit{fill:transparent;cursor:pointer}
+.xh{stroke:var(--axis);stroke-width:1;visibility:hidden;pointer-events:none}
+/* 부문 */
+.seg{padding:18px}
+.seg-head{display:flex;justify-content:space-between;gap:12px;flex-wrap:wrap;align-items:flex-start}
+.seg-head h3{font-size:18px;margin:0;letter-spacing:-.01em}
+.seg-head p{margin:4px 0 0;color:var(--ink2);font-size:13px;max-width:720px}
+.facts{display:grid;grid-template-columns:repeat(auto-fit,minmax(170px,1fr));gap:10px;margin:14px 0 6px}
+.fact{background:var(--page);border-radius:12px;padding:12px 14px;cursor:pointer;border:1px solid transparent}
+.fact:hover{border-color:var(--axis)}
+.fact .lab{font-size:12px;color:var(--ink2)}
+.fact .val{font-size:24px;font-weight:650;letter-spacing:-.02em}
+.fact .note{font-size:12px;color:var(--ink3)}
+.callout{display:flex;gap:10px;align-items:flex-start;background:var(--accentwash);color:var(--ink);border-radius:12px;padding:12px 14px;font-size:13px;margin:10px 0 4px}
+.callout b{font-weight:650}
+.callout .ic{flex:none;width:20px;height:20px;border-radius:50%;background:var(--accent);color:#fff;display:grid;place-items:center;font-size:12px;font-weight:700}
+/* 지표 카드 */
+.mgrid{display:grid;grid-template-columns:repeat(auto-fill,minmax(220px,1fr));gap:10px}
+.mcard{padding:12px 14px 8px;cursor:pointer;text-align:left;border:1px solid var(--line);background:var(--surface);border-radius:12px;min-width:0}
+.mcard:hover{border-color:var(--axis)}
+.mcard .lab{font-size:12px;color:var(--ink2);display:flex;justify-content:space-between;gap:6px}
+.mcard .val{font-size:18px;font-weight:650;letter-spacing:-.01em;white-space:nowrap}
+.mcard.on,.kpi.on,.fact.on{border-color:var(--accent);box-shadow:inset 0 0 0 1px var(--accent)}
+.gaps{font-size:12px;color:var(--ink3);margin-top:10px;line-height:1.8}
+.gaps span{display:inline-block;background:var(--wash);border-radius:6px;padding:0 8px;margin:0 4px 4px 0;color:var(--ink2)}
+/* 비교 */
+.cmp-row{display:grid;grid-template-columns:92px 1fr;gap:8px;align-items:center;min-height:30px;cursor:pointer;border-radius:6px;padding:0 4px}
+.cmp-row:hover{background:var(--hover)}
+.cmp-row .nm{font-size:12px;color:var(--ink2);display:flex;align-items:center;gap:6px;white-space:nowrap;overflow:hidden}
+.cmp-row.gap{cursor:default}.cmp-row.gap:hover{background:none}
+.cmp-row .why{font-size:12px;color:var(--ink3)}
+.track{position:relative;height:22px;display:block}
+.track .hb{position:absolute;top:4px;height:14px;border-radius:0 4px 4px 0}
+.track .hb.neg{border-radius:4px 0 0 4px}
+.track .z{position:absolute;top:0;bottom:0;width:1px;background:var(--axis)}
+.track .hl{position:absolute;top:1px;font-size:12px;white-space:nowrap;color:var(--ink)}
+.track .hl b{font-weight:650}.track .hl span{color:var(--ink3);font-size:11px}
+.rel-wrap{padding:14px 18px}
+.rel-wrap svg.viz{max-width:640px;margin:0 auto}
+details.tbl>summary{cursor:pointer;color:var(--ink2);font-size:13px;margin:18px 0 8px}
+.wrap{overflow-x:auto}
+table{border-collapse:collapse;width:100%}
+th,td{padding:9px 12px;border-bottom:1px solid var(--line);text-align:left;vertical-align:top;font-size:13px}
+thead th{font-weight:500;color:var(--ink2);font-size:12px}
+tbody tr:last-child td{border-bottom:0}
+td.num,th.num{text-align:right;font-variant-numeric:tabular-nums}
+/* 서랍 */
+.scrim{position:fixed;inset:0;background:rgba(0,0,0,.25);z-index:30;opacity:0;pointer-events:none;transition:opacity .15s}
+.scrim.on{opacity:1;pointer-events:auto}
+aside.drawer{position:fixed;top:0;right:0;bottom:0;width:min(560px,100vw);background:var(--surface);z-index:31;box-shadow:-8px 0 32px rgba(0,0,0,.12);transform:translateX(100%);transition:transform .2s ease;display:flex;flex-direction:column}
+aside.drawer.on{transform:none}
+.dr-head{display:flex;justify-content:space-between;align-items:flex-start;gap:12px;padding:18px 20px 10px;border-bottom:1px solid var(--line)}
+.dr-head h3{margin:0;font-size:18px;letter-spacing:-.01em}
+.dr-head .muted{margin-top:2px}
+.dr-body{overflow:auto;padding:14px 20px 32px}
+.dr-body p{margin:6px 0;color:var(--ink2);font-size:13px}
+.xbtn{border:0;background:var(--wash);width:32px;height:32px;border-radius:50%;cursor:pointer;font-size:16px;flex:none}
+.xbtn:hover{background:var(--hover)}
+.q{border-left:2px solid var(--axis);padding-left:10px;color:var(--ink2);font-size:12px;margin:6px 0;word-break:break-word}
+.src{font-size:12px}
+.st{display:inline-block;font-size:11px;padding:0 6px;border-radius:6px;border:1px solid var(--line);color:var(--ink3);margin-left:6px;vertical-align:1px;font-weight:400;white-space:nowrap}
+.st.done{border-color:transparent;background:var(--wash);color:var(--ink2)}
+.tag{display:inline-block;font-size:11px;padding:0 6px;border-radius:6px;background:var(--accentwash);color:var(--accentink);margin-left:6px;vertical-align:2px;font-weight:500}
+/* 가설·알림·기록 */
+.th-card{padding:18px 20px;margin-bottom:14px}
+.th-top{display:flex;gap:14px;align-items:flex-start;justify-content:space-between;flex-wrap:wrap}
+.th-top h3{margin:0;font-size:19px;letter-spacing:-.01em;line-height:1.35}
+.th-top .meta{font-size:12px;color:var(--ink3);margin-top:4px}
+.th-note{font-size:13px;color:var(--ink2);margin:8px 0 0}
+.conds{margin-top:14px;display:grid;gap:10px}
+.cond{border:1px solid var(--line);border-radius:12px;padding:12px 14px;display:grid;grid-template-columns:minmax(0,1fr) 200px;gap:12px;align-items:start}
+@media (max-width:640px){.cond{grid-template-columns:1fr}}
+.cond h4{margin:0;font-size:14px;display:flex;gap:8px;align-items:center;flex-wrap:wrap}
+.cond .rule{font-size:12px;color:var(--ink3);margin-top:2px}
+.cond .vt{font-size:13px;margin-top:6px}
+.trail{display:flex;gap:4px;flex-wrap:wrap;margin-top:8px}
+.trail span{font-size:11px;padding:1px 7px;border-radius:6px;background:var(--wash);color:var(--ink2);white-space:nowrap}
+.trail span.rev{background:color-mix(in srgb,var(--crit) 14%,transparent);color:var(--crittxt);font-weight:600}
+.basis{font-size:12px;color:var(--ink2);margin-top:6px}
+details>summary{cursor:pointer;font-size:12px;color:var(--ink2);margin-top:6px}
+.dec{margin-top:16px;border-top:1px solid var(--line);padding-top:12px}
+.dec h4{margin:0 0 4px;font-size:13px}
+.tl{border-left:2px solid var(--line);margin:8px 0 0 6px;padding-left:14px}
+.tl .it{position:relative;margin-bottom:12px;font-size:13px}
+.tl .it::before{content:"";position:absolute;left:-20px;top:6px;width:10px;height:10px;border-radius:50%;background:var(--surface);border:2px solid var(--ink3)}
+.tl .it.due::before{border-color:var(--warn);background:var(--warn)}
+.al{padding:14px 18px;margin-bottom:10px}
+.al h3{margin:0;font-size:15px;display:flex;gap:8px;align-items:center;flex-wrap:wrap}
 .al .row{font-size:13px;color:var(--ink2);margin:4px 0}
 .al ul{margin:4px 0;padding-left:20px;font-size:13px;color:var(--ink2)}
+.fromto{display:flex;align-items:center;gap:10px;margin:10px 0;flex-wrap:wrap}
+.fromto .b1{background:var(--page);border-radius:10px;padding:8px 12px;min-width:120px}
+.fromto .b1 .k{font-size:11px;color:var(--ink3)}
+.fromto .b1 .v{font-size:16px;font-weight:650}
+.fromto .arr{color:var(--ink3);font-size:18px}
 .acts{display:flex;flex-wrap:wrap;gap:6px;margin-top:10px}
-button.b{font:inherit;font-size:13px;padding:4px 10px;border:1px solid var(--line2);border-radius:8px;background:var(--card);color:var(--ink);cursor:pointer}
+button.b{font-size:13px;padding:5px 12px;border:1px solid var(--line);border-radius:8px;background:var(--raise);cursor:pointer}
+button.b:hover{border-color:var(--axis)}
 button.b:disabled{color:var(--ink3);cursor:not-allowed}
-button.b.sm{font-size:12px;padding:1px 8px;margin-top:4px}
-form.f{display:flex;flex-wrap:wrap;align-items:center;gap:8px;margin-top:8px;padding:10px;border:1px solid var(--line);border-radius:8px;background:var(--bg);font-size:13px}
-form.f input{font:inherit;font-size:13px;padding:4px 8px;border:1px solid var(--line2);border-radius:6px;background:var(--card);color:var(--ink)}
+button.b.sm{font-size:12px;padding:2px 9px;margin:2px 2px 0 0}
+form.f{display:flex;flex-wrap:wrap;align-items:center;gap:8px;margin-top:8px;padding:10px;border:1px solid var(--line);border-radius:10px;background:var(--page);font-size:13px}
+form.f input,form.f select{font-size:13px;padding:5px 9px;border:1px solid var(--line);border-radius:7px;background:var(--surface)}
 form.f input[name=note]{flex:1 1 220px}
-.err{font-size:12px;color:var(--ink);font-weight:600}
-.off{font-size:13px;color:var(--ink2);background:var(--sel);border-radius:8px;padding:8px 12px;margin:8px 0}
-details>summary{cursor:pointer;font-size:14px;color:var(--ink2);margin:16px 0 8px}
-.log td{font-size:13px}
+.err{font-size:12px;font-weight:600;color:var(--crittxt)}
+.off{font-size:13px;color:var(--ink2);background:var(--wash);border-radius:10px;padding:10px 14px;margin:8px 0 14px}
+.empty{padding:24px;text-align:center;color:var(--ink3)}
+.qa{padding:14px 18px;margin-bottom:10px;font-size:14px}
+.qa b{display:block;margin-bottom:4px}
+#tip{position:fixed;z-index:50;pointer-events:none;background:var(--ink);color:var(--surface);font-size:12px;line-height:1.5;padding:8px 10px;border-radius:8px;max-width:300px;opacity:0;transition:opacity .08s;white-space:pre-line}
+#tip b{font-weight:650}
+footer{margin-top:40px;font-size:12px;color:var(--ink3)}
+:focus-visible{outline:2px solid var(--accent);outline-offset:2px}
 </style>
 </head>
 <body>
+<header class="bar"><div class="bar-in">
+  <span class="brand">공시 온톨로지</span>
+  <nav class="tabs" id="tabs"></nav>
+  <span class="gen" id="gen"></span>
+</div></header>
 <main>
-<div class="top">
-  <h1>공시 비교 대시보드</h1>
-  <label>기준 회사 <select id="focal"></select></label>
-  <span class="muted" id="gen"></span>
-</div>
-<div class="tabs" id="tabs"></div>
-<div id="fixed">
-<h2>최근 반영된 공시</h2>
-<div class="news" id="news"></div>
-<h2>지표 비교 <span class="muted">칸을 누르면 근거가 나옵니다. 회사마다 회계 분기가 달라 기간을 함께 적습니다. 값이 없는 칸에는 이유를 적습니다: 아직 안 읽음(원문에서 찾아보지 않음), 공시에 없음(찾아봤지만 회사가 밝히지 않음), 해당 없음(이 회사에 맞지 않거나 계산할 수 없음).</span></h2>
-<div class="wrap"><table id="grid"></table></div>
-<h2>근거</h2>
-<div class="panel" id="panel"><p>표의 칸을 누르면 그 값의 정의, 분기별 값, 근거 공시가 여기에 나옵니다.</p></div>
-<h2>관계</h2>
-<div class="rel" id="rel"></div>
-</div>
-<div id="theses" hidden></div>
-<div id="alerts" hidden></div>
-<div id="log" hidden></div>
-<div id="view" hidden></div>
-<footer>공개된 공시 정보를 정리한 화면입니다. 종목을 추천하거나 투자 판단을 대신하지 않습니다.</footer>
+  <section id="pane-overview"></section>
+  <section id="pane-compare" hidden></section>
+  <section id="pane-theses" hidden></section>
+  <section id="pane-alerts" hidden></section>
+  <section id="pane-log" hidden></section>
+  <section id="pane-view" hidden></section>
+  <footer>공개된 공시 정보를 정리한 화면입니다. 종목을 추천하거나 투자 판단을 대신하지 않습니다.</footer>
 </main>
+<div class="scrim" id="scrim"></div>
+<aside class="drawer" id="drawer" aria-hidden="true" aria-label="값의 근거">
+  <div class="dr-head"><div id="dr-title"></div><button class="xbtn" id="dr-close" aria-label="닫기">✕</button></div>
+  <div class="dr-body" id="panel"></div>
+</aside>
+<div id="tip" role="tooltip"></div>
 <script src="data.js"></script>
 <script>
+// ---------- 자료 ----------
 const ROLE = {gpu_cloud: "GPU 클라우드", gpu_supplier: "GPU 공급사"};
 const FRESH_DAYS = 14;
 const byId = (arr) => Object.fromEntries(arr.map(x => [x.id, x]));
@@ -116,18 +248,38 @@ loadData();
 const esc = (s) => String(s ?? "").replace(/[&<>"]/g, c => ({"&": "&amp;", "<": "&lt;", ">": "&gt;", '"': "&quot;"}[c]));
 const daysAgo = (iso) => Math.round((genDate - new Date(iso)) / 864e5);
 const cname = (id) => C[id]?.name || id;
+const ccolor = (id) => `var(--s${(D.companies.findIndex(c => c.id === id) % 4) + 1})`;
 let API = false;
 const OFF_MSG = "행동을 기록하려면 python scripts/serve.py로 여세요.";
 const ST = {unreviewed: ["검토 전", ""], inputs_unreviewed: ["재료 값 검토 전", ""], reviewed: ["검토함", "done"], corrected: ["정정됨", "done"]};
+const GAP = {not_read: "아직 안 읽음", not_disclosed: "공시에 없음", not_applicable: "해당 없음"};
+const RES = {held: "지켜짐", near: "가까워짐", reversed: "반대로 움직임", broken: "깨짐", unknown: "판정 불가"};
+const TST = {held: "유지", near: "흔들림", reversed: "흔들림", broken: "깨짐", unknown: "판정 불가"};
+const ICON = {held: "✓", near: "!", reversed: "!", broken: "✕", unknown: "?"};
+// 값이 커지면 좋은 지표(+1), 작아지면 좋은 지표(-1). 없으면 방향을 칠하지 않는다.
+const GOOD = {revenue: 1, revenue_yoy: 1, operating_income: 1, operating_margin: 1, rpo: 1, cash: 1, adjusted_ebitda: 1, adj_ebitda_margin: 1,
+  interest_coverage: 1, net_debt: -1, net_debt_to_ebitda: -1, asset_turnover: 1, ocf_to_capex: 1, ebit_to_interest: 1, deferred_revenue: 1,
+  ocf_ex_deferred: 1, contracted_power_mw: 1, active_power_mw: 1, top_customer_share: -1, cloud_margin: 1, cloud_margin_ex_partner: 1,
+  cloud_employee_ratio: -1, cloud_other_ratio: -1, cloud_revenue: 1, cloud_adj_ebitda: 1};
+const GROUPS = [
+  ["성장", ["revenue", "revenue_yoy", "rpo", "deferred_revenue", "contracted_power_mw", "active_power_mw"]],
+  ["수익성", ["adjusted_ebitda", "adj_ebitda_margin", "operating_income", "operating_margin"]],
+  ["재무 체력", ["cash", "net_debt", "net_debt_to_ebitda", "interest_coverage", "ebit_to_interest"]],
+  ["투자 효율", ["capex", "asset_turnover", "ocf_to_capex", "ocf_ex_deferred"]],
+  ["고객 집중", ["top_customer_share"]],
+];
+
 function stTag(v) {
   const s = ST[v?.review?.status];
   if (!s) return "";
   const why = v.review.status === "corrected" ? ` title="원래 값 ${esc(fmt(v.review.original_value, v.unit))} · ${esc(v.review.note)}"` : "";
   return `<span class="st ${s[1]}"${why}>${s[0]}</span>`;
 }
-
 function series(cid, mid) {
   return D.values.filter(v => v.company === cid && v.metric === mid).sort((a, b) => a.period_end < b.period_end ? -1 : 1);
+}
+function valueOf(cid, mid, pe) {
+  return D.values.find(v => v.company === cid && v.metric === mid && v.period_end === pe);
 }
 function latestPeriod(cid) {
   const r = series(cid, "revenue");
@@ -135,10 +287,11 @@ function latestPeriod(cid) {
 }
 function latestFiling(cid) {
   let best = null;
-  for (const v of D.values) if (v.company === cid) for (const f of v.source.filings || []) if (!best || f.filed > best.filed) best = f;
+  for (const v of D.values) if (v.company === cid) for (const f of v.source.filings || []) if (f && (!best || f.filed > best.filed)) best = f;
   return best;
 }
 function fmt(v, unit) {
+  if (v == null) return "–";
   if (unit === "USD") {
     const x = v / 1e8, a = Math.abs(x);
     const digits = a >= 100 ? 0 : a >= 10 ? 1 : 2;
@@ -149,140 +302,408 @@ function fmt(v, unit) {
   if (unit === "x") return v.toLocaleString("ko-KR", {minimumFractionDigits: 2, maximumFractionDigits: 2}) + "배";
   return String(v);
 }
+function fmtShort(v, unit) {
+  if (unit === "USD") {
+    const x = v / 1e8, a = Math.abs(x);
+    return x.toLocaleString("ko-KR", {maximumFractionDigits: a >= 100 ? 0 : a >= 10 ? 1 : 2}) + "억";
+  }
+  if (unit === "%") return v.toLocaleString("ko-KR", {maximumFractionDigits: 1}) + "%";
+  if (unit === "x") return v.toLocaleString("ko-KR", {maximumFractionDigits: 1}) + "배";
+  if (unit === "MW") return Math.round(v).toLocaleString("ko-KR");
+  return String(v);
+}
+function qlabel(pe) {
+  const y = pe.slice(2, 4), m = +pe.slice(5, 7);
+  return m % 3 === 0 ? `${y}Q${m / 3}` : `${y}.${pe.slice(5, 7)}`;
+}
+const periodText = (v) => `${v.period_start ? v.period_start + " ~ " : ""}${v.period_end}`;
 function delta(cur, prev, m) {
-  if (!prev) return "";
+  if (!prev) return null;
   const sign = (x) => (x > 0 ? "+" : "");
   const gap = (new Date(cur.period_end) - new Date(prev.period_end)) / 864e5;
-  const base = gap <= 120 ? "전 분기 대비" : `${prev.period_end} 값 대비`;
-  if (m.unit === "USD" && m.id !== "operating_income" && prev.value > 0) {
-    const p = (cur.value / prev.value - 1) * 100;
-    return `${base} ${sign(p)}${p.toFixed(1)}%`;
-  }
+  const base = gap <= 120 ? "전 분기 대비" : `${prev.period_end} 대비`;
   const diff = cur.value - prev.value;
-  if (m.unit === "USD") return `${base} ${sign(diff)}${fmt(diff, "USD")}`;
-  if (m.unit === "%") return `${base} ${sign(diff)}${diff.toFixed(1)}%p`;
-  return `${base} ${sign(diff)}${fmt(diff, m.unit)}`;
+  let text;
+  if (m.unit === "USD" && m.id !== "operating_income" && prev.value > 0) text = `${sign(diff)}${((cur.value / prev.value - 1) * 100).toFixed(1)}%`;
+  else if (m.unit === "USD") text = `${sign(diff)}${fmt(diff, "USD")}`;
+  else if (m.unit === "%") text = `${sign(diff)}${diff.toFixed(1)}%p`;
+  else text = `${sign(diff)}${fmt(diff, m.unit)}`;
+  const g = GOOD[m.id] || 0, dir = Math.sign(diff);
+  const cls = !g || !dir ? "flat" : dir === g ? "good" : "bad";
+  return {text, base, cls, arrow: dir > 0 ? "▲" : dir < 0 ? "▼" : "–"};
 }
-function spark(vals, unit) {
-  if (vals.length < 2) return "";
-  const W = 96, H = 28, P = 4;
-  const ys = vals.map(v => v.value), lo = Math.min(...ys, 0), hi = Math.max(...ys, 0), span = hi - lo || 1;
-  const x = (i) => P + i * (W - 2 * P) / (vals.length - 1), y = (v) => H - P - (v - lo) / span * (H - 2 * P);
-  const pts = vals.map((v, i) => `${x(i).toFixed(1)},${y(v.value).toFixed(1)}`).join(" ");
-  const zero = lo < 0 ? `<line x1="0" x2="${W}" y1="${y(0).toFixed(1)}" y2="${y(0).toFixed(1)}" stroke="var(--line2)" stroke-width="1"/>` : "";
-  const hits = vals.map((v, i) => `<circle cx="${x(i).toFixed(1)}" cy="${y(v.value).toFixed(1)}" r="7" fill="transparent"><title>${v.period_end}: ${fmt(v.value, unit)}</title></circle>`).join("");
-  const last = vals.length - 1;
-  return `<svg class="sp" width="${W}" height="${H}" viewBox="0 0 ${W} ${H}" role="img" aria-label="최근 ${vals.length}개 분기 추이">${zero}<polyline points="${pts}" fill="none" stroke="var(--mark)" stroke-width="2" stroke-linejoin="round" stroke-linecap="round"/><circle cx="${x(last).toFixed(1)}" cy="${y(vals[last].value).toFixed(1)}" r="3" fill="var(--mark)"/>${hits}</svg>`;
+function deltaHtml(cur, prev, m, withBase = true) {
+  const d = delta(cur, prev, m);
+  return d ? `<span class="delta ${d.cls}">${d.arrow} ${esc(d.text)}${withBase ? ` <span class="base">${esc(d.base)}</span>` : ""}</span>` : "";
 }
 function isFresh(v) {
   const f = (v.source.filings || [])[0];
   return f && daysAgo(f.filed) <= FRESH_DAYS;
 }
-function order(focal) {
-  const f = C[focal];
-  const peers = D.companies.filter(c => c.id !== focal && c.role === f.role);
-  const others = D.companies.filter(c => c.id !== focal && c.role !== f.role);
-  return [f, ...peers, ...others];
+function gapOf(cid, mid, pe) {
+  return (pe && D.gaps[`${cid}|${mid}|${pe}`]) || D.gaps[`${cid}|${mid}`] || null;
 }
-let selected = null;
-function render() {
-  const focal = document.getElementById("focal").value;
-  const cols = order(focal);
-  const rows = D.metrics.filter(m => m.show !== false && D.values.some(v => v.metric === m.id));
-  let h = "<thead><tr><th class='m'>지표</th>";
-  for (const c of cols) {
-    const lp = latestPeriod(c.id);
-    const other = c.role !== C[focal].role;
-    h += `<th class="${other ? "sup" : ""}"><b>${esc(c.name)} <span class="muted">${esc(c.ticker)}</span></b>${ROLE[c.role] || ""}${c.id === focal ? " · 기준" : ""}<br>${lp ? `${lp.period_start} ~ ${lp.period_end}` : "분기 자료 없음"}</th>`;
-  }
-  h += "</tr></thead><tbody>";
-  for (const m of rows) {
-    h += `<tr><th class="m">${esc(m.name)}</th>`;
-    for (const c of cols) {
-      const s = series(c.id, m.id).slice(-5), cur = s[s.length - 1], prev = s[s.length - 2];
-      const other = c.role !== C[focal].role, key = c.id + "|" + m.id;
-      const cls = `c${other ? " sup" : ""}${selected === key ? " on" : ""}`;
-      if (!cur) { const g = D.gaps[key] || {reason: "not_read"}; h += `<td class="${other ? "sup" : ""}" title="${esc(g.note || "")}"><span class="none">${GAP[g.reason] || "자료 없음"}</span></td>`; continue; }
-      const lp = latestPeriod(c.id), pg = lp && D.gaps[key + "|" + lp.period_end];
-      const stale = lp && cur.period_end !== lp.period_end ? `<div class="d"${pg ? ` title="${esc(pg.note || "")}"` : ""}>${cur.period_end} 기준${pg ? ` · 최신 분기는 ${GAP[pg.reason]}` : ""}</div>` : "";
-      const label = m.kind === "text" && cur.source.label ? `<div class="d">${esc(cur.source.label)}</div>` : "";
-      h += `<td class="${cls}" tabindex="0" data-key="${key}"><div class="v">${fmt(cur.value, m.unit)}${isFresh(cur) ? '<span class="tag">새 공시</span>' : ""}${stTag(cur)}</div>${label}<div class="d">${delta(cur, prev, m)}</div>${stale}${spark(s, m.unit)}</td>`;
-    }
-    h += "</tr>";
-  }
-  document.getElementById("grid").innerHTML = h + "</tbody>";
-  document.getElementById("news").innerHTML = cols.map(c => {
-    const f = latestFiling(c.id);
-    if (!f) return `<a><b>${esc(c.name)}</b> · 반영된 공시 없음</a>`;
-    const n = daysAgo(f.filed);
-    return `<a class="${n <= FRESH_DAYS ? "fresh" : ""}" href="${esc(f.url || "#")}" target="_blank" rel="noopener"><b>${esc(c.name)}</b> · ${esc(f.form)} · ${f.filed} 제출 (${n}일 전)</a>`;
-  }).join("");
-  document.getElementById("rel").innerHTML = D.relations.length ? D.relations.map(r => {
-    const s = r.source, a = C[r.counterparty]?.name || r.counterparty, b = C[r.company]?.name || r.company;
-    return `<div><b>${esc(a)} → ${esc(b)}</b> · ${esc(r.what || "")} 공급<div class="q">${esc(s.quote)}</div><a href="${esc(s.url)}" target="_blank" rel="noopener">${esc(s.form)} · ${esc(s.filed)} 제출</a></div>`;
-  }).join("") : "<div>아직 넣은 관계가 없습니다.</div>";
+
+// ---------- 차트 ----------
+function niceTicks(lo, hi, n = 4) {
+  if (lo === hi) { hi = lo + 1; }
+  const raw = (hi - lo) / n, mag = Math.pow(10, Math.floor(Math.log10(raw))), r = raw / mag;
+  const step = (r <= 1 ? 1 : r <= 2 ? 2 : r <= 2.5 ? 2.5 : r <= 5 ? 5 : 10) * mag;
+  const out = [];
+  for (let t = Math.floor(lo / step) * step; t <= hi + step * 1e-9; t += step) out.push(+t.toFixed(10));
+  if (out[out.length - 1] < hi) out.push(out[out.length - 1] + step);
+  return out;
 }
-function showPanel(key) {
-  selected = key;
-  const [cid, mid] = key.split("|"), m = M[mid], s = series(cid, mid).slice(-5).reverse();
-  let h = `<h3>${esc(C[cid].name)} · ${esc(m.name)}</h3><p>${esc(m.definition)}</p><p>비교할 때: ${esc(m.comparability)}</p>`;
-  h += "<table><thead><tr><th>기간</th><th>값</th><th>근거</th></tr></thead><tbody>";
-  for (const v of s) {
-    const src = v.source;
-    const links = (src.filings || []).map(f => `<a href="${esc(f.url || "#")}" target="_blank" rel="noopener">${esc(f.form)} · ${esc(f.filed)} 제출</a>`).join(", ");
-    const tag = src.tag ? ` · 항목 ${esc(src.tag)}` : "";
-    const label = src.label ? ` · 원문 표현 "${esc(src.label)}"` : "";
-    const quote = src.quote ? `<div class="q">${esc(src.quote)}</div>` : "";
-    const parts = src.inputs ? `<div class="d" style="white-space:normal">재료: ${src.inputs.map(x => `<button class="b sm" data-act="panel" data-key="${esc(cid + "|" + x.metric)}">${esc(M[x.metric]?.name || x.metric)} ${fmt(x.value, x.unit)}</button>`).join(" ")}</div>` : "";
-    const rv = v.review || {};
-    const fix = rv.status === "corrected" ? `<div class="d">원래 값 ${fmt(rv.original_value, m.unit)} · 정정 이유: ${esc(rv.note)}</div>` : "";
-    const btn = rv.status === "unreviewed" ? `<br><button class="b sm" data-act="review" data-key="${esc(cid + "|" + mid + "|" + v.period_end)}"${API ? "" : " disabled"}>검토함으로 표시</button><span class="err" data-err="${esc(cid + "|" + mid + "|" + v.period_end)}"></span>` : "";
-    h += `<tr><td>${v.period_start ? v.period_start + " ~ " : ""}${v.period_end}</td><td>${fmt(v.value, m.unit)}${stTag(v)}${btn}</td><td>${links}${links ? " · " : ""}${esc(src.how || "")}${tag}${label}${quote}${parts}${fix}</td></tr>`;
-  }
-  if (!API && s.some(v => v.review?.status === "unreviewed")) h += `<tr><td colspan="3"><div class="off">${OFF_MSG}</div></td></tr>`;
-  document.getElementById("panel").innerHTML = h + "</tbody></table>";
-  render();
+function tipAttr(lines) { return ` data-tip="${esc(lines.filter(Boolean).join("\n"))}"`; }
+function roundedBar(x, y0, y1, w, r = 4) {
+  // y0는 기준선, y1은 값 쪽 끝. 값 쪽 끝만 둥글게.
+  const up = y1 < y0, h = Math.abs(y1 - y0); r = Math.min(r, h, w / 2);
+  if (h < 0.5) return "";
+  if (up) return `M${x},${y0}V${y1 + r}Q${x},${y1} ${x + r},${y1}H${x + w - r}Q${x + w},${y1} ${x + w},${y1 + r}V${y0}Z`;
+  return `M${x},${y0}V${y1 - r}Q${x},${y1} ${x + r},${y1}H${x + w - r}Q${x + w},${y1} ${x + w},${y1 - r}V${y0}Z`;
 }
-function chart(vals, unit) {
-  if (!vals.length) return '<div class="none">자료 없음</div>';
-  const W = 680, H = 180, L = 48, R = 48, T = 34, B = 30;
-  const ys = vals.map(v => v.value), lo = Math.min(...ys, 0), hi = Math.max(...ys, 0), span = hi - lo || 1;
-  const x = (i) => vals.length === 1 ? W / 2 : L + i * (W - L - R) / (vals.length - 1), y = (v) => H - B - (v - lo) / span * (H - T - B);
-  const pts = vals.map((v, i) => `${x(i).toFixed(1)},${y(v.value).toFixed(1)}`).join(" ");
-  let h = `<svg width="${W}" height="${H}" viewBox="0 0 ${W} ${H}" role="img" aria-label="분기별 추이">`;
-  h += `<line x1="${L - 20}" x2="${W - R + 20}" y1="${y(0).toFixed(1)}" y2="${y(0).toFixed(1)}" stroke="var(--line2)" stroke-width="1"/>`;
-  h += `<polyline points="${pts}" fill="none" stroke="var(--mark)" stroke-width="2" stroke-linejoin="round" stroke-linecap="round"/>`;
+// 한 계열 막대. vals: [{period_end, value, ...}]
+function colChart(vals, m, opt = {}) {
+  if (!vals.length) return `<div class="empty">자료 없음</div>`;
+  const W = opt.w || 600, H = opt.h || 200, L = opt.mini ? 4 : 46, R = 8, T = opt.mini ? 4 : 22, B = opt.mini ? 4 : 24;
+  const ys = vals.map(v => v.value).concat(opt.ref != null ? [opt.ref] : []), lo = Math.min(0, ...ys), hi = Math.max(0, ...ys);
+  const ticks = niceTicks(lo, hi), tlo = ticks[0], thi = ticks[ticks.length - 1];
+  const y = (v) => T + (thi - v) / (thi - tlo || 1) * (H - T - B);
+  const band = (W - L - R) / vals.length, bw = Math.min(opt.mini ? 14 : 24, band * 0.62);
+  let h = `<svg class="viz" viewBox="0 0 ${W} ${H}" role="img" aria-label="${esc(m.name)} 분기별 막대">`;
+  if (!opt.mini) for (const t of ticks) h += `<line x1="${L}" x2="${W - R}" y1="${y(t)}" y2="${y(t)}" stroke="var(--grid)"/><text class="tick" x="${L - 6}" y="${y(t) + 4}" text-anchor="end">${esc(fmtShort(t, m.unit))}</text>`;
+  h += `<line x1="${L}" x2="${W - R}" y1="${y(0)}" y2="${y(0)}" stroke="var(--axis)"/>`;
+  if (opt.ref != null && opt.ref !== 0) h += refLine(L, W - R, y(opt.ref));
   vals.forEach((v, i) => {
-    h += `<circle cx="${x(i).toFixed(1)}" cy="${y(v.value).toFixed(1)}" r="4" fill="var(--mark)" stroke="var(--card)" stroke-width="2"><title>${v.period_start ? v.period_start + " ~ " : ""}${v.period_end}: ${fmt(v.value, unit)}</title></circle>`;
-    h += `<text x="${x(i).toFixed(1)}" y="${(y(v.value) - 10).toFixed(1)}" text-anchor="middle" font-size="12" fill="var(--ink)">${fmt(v.value, unit)}</text>`;
-    h += `<text x="${x(i).toFixed(1)}" y="${H - 8}" text-anchor="middle" font-size="12" fill="var(--ink3)">~${v.period_end.slice(2)}</text>`;
+    const x = L + band * i + (band - bw) / 2, last = i === vals.length - 1;
+    const fill = opt.color || (last ? "var(--s1)" : "var(--s1soft)");
+    h += `<path d="${roundedBar(x, y(0), y(v.value), bw)}" fill="${fill}"/>`;
+    if (!opt.mini) h += `<text class="tick" x="${x + bw / 2}" y="${H - 6}" text-anchor="middle">${qlabel(v.period_end)}</text>`;
+    if (!opt.mini && (last || v.value === Math.max(...ys) && i !== vals.length - 1 && false)) h += `<text class="vlab" x="${x + bw / 2}" y="${v.value >= 0 ? y(v.value) - 6 : y(v.value) + 14}" text-anchor="middle">${esc(fmtShort(v.value, m.unit))}</text>`;
+    const prev = vals[i - 1], d = prev ? delta(v, prev, m) : null;
+    h += `<rect class="hit" x="${L + band * i}" y="${T}" width="${band}" height="${H - T - B}"${tipAttr([`<b>${periodText(v)}</b>`, `${m.name} ${fmt(v.value, m.unit)}`, d ? `${d.base} ${d.text}` : ""])}${opt.key ? ` data-open="${esc(opt.key)}"` : ""}/>`;
   });
   return h + "</svg>";
 }
-function renderView(v) {
-  let h = `<h2 style="margin-top:12px">${esc(v.title)}</h2><p class="muted">질문: ${esc(v.question)} · ${esc(v.created)}에 만든 화면</p>`;
-  for (const b of v.blocks) {
-    if (b.title) h += `<h2>${esc(b.title)}</h2>`;
-    if (b.type === "note") h += `<div class="qa">${esc(b.text)}</div>`;
-    if (b.type === "quotes") h += b.items.map(it => `<div class="qa"><b>${esc(C[it.company]?.name || it.company)} · ${it.period_start} ~ ${it.period_end}</b><div>${esc(it.ko)}</div><div class="q">${esc(it.text)}</div><a href="${esc(it.source.url)}" target="_blank" rel="noopener">${esc(it.source.form)} · ${esc(it.source.filed)} 제출</a></div>`).join("");
-    if (b.type === "series") for (const cid of b.companies) {
-      const s = series(cid, b.metric).slice(-(b.last || 6));
-      h += `<div class="qa"><b>${esc(C[cid].name)} · ${esc(M[b.metric].name)}</b>${chart(s, M[b.metric].unit)}</div>`;
+// 여러 계열 선. periods: [pe], series: [{name, color, vals: {pe: value}}], ranges: [{pe, lo, hi, color, note}]
+function lineChart(periods, ser, unit, opt = {}) {
+  if (!periods.length) return `<div class="empty">자료 없음</div>`;
+  const W = opt.w || 600, H = opt.h || 200, L = opt.mini ? 4 : 46, R = opt.mini ? 4 : (opt.endLabels === false ? 12 : 72), T = opt.mini ? 6 : 16, B = opt.mini ? 6 : 24;
+  const all = ser.flatMap(s => periods.map(p => s.vals[p]).filter(v => v != null)).concat((opt.ranges || []).flatMap(r => [r.lo, r.hi])).concat(opt.ref != null ? [opt.ref] : []);
+  if (!all.length) return `<div class="empty">자료 없음</div>`;
+  let lo = Math.min(...all), hi = Math.max(...all);
+  if (opt.zero !== false) { lo = Math.min(lo, 0); hi = Math.max(hi, 0); }
+  const ticks = niceTicks(lo, hi), tlo = ticks[0], thi = ticks[ticks.length - 1];
+  const y = (v) => T + (thi - v) / (thi - tlo || 1) * (H - T - B);
+  const x = (i) => periods.length === 1 ? (L + W - R) / 2 : L + 10 + i * (W - L - R - 20) / (periods.length - 1);
+  let h = `<svg class="viz" viewBox="0 0 ${W} ${H}" role="img" aria-label="${esc(ser.map(s => s.name).join(", "))} 분기별 추이">`;
+  if (!opt.mini) for (const t of ticks) h += `<line x1="${L}" x2="${W - R}" y1="${y(t)}" y2="${y(t)}" stroke="${t === 0 ? "var(--axis)" : "var(--grid)"}"/><text class="tick" x="${L - 6}" y="${y(t) + 4}" text-anchor="end">${esc(fmtShort(t, unit))}</text>`;
+  else if (tlo < 0) h += `<line x1="${L}" x2="${W - R}" y1="${y(0)}" y2="${y(0)}" stroke="var(--axis)"/>`;
+  if (!opt.mini) periods.forEach((p, i) => { h += `<text class="tick" x="${x(i)}" y="${H - 6}" text-anchor="middle">${qlabel(p)}</text>`; });
+  if (opt.ref != null) h += refLine(L, W - R, y(opt.ref));
+  h += `<line class="xh" x1="0" x2="0" y1="${T}" y2="${H - B}"/>`;
+  for (const r of opt.ranges || []) {
+    const i = periods.indexOf(r.pe); if (i < 0) continue;
+    h += `<line x1="${x(i)}" x2="${x(i)}" y1="${y(r.lo)}" y2="${y(r.hi)}" stroke="${r.color}" stroke-width="3" stroke-linecap="round" opacity=".8"/>`;
+    for (const v of [r.lo, r.hi]) h += `<circle cx="${x(i)}" cy="${y(v)}" r="4" fill="var(--surface)" stroke="${r.color}" stroke-width="2"/>`;
+  }
+  const ends = [];
+  ser.forEach(s => {
+    let seg = [];
+    const flush = () => { if (seg.length > 1) h += `<polyline points="${seg.join(" ")}" fill="none" stroke="${s.color}" stroke-width="2" stroke-linejoin="round" stroke-linecap="round"/>`; seg = []; };
+    periods.forEach((p, i) => { const v = s.vals[p]; if (v == null) flush(); else seg.push(`${x(i).toFixed(1)},${y(v).toFixed(1)}`); });
+    flush();
+    periods.forEach((p, i) => { const v = s.vals[p]; if (v != null && (!opt.mini || i === periods.length - 1)) h += `<circle cx="${x(i)}" cy="${y(v)}" r="${opt.mini ? 3 : 4}" fill="${s.color}" stroke="var(--surface)" stroke-width="2"/>`; });
+    const li = periods.map(p => s.vals[p]).findLastIndex(v => v != null);
+    if (li >= 0) ends.push({s, i: li, v: s.vals[periods[li]]});
+  });
+  if (!opt.mini && opt.endLabels !== false) {
+    const placed = ends.map(e => ({...e, yy: y(e.v)})).sort((a, b) => a.yy - b.yy);
+    for (let k = 1; k < placed.length; k++) if (placed[k].yy - placed[k - 1].yy < 15) placed[k].yy = placed[k - 1].yy + 15;
+    for (const e of placed) {
+      if (Math.abs(e.yy - y(e.v)) > 2) h += `<line x1="${x(e.i) + 6}" x2="${x(e.i) + 12}" y1="${y(e.v)}" y2="${e.yy - 4}" stroke="var(--axis)"/>`;
+      h += `<text class="vlab" x="${x(e.i) + 14}" y="${e.yy}">${esc(fmtShort(e.v, unit))}</text>`;
     }
   }
-  document.getElementById("view").innerHTML = h;
+  periods.forEach((p, i) => {
+    const w = periods.length === 1 ? W - L - R : (W - L - R - 20) / (periods.length - 1);
+    const lines = [`<b>${p}</b>`].concat(ser.map(s => s.vals[p] != null ? `${s.name} ${fmt(s.vals[p], unit)}` : `${s.name} ${s.missing?.[p] || "값 없음"}`));
+    for (const r of opt.ranges || []) if (r.pe === p) lines.push(r.note);
+    h += `<rect class="hit" x="${x(i) - w / 2}" y="${T}" width="${w}" height="${H - T - B}" data-xh="${x(i)}"${tipAttr(lines)}${opt.key ? ` data-open="${esc(opt.key)}"` : ""}/>`;
+  });
+  return h + "</svg>";
 }
+const refLine = (x1, x2, yy) => `<line x1="${x1}" x2="${x2}" y1="${yy}" y2="${yy}" stroke="var(--crit)" stroke-width="1.5" opacity=".7"/><text class="tick" x="${x2}" y="${yy - 4}" text-anchor="end" style="fill:var(--crittxt)">기준</text>`;
+function legend(items) {
+  return `<div class="legend">${items.map(it => `<span>${it.line ? `<i class="ln" style="border-color:${it.color}"></i>` : `<i class="sw" style="background:${it.color}"></i>`}${esc(it.name)}</span>`).join("")}</div>`;
+}
+function metricChart(cid, mid, opt = {}) {
+  const m = M[mid], s = series(cid, mid);
+  if (m.unit === "USD" || m.unit === "MW") return colChart(s, m, {...opt, key: `${cid}|${mid}`});
+  return lineChart(s.map(v => v.period_end), [{name: m.name, color: "var(--s1)", vals: Object.fromEntries(s.map(v => [v.period_end, v.value]))}], m.unit, {...opt, key: `${cid}|${mid}`, endLabels: !opt.mini});
+}
+function spark(vals, W = 150, H = 34) {
+  if (vals.length < 2) return "";
+  const P = 4, ys = vals.map(v => v.value), lo = Math.min(...ys, 0), hi = Math.max(...ys, 0), span = hi - lo || 1;
+  const x = (i) => P + i * (W - 2 * P) / (vals.length - 1), y = (v) => H - P - (v - lo) / span * (H - 2 * P);
+  const pts = vals.map((v, i) => `${x(i).toFixed(1)},${y(v.value).toFixed(1)}`).join(" ");
+  const zero = lo < 0 ? `<line x1="0" x2="${W}" y1="${y(0)}" y2="${y(0)}" stroke="var(--axis)"/>` : "";
+  const l = vals.length - 1;
+  return `<svg width="${W}" height="${H}" viewBox="0 0 ${W} ${H}" aria-hidden="true">${zero}<polyline points="${pts}" fill="none" stroke="var(--s1soft)" stroke-width="2" stroke-linejoin="round" stroke-linecap="round"/><polyline points="${x(l - 1).toFixed(1)},${y(vals[l - 1].value).toFixed(1)} ${x(l).toFixed(1)},${y(vals[l].value).toFixed(1)}" fill="none" stroke="var(--s1)" stroke-width="2" stroke-linecap="round"/><circle cx="${x(l)}" cy="${y(vals[l].value)}" r="3.5" fill="var(--s1)"/></svg>`;
+}
+const statusPill = (r, names, big) => `<span class="status ${esc(r)}${big ? " big" : ""}"><i>${ICON[r] || "?"}</i>${esc((names || RES)[r] || r)}</span>`;
+
+// ---------- 개요 ----------
+let focal = (() => { try { return localStorage.getItem("focal"); } catch (e) { return null; } })();
+function companyPills(onId) {
+  return `<div class="pills" role="group" aria-label="회사 고르기">${D.companies.map(c => `<button class="pill" data-focal="${esc(c.id)}" aria-pressed="${c.id === onId}"><i class="dot" style="background:${ccolor(c.id)}"></i>${esc(c.name)} <span class="tk">${esc(c.ticker)}</span></button>`).join("")}</div>`;
+}
+function renderOverview() {
+  if (!C[focal]) focal = D.companies[0].id;
+  const c = C[focal], lp = latestPeriod(c.id), f = latestFiling(c.id);
+  let h = companyPills(c.id);
+  const fresh = f && daysAgo(f.filed) <= FRESH_DAYS;
+  h += `<div class="co-head"><div><h1>${esc(c.name)}</h1><div class="sub">${esc(ROLE[c.role] || "")}${lp ? ` · 최신 분기 ${lp.period_start} ~ ${lp.period_end}` : ""}</div></div>`;
+  if (f) h += `<a class="chip${fresh ? " fresh" : ""}" href="${esc(f.url || "#")}" target="_blank" rel="noopener"><b>${esc(f.form)}</b> ${esc(f.filed)} 제출 · ${daysAgo(f.filed)}일 전${fresh ? " · 새 공시" : ""}</a>`;
+  h += `</div>`;
+  // 가설 띠
+  const th = D.theses.filter(t => t.company === c.id);
+  const openAlerts = D.alerts.filter(a => !a.dismissed && a.company === c.id).length;
+  if (th.length || openAlerts) {
+    h += `<div class="strip">${th.map(t => `<button class="th-mini" data-goto="theses">${statusPill(t.status, TST)}<div><div class="stmt">${esc(t.statement)}</div><div class="cnd">${t.conditions.map(x => `${esc(x.name)}: ${RES[x.verdict.result] || ""}`).join(" · ")}</div></div></button>`).join("")}`;
+    if (openAlerts) h += `<button class="th-mini" data-goto="alerts"><span class="status reversed"><i>!</i>알림 ${openAlerts}건</span><div><div class="stmt">열린 알림</div><div class="cnd">가설 조건과 감시 조건에 걸린 변화</div></div></button>`;
+    h += `</div>`;
+  }
+  // KPI
+  const margin = series(c.id, "adj_ebitda_margin").length ? "adj_ebitda_margin" : "operating_margin";
+  const kpis = ["revenue", "revenue_yoy", margin, "rpo", "cash"].filter(mid => M[mid] && series(c.id, mid).length);
+  h += `<div class="kpis">${kpis.map(mid => {
+    const m = M[mid], s = series(c.id, mid), cur = s[s.length - 1], prev = s[s.length - 2], key = `${c.id}|${mid}`;
+    return `<button class="kpi${selected === key ? " on" : ""}" data-open="${esc(key)}"><span class="lab">${esc(m.name)}${isFresh(cur) ? '<span class="tag">새 공시</span>' : ""}</span><span class="val">${esc(fmt(cur.value, m.unit))}</span>${deltaHtml(cur, prev, m)}<span class="per">${esc(cur.period_end)} 기준</span>${spark(s.slice(-8))}</button>`;
+  }).join("")}</div>`;
+  // 매출과 마진
+  const rev = series(c.id, "revenue");
+  const mg = ["adj_ebitda_margin", "operating_margin"].filter(mid => series(c.id, mid).length);
+  const per = [...new Set(mg.flatMap(mid => series(c.id, mid).map(v => v.period_end)))].sort();
+  h += `<h2 class="sec">흐름 <span class="muted">막대나 점에 마우스를 올리면 값이, 누르면 근거가 나옵니다.</span></h2><div class="grid2">`;
+  h += `<div class="card chart-card"><h3>분기 매출</h3><div class="cap">${rev.length}개 분기 · 가장 최근 분기를 진하게 칠했습니다</div>${colChart(rev, M.revenue, {key: `${c.id}|revenue`})}</div>`;
+  if (mg.length) {
+    const cols = ["var(--s1)", "var(--s2)"];
+    const ser = mg.map((mid, i) => ({name: M[mid].name, color: cols[i], vals: Object.fromEntries(series(c.id, mid).map(v => [v.period_end, v.value]))}));
+    h += `<div class="card chart-card"><h3>마진</h3><div class="cap">매출 대비 남는 비율</div>${ser.length > 1 ? legend(ser.map(s => ({...s, line: true}))) : ""}${lineChart(per, ser, "%", {key: `${c.id}|${mg[0]}`})}</div>`;
+  }
+  h += `</div>`;
+  if (D.values.some(v => v.company === c.id && M[v.metric]?.group === "segment")) h += segmentSection(c.id);
+  // 모든 지표
+  const shown = new Set(["revenue"]);
+  h += `<h2 class="sec">모든 지표 <span class="muted">${esc(c.name)}의 분기별 값</span></h2>`;
+  const gapList = [];
+  for (const [gname, mids] of GROUPS.concat([["기타", D.metrics.filter(m => m.show !== false && !GROUPS.some(g => g[1].includes(m.id))).map(m => m.id)]])) {
+    const cards = [];
+    for (const mid of mids) {
+      const m = M[mid]; if (!m || m.show === false) continue;
+      const s = series(c.id, mid), key = `${c.id}|${mid}`;
+      if (!s.length) { const g = gapOf(c.id, mid); if (g && g.reason !== "not_applicable") gapList.push(`${m.name}: ${GAP[g.reason]}`); continue; }
+      const cur = s[s.length - 1], prev = s[s.length - 2];
+      cards.push(`<button class="mcard${selected === key ? " on" : ""}" data-open="${esc(key)}"><span class="lab"><span>${esc(m.name)}</span>${stTag(cur)}</span><span class="val">${esc(fmt(cur.value, m.unit))}</span> ${deltaHtml(cur, prev, m, false)}${metricChart(c.id, mid, {mini: true, w: 220, h: 54})}<span class="muted">${esc(qlabel(s[0].period_end))} ~ ${esc(qlabel(cur.period_end))}</span></button>`);
+    }
+    if (cards.length) h += `<div class="muted" style="margin:14px 0 6px;font-weight:600;color:var(--ink2)">${esc(gname)}</div><div class="mgrid">${cards.join("")}</div>`;
+  }
+  if (gapList.length) h += `<div class="gaps">비어 있는 지표: ${gapList.map(g => `<span>${esc(g)}</span>`).join("")}</div>`;
+  document.getElementById("pane-overview").innerHTML = h;
+}
+function segmentSection(cid) {
+  const g = (mid) => Object.fromEntries(series(cid, mid).map(v => [v.period_end, v.value]));
+  const rev = g("cloud_revenue"), emp = g("cloud_employee_cost"), oth = g("cloud_other_cost"), ebd = g("cloud_adj_ebitda"), par = g("partner_revenue");
+  const mar = g("cloud_margin"), marx = g("cloud_margin_ex_partner"), er = g("cloud_employee_ratio"), orr = g("cloud_other_ratio");
+  const periods = Object.keys(rev).sort();
+  if (!periods.length) return "";
+  const last = periods[periods.length - 1];
+  // 누계에서 분기를 밝히지 않은 제휴 매출 범위
+  const ranges = [], undisclosed = {};
+  const ytd = series(cid, "partner_revenue_ytd").at(-1);
+  if (ytd && par[ytd.period_end] != null) {
+    const yr = ytd.period_end.slice(0, 4), missing = periods.filter(p => p.startsWith(yr) && p < ytd.period_end && par[p] == null);
+    const rest = ytd.value - par[ytd.period_end];
+    for (const p of missing) {
+      const hiM = mar[p], loM = (ebd[p] - rest) / (rev[p] - rest) * 100;
+      ranges.push({pe: p, lo: Math.min(loM, hiM), hi: Math.max(loM, hiM), color: "var(--s2)",
+        note: `제휴 뺀 마진 범위 ${fmt(Math.min(loM, hiM), "%")} ~ ${fmt(Math.max(loM, hiM), "%")}: ${yr}년 ${qlabel(ytd.period_end)}까지 누계 제휴 매출 ${fmt(ytd.value, "USD")} 중 ${fmt(rest, "USD")}이 ${missing.map(qlabel).join("·")} 어디에 들어갔는지 공시에 없음`});
+      undisclosed[p] = "분기 미공시(범위 표시)";
+    }
+  }
+  for (const p of periods) if (marx[p] == null && !undisclosed[p]) undisclosed[p] = "제휴 매출 공시에 없음";
+  const share = par[last] != null ? par[last] / rev[last] * 100 : null;
+  let h = `<h2 class="sec">부문 들여다보기</h2><div class="card seg">`;
+  h += `<div class="seg-head"><div><h3>AI 클라우드 부문: 매출 1달러가 어디로 가나</h3><p>회사가 부문 주석(Note 15)에 밝힌 AI 클라우드 부문의 매출, 인건비, 기타비용, 조정 EBITDA입니다. 아브라이드·트리플텐 적자가 섞인 그룹 마진과 달리 본업만 봅니다.</p></div></div>`;
+  h += `<div class="facts">`;
+  h += `<button class="fact" data-open="${cid}|cloud_margin"><div class="lab">공시 기준 부문 마진 · ${qlabel(last)}</div><div class="val">${fmt(mar[last], "%")}</div><div class="note">${deltaHtml({value: mar[last], period_end: last}, periods.length > 1 ? {value: mar[periods.at(-2)], period_end: periods.at(-2)} : null, M.cloud_margin)}</div></button>`;
+  if (marx[last] != null) h += `<button class="fact" data-open="${cid}|cloud_margin_ex_partner"><div class="lab">제휴 매출 뺀 마진 · ${qlabel(last)}</div><div class="val">${fmt(marx[last], "%")}</div><div class="note">공시 기준과 ${fmt(Math.abs(mar[last] - marx[last]), "%")}p 차이</div></button>`;
+  if (share != null) h += `<button class="fact" data-open="${cid}|partner_revenue"><div class="lab">매출 중 제휴 매출 · ${qlabel(last)}</div><div class="val">${fmt(share, "%")}</div><div class="note">${fmt(par[last], "USD")} · 회사가 "비반복"이라 밝힘</div></button>`;
+  h += `<button class="fact" data-open="${cid}|cloud_revenue"><div class="lab">부문 매출 · ${qlabel(last)}</div><div class="val">${fmt(rev[last], "USD")}</div><div class="note">${periods.length > 4 ? `1년 전 대비 ${(rev[last] / rev[periods.at(-5)]).toFixed(1)}배` : ""}</div></button>`;
+  h += `</div>`;
+  if (share != null && marx[last] != null) h += `<div class="callout"><span class="ic">i</span><div><b>${qlabel(last)} 부문 마진의 상당 부분이 제휴 매출에서 나왔습니다.</b> 제휴 매출은 한 번에 인식되고 붙은 비용이 공시에 없어, 0으로 보고 빼면 마진은 ${fmt(mar[last], "%")}에서 <b>${fmt(marx[last], "%")}</b>로 내려갑니다(영향을 가장 크게 잡은 값).${ranges.length ? ` 상반기에도 분기를 밝히지 않은 제휴 매출이 있어 ${ranges.map(r => qlabel(r.pe)).join("·")}는 범위로 그렸습니다.` : ""}</div></div>`;
+  // 비용 구성 막대
+  const W = 600, H = 250, L = 46, R = 8, T = 20, B = 24;
+  const tops = periods.map(p => Math.max(rev[p], emp[p] + oth[p])), bots = periods.map(p => Math.min(0, ebd[p]));
+  const ticks = niceTicks(Math.min(...bots), Math.max(...tops)), tlo = ticks[0], thi = ticks.at(-1);
+  const y = (v) => T + (thi - v) / (thi - tlo) * (H - T - B), band = (W - L - R) / periods.length, bw = Math.min(30, band * .6);
+  let s = `<svg class="viz" viewBox="0 0 ${W} ${H}" role="img" aria-label="AI 클라우드 매출의 쓰임 분기별 쌓은 막대">`;
+  for (const t of ticks) s += `<line x1="${L}" x2="${W - R}" y1="${y(t)}" y2="${y(t)}" stroke="${t === 0 ? "var(--axis)" : "var(--grid)"}"/><text class="tick" x="${L - 6}" y="${y(t) + 4}" text-anchor="end">${esc(fmtShort(t, "USD"))}</text>`;
+  periods.forEach((p, i) => {
+    const x = L + band * i + (band - bw) / 2, pr = par[p] || 0, core = ebd[p] - pr;
+    const parts = [["인건비", emp[p], "var(--cost1)"], ["기타비용", oth[p], "var(--cost2)"]];
+    if (ebd[p] >= 0) parts.push(["남는 것(본업)", Math.max(core, 0), "var(--s1)"], ["제휴 매출", pr, "var(--s4)"]);
+    let acc = 0;
+    parts.forEach(([nm, v], k) => {
+      if (v <= 0) return;
+      const y0 = y(acc), y1 = y(acc + v), isTop = k === parts.length - 1 || parts.slice(k + 1).every(q => q[1] <= 0);
+      const gap = acc > 0 ? 1 : 0;
+      s += isTop ? `<path d="${roundedBar(x, y0 - gap, y1, bw)}" fill="${parts[k][2]}"/>` : `<rect x="${x}" y="${y1}" width="${bw}" height="${Math.max(0, y0 - y1 - gap)}" fill="${parts[k][2]}"/>`;
+      acc += v;
+    });
+    if (ebd[p] < 0) s += `<path d="${roundedBar(x, y(0), y(ebd[p]), bw)}" fill="var(--s1)" opacity=".45"/>`;
+    s += `<line x1="${x - 4}" x2="${x + bw + 4}" y1="${y(rev[p])}" y2="${y(rev[p])}" stroke="var(--ink)" stroke-width="2"/>`;
+    s += `<text class="tick" x="${x + bw / 2}" y="${H - 6}" text-anchor="middle">${qlabel(p)}</text>`;
+    if (i === periods.length - 1) s += `<text class="vlab" x="${x + bw / 2}" y="${y(Math.max(rev[p], emp[p] + oth[p])) - 7}" text-anchor="middle">${fmtShort(rev[p], "USD")}</text>`;
+    const tip = [`<b>${p} 분기</b>`, `매출 ${fmt(rev[p], "USD")}`, `· 인건비 ${fmt(emp[p], "USD")} (${fmt(er[p], "%")})`, `· 기타비용 ${fmt(oth[p], "USD")} (${fmt(orr[p], "%")})`,
+      `· 조정 EBITDA ${fmt(ebd[p], "USD")} (${fmt(mar[p], "%")})`, par[p] ? `  그중 제휴 매출 ${fmt(par[p], "USD")}` : par[p] === 0 ? "  제휴 매출 없음" : "  제휴 매출: 분기 공시 없음"];
+    s += `<rect class="hit" x="${L + band * i}" y="${T}" width="${band}" height="${H - T - B}"${tipAttr(tip)} data-open="${cid}|cloud_adj_ebitda"/>`;
+  });
+  s += `</svg>`;
+  h += `<div class="grid2" style="margin-top:14px">`;
+  h += `<div class="chart-card" style="padding:4px 0 0"><h3>매출의 쓰임</h3><div class="cap">막대 전체 = 비용 + 남는 것. 검은 가로선이 매출입니다. 0 아래는 손실.</div>${legend([{name: "인건비", color: "var(--cost1)"}, {name: "기타비용(데이터센터 등)", color: "var(--cost2)"}, {name: "남는 것(본업)", color: "var(--s1)"}, {name: "제휴 매출(일회성)", color: "var(--s4)"}])}${s}</div>`;
+  const ms = [{name: "공시 기준 마진", color: "var(--s1)", vals: mar}, {name: "제휴 매출 뺀 마진", color: "var(--s2)", vals: marx, missing: undisclosed}];
+  h += `<div class="chart-card" style="padding:4px 0 0"><h3>부문 마진: 공시 기준과 제휴 뺀 값</h3><div class="cap">2025년 1~3분기는 제휴 매출이 없어 두 선이 겹칩니다. 속 빈 점 두 개를 잇는 세로선은 분기를 밝히지 않은 제휴 매출 때문에 생기는 범위입니다.</div>${legend(ms.map(x => ({...x, line: true})))}${lineChart(periods, ms, "%", {h: 250, ranges, key: `${cid}|cloud_margin_ex_partner`})}</div>`;
+  h += `</div>`;
+  const cs = [{name: "인건비율", color: "var(--s1)", vals: er}, {name: "기타비용률", color: "var(--s2)", vals: orr}];
+  h += `<div class="grid2" style="margin-top:6px"><div class="chart-card" style="padding:4px 0 0"><h3>비용률: 무엇이 마진을 움직였나</h3><div class="cap">매출 대비 비용 비율. 낮을수록 좋습니다. 공시 매출(제휴 포함) 기준입니다.</div>${legend(cs.map(x => ({...x, line: true})))}${lineChart(periods, cs, "%", {key: `${cid}|cloud_other_ratio`})}</div>`;
+  h += `<div class="chart-card" style="padding:4px 0 0"><h3>값 표</h3><div class="cap">단위 백만 달러 · 칸을 누르면 근거가 나옵니다</div><div class="wrap"><table><thead><tr><th>분기</th><th class="num">매출</th><th class="num">인건비</th><th class="num">기타</th><th class="num">EBITDA</th><th class="num">제휴</th><th class="num">마진</th></tr></thead><tbody>${periods.map(p => {
+    const n = (v) => v == null ? "–" : (v / 1e6).toLocaleString("ko-KR", {maximumFractionDigits: 1});
+    const cell = (mid, v, txt) => `<td class="num" style="cursor:pointer" data-open="${cid}|${mid}">${txt ?? n(v)}</td>`;
+    return `<tr><td>${qlabel(p)}</td>${cell("cloud_revenue", rev[p])}${cell("cloud_employee_cost", emp[p])}${cell("cloud_other_cost", oth[p])}${cell("cloud_adj_ebitda", ebd[p])}${cell("partner_revenue", par[p], par[p] == null ? '<span class="muted">미공시</span>' : null)}${cell("cloud_margin", null, fmt(mar[p], "%"))}</tr>`;
+  }).join("")}</tbody></table></div></div></div>`;
+  return h + `</div>`;
+}
+
+// ---------- 비교 ----------
+function hbars(mid) {
+  const m = M[mid];
+  const rows = D.companies.map(c => { const s = series(c.id, mid); return {c, cur: s.at(-1), prev: s.at(-2)}; });
+  const vals = rows.filter(r => r.cur).map(r => r.cur.value);
+  if (!vals.length) return "";
+  const lo = Math.min(0, ...vals), hi = Math.max(0, ...vals);
+  const padL = lo < 0 ? 30 : 0, padR = hi > 0 ? 32 : 2;
+  const pos = (v) => padL + (v - lo) / (hi - lo || 1) * (100 - padL - padR);
+  let h = "";
+  for (const r of rows) {
+    if (!r.cur) {
+      const g = gapOf(r.c.id, mid);
+      h += `<div class="cmp-row gap"${g?.note ? ` title="${esc(g.note)}"` : ""}><span class="nm"><i class="dot" style="background:${ccolor(r.c.id)}"></i>${esc(r.c.name)}</span><span class="why">${esc(GAP[g?.reason] || "자료 없음")}</span></div>`;
+      continue;
+    }
+    const x0 = pos(0), x1 = pos(r.cur.value), neg = r.cur.value < 0, key = `${r.c.id}|${mid}`, d = delta(r.cur, r.prev, m);
+    const bar = `<span class="hb${neg ? " neg" : ""}" style="left:${Math.min(x0, x1)}%;width:max(2px,${Math.abs(x1 - x0)}%);background:${ccolor(r.c.id)}"></span>`;
+    const lab = `<span class="hl" style="${neg ? `right:calc(${100 - x1}% + 6px)` : `left:calc(${x1}% + 6px)`}"><b>${esc(fmtShort(r.cur.value, m.unit))}</b> <span>${esc(qlabel(r.cur.period_end))}</span></span>`;
+    h += `<div class="cmp-row" data-open="${esc(key)}"${tipAttr([`<b>${r.c.name} · ${m.name}</b>`, periodText(r.cur), fmt(r.cur.value, m.unit), d ? `${d.base} ${d.text}` : ""])}><span class="nm"><i class="dot" style="background:${ccolor(r.c.id)}"></i>${esc(r.c.name)}</span><span class="track">${lo < 0 ? `<span class="z" style="left:${x0}%"></span>` : ""}${bar}${lab}</span></div>`;
+  }
+  return h;
+}
+function relDiagram() {
+  const R = D.relations || [];
+  if (!R.length) return `<div class="empty">아직 넣은 관계가 없습니다.</div>`;
+  const left = [...new Set(R.map(r => r.counterparty))], right = [...new Set(R.map(r => r.company))].filter(x => !left.includes(x));
+  const W = 640, rowH = 46, H = Math.max(left.length, right.length) * rowH + 20, bw = 150;
+  const ly = (i, n) => 10 + (H - 20) / n * (i + .5), pos = {};
+  left.forEach((id, i) => pos[id] = {x: 20, y: ly(i, left.length), side: "l"});
+  right.forEach((id, i) => pos[id] = {x: W - 20 - bw, y: ly(i, right.length), side: "r"});
+  let s = `<svg class="viz" viewBox="0 0 ${W} ${H}" role="img" aria-label="공급 관계 그림"><defs><marker id="arr" viewBox="0 0 10 10" refX="9" refY="5" markerWidth="7" markerHeight="7" orient="auto"><path d="M0,0L10,5L0,10z" fill="var(--ink3)"/></marker></defs>`;
+  R.forEach((r, i) => {
+    const a = pos[r.counterparty], b = pos[r.company]; if (!a || !b) return;
+    const x1 = a.x + bw, x2 = b.x - 4, mx = (x1 + x2) / 2;
+    s += `<path d="M${x1},${a.y} C${mx},${a.y} ${mx},${b.y} ${x2},${b.y}" fill="none" stroke="var(--axis)" stroke-width="2" marker-end="url(#arr)"/>`;
+    s += `<path d="M${x1},${a.y} C${mx},${a.y} ${mx},${b.y} ${x2},${b.y}" fill="none" stroke="transparent" stroke-width="14" style="cursor:pointer" data-rel="${i}"${tipAttr([`<b>${cname(r.counterparty)} → ${cname(r.company)}</b>`, `${r.what || ""} 공급`, "누르면 원문 근거"])}/>`;
+  });
+  for (const [id, p] of Object.entries(pos)) {
+    s += `<g style="cursor:pointer" data-focal-go="${esc(id)}"><rect x="${p.x}" y="${p.y - 16}" width="${bw}" height="32" rx="16" fill="var(--surface)" stroke="var(--line)"/><circle cx="${p.x + 18}" cy="${p.y}" r="5" fill="${ccolor(id)}"/><text x="${p.x + 30}" y="${p.y + 4}" font-size="13" fill="var(--ink)">${esc(cname(id))}</text></g>`;
+  }
+  return s + `</svg><div class="muted" style="margin-top:4px">화살표는 공급 방향입니다(공급사 → 고객). 화살표를 누르면 원문 근거가, 회사를 누르면 그 회사 개요가 나옵니다.</div>`;
+}
+function renderCompare() {
+  let h = `<div class="co-head" style="margin-top:0"><div><h1>회사 비교</h1><div class="sub">지표마다 각 회사의 가장 최근 분기 값입니다. 회사마다 회계 분기가 달라 기간을 막대 옆에 적었습니다.</div></div></div>`;
+  h += `<div class="legend" style="margin-top:6px">${D.companies.map(c => `<span><i class="sw" style="background:${ccolor(c.id)};border-radius:50%"></i>${esc(c.name)} · ${esc(ROLE[c.role] || "")}</span>`).join("")}</div>`;
+  h += `<h2 class="sec">공급 관계</h2><div class="card rel-wrap">${relDiagram()}</div>`;
+  for (const [gname, mids] of GROUPS) {
+    const cards = mids.filter(mid => M[mid] && M[mid].show !== false && D.values.some(v => v.metric === mid)).map(mid => `<div class="card chart-card"><h3>${esc(M[mid].name)}</h3><div class="cap" title="${esc(M[mid].comparability)}">${esc(M[mid].definition)}</div>${hbars(mid)}</div>`);
+    if (cards.length) h += `<h2 class="sec">${esc(gname)}</h2><div class="grid3">${cards.join("")}</div>`;
+  }
+  h += `<details class="tbl"><summary>표로 보기</summary><div class="card wrap">${compareTable()}</div></details>`;
+  document.getElementById("pane-compare").innerHTML = h;
+}
+function compareTable() {
+  const rows = D.metrics.filter(m => m.show !== false && D.values.some(v => v.metric === m.id));
+  let h = `<table><thead><tr><th>지표</th>${D.companies.map(c => `<th>${esc(c.name)}</th>`).join("")}</tr></thead><tbody>`;
+  for (const m of rows) {
+    h += `<tr><td>${esc(m.name)}</td>`;
+    for (const c of D.companies) {
+      const s = series(c.id, m.id), cur = s.at(-1);
+      if (!cur) { const g = gapOf(c.id, m.id); h += `<td class="muted">${esc(GAP[g?.reason] || "자료 없음")}</td>`; continue; }
+      h += `<td style="cursor:pointer" data-open="${esc(c.id + "|" + m.id)}"><b>${esc(fmt(cur.value, m.unit))}</b>${stTag(cur)}<div class="muted">${esc(cur.period_end)}</div></td>`;
+    }
+    h += `</tr>`;
+  }
+  return h + `</tbody></table>`;
+}
+
+// ---------- 근거 서랍 ----------
+let selected = null;
+function openDrawer() { document.getElementById("drawer").classList.add("on"); document.getElementById("drawer").setAttribute("aria-hidden", "false"); document.getElementById("scrim").classList.add("on"); }
+function closeDrawer() { selected = null; document.getElementById("drawer").classList.remove("on"); document.getElementById("drawer").setAttribute("aria-hidden", "true"); document.getElementById("scrim").classList.remove("on"); markSelected(); }
+function markSelected() { for (const el of document.querySelectorAll(".kpi,.mcard,.fact")) el.classList.toggle("on", el.dataset.open === selected); }
+function showPanel(key) {
+  selected = key;
+  const [cid, mid] = key.split("|"), m = M[mid];
+  if (!m || !C[cid]) return;
+  const all = series(cid, mid), s = [...all].reverse();
+  document.getElementById("dr-title").innerHTML = `<div class="muted"><i class="dot" style="background:${ccolor(cid)};width:8px;height:8px"></i> ${esc(C[cid].name)}</div><h3>${esc(m.name)}</h3>`;
+  let h = `<p>${esc(m.definition)}</p><p><b>비교할 때:</b> ${esc(m.comparability)}</p>`;
+  if (all.length) h += `<div style="margin:10px 0">${metricChart(cid, mid, {h: 180})}</div>`;
+  else { const g = gapOf(cid, mid); h += `<div class="off">${esc(GAP[g?.reason] || "자료 없음")}${g?.note ? " · " + esc(g.note) : ""}</div>`; }
+  const pg = Object.entries(D.gaps).filter(([k]) => k.startsWith(`${cid}|${mid}|`));
+  if (pg.length) h += pg.map(([k, g]) => `<div class="off"><b>${esc(k.split("|")[2])}: ${esc(GAP[g.reason])}</b> · ${esc(g.note)}</div>`).join("");
+  h += `<table><thead><tr><th>기간</th><th class="num">값</th><th>근거</th></tr></thead><tbody>`;
+  for (const v of s) {
+    const src = v.source;
+    const links = (src.filings || []).filter(Boolean).map(f => `<a href="${esc(f.url || "#")}" target="_blank" rel="noopener">${esc(f.form)} · ${esc(f.filed)} 제출</a>`).join(", ");
+    const tag = src.tag ? ` · 항목 ${esc(src.tag)}` : "";
+    const label = src.label ? ` · 원문 표현 "${esc(src.label)}"` : "";
+    const quote = src.quote ? `<div class="q">${esc(src.quote)}</div>` : "";
+    const parts = src.inputs ? `<div style="margin-top:4px">재료: ${src.inputs.map(x => `<button class="b sm" data-act="panel" data-key="${esc(cid + "|" + x.metric)}">${esc(M[x.metric]?.name || x.metric)} ${fmt(x.value, x.unit)}</button>`).join(" ")}</div>` : "";
+    const rv = v.review || {};
+    const fix = rv.status === "corrected" ? `<div class="muted">원래 값 ${fmt(rv.original_value, m.unit)} · 정정 이유: ${esc(rv.note)}</div>` : "";
+    const ek = cid + "|" + mid + "|" + v.period_end;
+    const btn = rv.status === "unreviewed" ? `<br><button class="b sm" data-act="review" data-key="${esc(ek)}"${API ? "" : " disabled"}>검토함으로 표시</button><span class="err" data-err="${esc(ek)}"></span>` : "";
+    h += `<tr><td style="white-space:nowrap">${esc(qlabel(v.period_end))}<div class="muted">${esc(periodText(v))}</div></td><td class="num" style="white-space:nowrap"><b>${fmt(v.value, m.unit)}</b>${stTag(v)}${btn}</td><td class="src">${links}${links ? " · " : ""}${esc(src.how || "")}${tag}${label}${quote}${parts}${fix}</td></tr>`;
+  }
+  if (!API && s.some(v => v.review?.status === "unreviewed")) h += `<tr><td colspan="3"><div class="off">${OFF_MSG}</div></td></tr>`;
+  document.getElementById("panel").innerHTML = h + "</tbody></table>";
+  openDrawer(); markSelected();
+}
+function showRelation(i) {
+  const r = D.relations[i], s = r.source;
+  selected = null;
+  document.getElementById("dr-title").innerHTML = `<div class="muted">공급 관계</div><h3>${esc(cname(r.counterparty))} → ${esc(cname(r.company))}</h3>`;
+  document.getElementById("panel").innerHTML = `<p>${esc(r.what || "")} 공급</p><div class="q">${esc(s.quote)}</div><p><a href="${esc(s.url)}" target="_blank" rel="noopener">${esc(s.form)} · ${esc(s.filed)} 제출</a></p>`;
+  openDrawer();
+}
+
 // ---------- 가설 ----------
-const GAP = {not_read: "아직 안 읽음", not_disclosed: "공시에 없음", not_applicable: "해당 없음"};
-const RES = {held: "지켜짐", near: "가까워짐", reversed: "반대로 움직임", broken: "깨짐", unknown: "판정 불가"};
-const TST = {held: "유지", near: "흔들림", reversed: "흔들림", broken: "깨짐", unknown: "판정 불가"};
-const resTag = (r, names) => `<span class="st ${r === "held" ? "done" : r === "unknown" ? "" : "hot"}">${(names || RES)[r] || esc(r)}</span>`;
 function basisLine(b, unit) {
   const f = b.filing || {};
   const link = f.url ? `<a href="${esc(f.url)}" target="_blank" rel="noopener">${esc(f.form)} · ${esc(f.filed)} 제출</a>` : "근거 공시 없음";
   const st = ST[b.review] ? ` <span class="st ${ST[b.review][1]}">${ST[b.review][0]}</span>` : "";
-  const more = b.metric ? ` · <button class="b sm" data-act="panel" data-key="${esc(b.company + "|" + b.metric)}">값의 근거 보기</button>` : "";
-  return `<div>${esc(b.period_end)} 값 ${fmt(b.value, unit)}${st}${b.label ? ` · 원문 표현 "${esc(b.label)}"` : ""}<br>${link}${more}</div>`;
+  const more = b.metric ? ` <button class="b sm" data-act="panel" data-key="${esc(b.company + "|" + b.metric)}">근거 보기</button>` : "";
+  return `<div class="basis">${esc(b.period_end)} 값 <b>${fmt(b.value, unit)}</b>${st}${b.label ? ` · 원문 표현 "${esc(b.label)}"` : ""} · ${link}${more}</div>`;
 }
 function judgeForm(t, c) {
   const key = `${t.id}|${c.id}|${t.period_end}`;
@@ -291,54 +712,56 @@ function judgeForm(t, c) {
 function snapLine(s) {
   return s ? `${esc(s.period_end || "")} 분기 기준 ${TST[s.status] || esc(s.status)} (${(s.conditions || []).map(c => `${esc(c.name)}: ${RES[c.result] || esc(c.result)}`).join(" · ")})` : "기록 없음";
 }
+function trailHtml(trail) {
+  return trail?.length ? `<div class="trail">${trail.map(m => `<span class="${m.ok ? "" : "rev"}">${esc(qlabel(m.period_end))} ${esc(m.change)}${m.ok ? "" : " 반대"}</span>`).join("")}</div>` : "";
+}
 function decisionBlock(t) {
   const when = (x) => esc(String(x.ts || "").replace("T", " "));
-  let h = `<div class="row" style="margin-top:12px"><b>판단</b> <span class="muted">무엇을 하기로 했는지와 이유를 적어 둡니다. 고쳐 쓰지 않고 덧붙이기만 합니다.</span></div>`;
+  let h = `<div class="dec"><h4>판단 기록 <span class="muted" style="font-weight:400">무엇을 하기로 했는지와 이유. 고쳐 쓰지 않고 덧붙이기만 합니다.</span></h4>`;
+  if (t.decisions.length) h += `<div class="tl">`;
   for (const d of [...t.decisions].reverse()) {
-    h += `<div class="qa" style="margin:6px 0"><b>${when(d)} · ${esc(d.decision)}${d.due ? '<span class="st hot">돌아볼 때</span>' : ""}</b><div>이유: ${esc(d.note)}</div><div class="d" style="white-space:normal">그때 본 것: ${snapLine(d.snapshot)}</div>`;
-    for (const r of d.reflections) h += `<div class="q">돌아보기 ${when(r)} · ${esc(r.note)}<div class="d" style="white-space:normal">그때 본 것: ${snapLine(r.snapshot)}</div></div>`;
-    if (d.due) h += `<div class="d" style="white-space:normal">이 판단 뒤에 새 분기(${esc(t.period_end)})가 들어왔습니다. 지금 모습: ${snapLine({period_end: t.period_end, status: t.status, conditions: t.conditions.map(c => ({name: c.name, result: c.verdict.result}))})}</div>`;
+    h += `<div class="it${d.due ? " due" : ""}"><b>${esc(d.decision)}</b> <span class="muted">${when(d)}</span>${d.due ? ' <span class="status near"><i>!</i>돌아볼 때</span>' : ""}<div>이유: ${esc(d.note)}</div><div class="muted">그때 본 것: ${snapLine(d.snapshot)}</div>`;
+    for (const r of d.reflections) h += `<div class="q">돌아보기 ${when(r)} · ${esc(r.note)}<div class="muted">그때 본 것: ${snapLine(r.snapshot)}</div></div>`;
+    if (d.due) h += `<div class="muted">이 판단 뒤에 새 분기(${esc(t.period_end)})가 들어왔습니다. 지금 모습: ${snapLine({period_end: t.period_end, status: t.status, conditions: t.conditions.map(c => ({name: c.name, result: c.verdict.result}))})}</div>`;
     h += `<form class="f" data-form="reflect" data-key="${esc(d.id)}"><input name="note" placeholder="돌아보기: 그때의 가설과 판단이 맞았는지"><button class="b"${API ? "" : " disabled"}>돌아보기 기록</button><span class="err" data-ferr></span><span class="err" data-err="${esc(d.id)}"></span></form></div>`;
   }
-  h += `<form class="f" data-form="decide" data-key="${esc(t.id)}"><input name="decision" placeholder="하기로 한 것 (내 말로)" size="28"><input name="note" placeholder="이유 (필수)"><button class="b"${API ? "" : " disabled"}>판단 기록</button><span class="err" data-ferr></span><span class="err" data-err="decide|${esc(t.id)}"></span></form>`;
+  if (t.decisions.length) h += `</div>`;
+  h += `<form class="f" data-form="decide" data-key="${esc(t.id)}"><input name="decision" placeholder="하기로 한 것 (내 말로)" size="28"><input name="note" placeholder="이유 (필수)"><button class="b"${API ? "" : " disabled"}>판단 기록</button><span class="err" data-ferr></span><span class="err" data-err="decide|${esc(t.id)}"></span></form></div>`;
   return h;
 }
 function thesisCard(t) {
-  const n = t.conditions.length, cnt = ["held", "near", "reversed", "broken", "unknown"].filter(r => t.counts[r]).map(r => `${RES[r]} ${t.counts[r]}`).join(", ");
-  let h = `<div class="al th"><h3>${esc(cname(t.company))} · "${esc(t.statement)}"${resTag(t.status, TST)}${t.example ? '<span class="st">예시</span>' : ""}</h3>`;
-  if (t.note) h += `<div class="row">${esc(t.note)}</div>`;
-  h += `<div class="row">최신 분기 ${esc(t.period_end || "모름")} 기준 · 조건 ${n}개 중 ${cnt}${t.created ? ` · ${esc(t.created)}에 만든 가설` : ""}</div>`;
-  h += `<div class="wrap" style="margin-top:10px"><table><thead><tr><th>조건</th><th>기준</th><th>판정</th><th>근거</th></tr></thead><tbody>`;
+  let h = `<div class="card th-card"><div class="th-top"><div><div class="muted"><i class="dot" style="background:${ccolor(t.company)};width:8px;height:8px"></i> ${esc(cname(t.company))}${t.example ? ' · <span class="st">예시</span>' : ""}</div><h3>${esc(t.statement)}</h3><div class="meta">최신 분기 ${esc(t.period_end || "모름")} 기준${t.created ? ` · ${esc(t.created)}에 세움` : ""}</div></div>${statusPill(t.status, TST, true)}</div>`;
+  if (t.note) h += `<p class="th-note">${esc(t.note)}</p>`;
+  h += `<div class="conds">`;
   for (const c of t.conditions) {
-    const v = c.verdict, p = c.previous;
-    let verdict = `${resTag(v.result)}<div>${esc(v.text)}</div>`;
-    if (v.trail?.length) verdict += `<div class="d" style="white-space:normal">최근 움직임: ${v.trail.map(m => `${esc(m.period_end.slice(2, 7))} ${m.ok ? esc(m.change) : `<b>${esc(m.change)} (반대)</b>`}`).join(" · ")}</div>`;
-    if (v.by === "human") verdict += `<div class="d">사람이 판정함 · ${esc(String(v.ts || "").replace("T", " "))}</div>`;
-    if (p) verdict += `<div class="d">${p.result !== v.result ? "달라짐: " : ""}그 앞 분기(${esc(p.period_end)})에는 ${RES[p.result]}</div>`;
+    const v = c.verdict, p = c.previous, s = c.metric ? series(t.company, c.metric) : [];
+    let main = `<h4>${esc(c.name)} ${statusPill(v.result)}</h4><div class="rule">${esc(c.rule)}</div><div class="vt">${esc(v.text)}</div>${trailHtml(v.trail)}`;
+    if (v.by === "human") main += `<div class="muted">사람이 판정함 · ${esc(String(v.ts || "").replace("T", " "))}</div>`;
+    if (p) main += `<div class="muted">${p.result !== v.result ? "달라짐: " : ""}그 앞 분기(${esc(p.period_end)})에는 ${RES[p.result]}</div>`;
     let basis = (v.basis || []).map(b => basisLine(b, c.unit)).join("");
     if (c.kind === "manual") {
       const view = (D.views || []).find(x => x.id === c.view);
-      if (view) basis += `<button class="b sm" data-act="goto" data-id="${esc(view.id)}">읽을 자료: ${esc(view.title)}</button>`;
+      if (view) basis += `<button class="b sm" data-goto="${esc(view.id)}">읽을 자료: ${esc(view.title)}</button>`;
       basis += v.by === "human" ? `<details><summary>다시 판정</summary>${judgeForm(t, c)}</details>` : judgeForm(t, c);
     }
-    h += `<tr><td>${esc(c.name)}</td><td>${esc(c.rule)}</td><td>${verdict}</td><td>${basis || '<span class="none">근거 없음</span>'}</td></tr>`;
+    main += basis ? (c.kind === "manual" ? basis : `<details><summary>근거 ${(v.basis || []).length}개</summary>${basis}</details>`) : `<div class="muted">근거 없음</div>`;
+    const side = s.length ? `<div style="cursor:pointer" data-open="${esc(t.company + "|" + c.metric)}">${metricChart(t.company, c.metric, {mini: true, w: 200, h: 70, ref: c.threshold})}<div class="muted">${esc(M[c.metric]?.name || "")} · ${esc(qlabel(s[0].period_end))} ~ ${esc(qlabel(s.at(-1).period_end))}</div></div>` : "";
+    h += `<div class="cond"><div>${main}</div><div>${side}</div></div>`;
   }
-  h += "</tbody></table></div>";
-  if (t.paused_conditions?.length) h += `<div class="row">보류한 조건(판정하지 않음): ${t.paused_conditions.map(esc).join(" · ")}</div>`;
+  h += `</div>`;
+  if (t.paused_conditions?.length) h += `<div class="muted" style="margin-top:10px">보류한 조건(판정하지 않음): ${t.paused_conditions.map(esc).join(" · ")}</div>`;
   return h + decisionBlock(t) + "</div>";
 }
 function renderTheses() {
-  let h = `<h2 style="margin-top:12px">가설 <span class="muted">내가 세운 가설의 조건을 최신 분기 값에 비춘 결과입니다. 조건과 값 사이의 관계만 말하고, 무엇을 할지는 말하지 않습니다.</span></h2>`;
+  let h = `<div class="co-head" style="margin-top:0"><div><h1>가설</h1><div class="sub">내가 세운 가설의 조건을 최신 분기 값에 비춘 결과입니다. 조건과 값 사이의 관계만 말하고, 무엇을 할지는 말하지 않습니다.</div></div></div>`;
   if (!API) h += `<div class="off">${OFF_MSG}</div>`;
-  h += D.theses.length ? D.theses.map(thesisCard).join("") : `<div class="qa">아직 가설이 없습니다. ontology/theses.json에 적으면 여기에 나옵니다.</div>`;
-  if (D.paused_theses?.length) h += `<div class="qa"><b>보류한 가설 ${D.paused_theses.length}개 (판정하지 않고 알림도 만들지 않음)</b>${D.paused_theses.map(t => `<div>${esc(cname(t.company))} · "${esc(t.statement)}" <span class="muted">${esc(t.note)}</span></div>`).join("")}</div>`;
-  h += `<div class="qa"><b>읽는 법</b>지켜짐: 조건이 성립함 · 가까워짐: 성립하지만 기준에 가까움 · 반대로 움직임: 이번 분기에 가설과 반대 방향으로 감 · 깨짐: 성립하지 않음(방향 조건은 두 분기 연속 반대) · 판정 불가: 최신 분기의 값이나 판정 기록이 없음. 가설의 상태는 조건에서 나옵니다: 깨진 조건이 있으면 깨짐, 가까워졌거나 반대로 움직인 조건이 있으면 흔들림, 판정하지 못한 조건이 있으면 판정 불가, 모두 지켜지면 유지. 가설과 조건은 ontology/theses.json에서 고칩니다.</div>`;
-  document.getElementById("theses").innerHTML = h;
+  h += D.theses.length ? D.theses.map(thesisCard).join("") : `<div class="card empty">아직 가설이 없습니다. ontology/theses.json에 적으면 여기에 나옵니다.</div>`;
+  if (D.paused_theses?.length) h += `<div class="card qa"><b>보류한 가설 ${D.paused_theses.length}개</b><span class="muted">판정하지 않고 알림도 만들지 않음</span>${D.paused_theses.map(t => `<div>${esc(cname(t.company))} · "${esc(t.statement)}" <span class="muted">${esc(t.note)}</span></div>`).join("")}</div>`;
+  h += `<details class="tbl"><summary>판정 읽는 법</summary><div class="card qa">${["held", "near", "reversed", "broken", "unknown"].map(r => `<div style="margin:4px 0">${statusPill(r)} ${{held: "조건이 성립함", near: "성립하지만 기준에 가까움", reversed: "이번 분기에 가설과 반대 방향으로 감", broken: "성립하지 않음(방향 조건은 두 분기 연속 반대)", unknown: "최신 분기의 값이나 판정 기록이 없음"}[r]}</div>`).join("")}<div class="muted" style="margin-top:8px">가설의 상태는 조건에서 나옵니다: 깨진 조건이 있으면 깨짐, 가까워졌거나 반대로 움직인 조건이 있으면 흔들림, 판정하지 못한 조건이 있으면 판정 불가, 모두 지켜지면 유지. 가설과 조건은 ontology/theses.json에서 고칩니다.</div></div></details>`;
+  document.getElementById("pane-theses").innerHTML = h;
 }
+
 // ---------- 알림 ----------
-function valueOf(cid, mid, pe) {
-  return D.values.find(v => v.company === cid && v.metric === mid && v.period_end === pe);
-}
 function impactLine(it) {
   if (it.kind === "customer") return `최대 고객: <b>${esc(cname(it.company))}</b> (원문 표현: ${esc(it.label)} · 사람이 이어 둠${it.note ? " · " + esc(it.note) : ""})`;
   if (it.kind === "unknown") return `최대 고객: ${esc(it.text)}${it.linked && it.note ? " · " + esc(it.note) : ""}`;
@@ -346,60 +769,54 @@ function impactLine(it) {
   if (it.kind === "same_supplier") return `같은 공급사(${esc(cname(it.via))})를 쓰는 회사: ${esc(cname(it.company))}`;
   return esc(JSON.stringify(it));
 }
-function trailLine(trail) {
-  return trail?.length ? `<div class="row">최근 움직임: ${trail.map(m => `${esc(m.period_end.slice(2, 7))} ${m.ok ? esc(m.change) : `<b>${esc(m.change)} (반대)</b>`}`).join(" · ")}</div>` : "";
-}
 function thesisAlertCard(a) {
-  let h = `<div class="al" data-aid="${esc(a.id)}"><h3>${esc(a.rule_name)}${resTag(a.result)}</h3>`;
-  h += `<div class="row">가설: "${esc(a.statement)}" · ${esc(a.period_end || "")} 분기</div>`;
-  h += `<div>${esc(a.change)}</div>${trailLine(a.trail)}`;
-  if (a.basis?.length) h += `<div class="row">근거</div>` + a.basis.map(b => `<div class="row">${basisLine(b, a.unit)}</div>`).join("");
+  let h = `<div class="card al" data-aid="${esc(a.id)}"><h3>${statusPill(a.result)} ${esc(a.rule_name)}</h3>`;
+  h += `<div class="row">가설 "${esc(a.statement)}" · ${esc(a.period_end || "")} 분기</div>`;
+  h += `<div style="margin-top:6px">${esc(a.change)}</div>${trailHtml(a.trail)}`;
+  if (a.basis?.length) h += `<details><summary>근거 ${a.basis.length}개</summary>${a.basis.map(b => basisLine(b, a.unit)).join("")}</details>`;
   if (a.dismissed) return h + `<div class="row">닫음: ${esc(a.dismissed_ts)}${a.dismissed_note ? " · " + esc(a.dismissed_note) : ""}</div></div>`;
-  h += `<div class="acts"><button class="b" data-act="goto" data-id="theses">가설 탭에서 보기</button><button class="b" data-act="dismiss"${API ? "" : " disabled"}>알림 닫기</button></div>`;
+  h += `<div class="acts"><button class="b" data-goto="theses">가설 보기</button><button class="b" data-act="dismiss"${API ? "" : " disabled"}>알림 닫기</button></div>`;
   return h + `<div class="err" data-err="${esc(a.id)}"></div></div>`;
 }
 function alertCard(a) {
   if (a.kind === "thesis") return thesisAlertCard(a);
   const m = M[a.metric], u = m?.unit, cur = valueOf(a.company, a.metric, a.period_end);
-  const lab = (x) => x ? ` · 원문 표현 "${esc(x)}"` : "";
+  const lab = (x) => x ? `<div class="k">원문 표현 "${esc(x)}"</div>` : "";
   const f = a.filing || {};
   const link = f.url ? `<a href="${esc(f.url)}" target="_blank" rel="noopener">${esc(f.form)} · ${esc(f.filed)} 제출</a>` : "근거 공시 없음";
-  const imp = a.impact.length ? `<ul>${a.impact.map(it => `<li>${impactLine(it)}</li>`).join("")}</ul>` : `<div class="row">이어진 회사 없음</div>`;
-  let h = `<div class="al" data-aid="${esc(a.id)}"><h3>${esc(a.rule_name)}</h3>`;
-  h += `<div>${esc(a.change)}</div>`;
-  h += `<div class="row">직전 값: ${fmt(a.previous.value, u)} (${esc(a.previous.period_end)}${lab(a.previous.label)})</div>`;
-  h += `<div class="row">지금 값: ${fmt(a.current.value, u)} (${esc(a.period_end)}${lab(a.current.label)})${stTag(cur)}</div>`;
+  let h = `<div class="card al" data-aid="${esc(a.id)}"><h3>${esc(a.rule_name)}</h3>`;
+  h += `<div class="row">${esc(a.change)}</div>`;
+  h += `<div class="fromto"><div class="b1"><div class="k">직전 · ${esc(a.previous.period_end)}</div><div class="v">${fmt(a.previous.value, u)}</div>${lab(a.previous.label)}</div><span class="arr">→</span><div class="b1"><div class="k">지금 · ${esc(a.period_end)}</div><div class="v">${fmt(a.current.value, u)}${stTag(cur)}</div>${lab(a.current.label)}</div>${m ? `<button class="b sm" data-act="panel" data-key="${esc(a.company + "|" + a.metric)}">근거와 추이</button>` : ""}</div>`;
   if (cur?.review?.status === "corrected") h += `<div class="row">원래 값 ${fmt(cur.review.original_value, u)}에서 정정함 · ${esc(cur.review.note)}</div>`;
   h += `<div class="row">근거: ${link}</div>`;
-  h += `<div class="row">영향 범위</div>${imp}`;
-  if (a.theses?.length) h += `<div class="row">닿는 가설의 조건</div><ul>${a.theses.map(x => `<li>${esc(x.name)} ${resTag(x.result)} <span class="muted">"${esc(x.statement)}"</span></li>`).join("")}</ul>`;
+  h += a.impact.length ? `<div class="row">영향 범위</div><ul>${a.impact.map(it => `<li>${impactLine(it)}</li>`).join("")}</ul>` : `<div class="row">이어진 회사 없음</div>`;
+  if (a.theses?.length) h += `<div class="row">닿는 가설의 조건</div><ul>${a.theses.map(x => `<li>${esc(x.name)} ${statusPill(x.result)} <span class="muted">"${esc(x.statement)}"</span></li>`).join("")}</ul>`;
   if (a.dismissed) return h + `<div class="row">닫음: ${esc(a.dismissed_ts)}${a.dismissed_note ? " · " + esc(a.dismissed_note) : ""}</div></div>`;
-  const dis = API ? "" : " disabled";
-  const text = a.current.source_type === "text";
+  const dis = API ? "" : " disabled", text = a.current.source_type === "text";
   h += `<div class="acts">`;
   if (text && cur?.review?.status === "unreviewed") h += `<button class="b" data-act="review" data-key="${esc(a.company + "|" + a.metric + "|" + a.period_end)}"${dis}>검토함으로 표시</button>`;
   if (text) h += `<button class="b" data-act="open-correct"${dis}>값 정정</button>`;
   if (a.metric === "top_customer_share" && a.current.label) h += `<button class="b" data-act="open-link"${dis}>가려진 고객 잇기</button>`;
   h += `<button class="b" data-act="dismiss"${dis}>알림 닫기</button></div>`;
-  if (!text) h += `<div class="row muted">구조화 자료(XBRL) 값이라 검토·정정 대상이 아닙니다.</div>`;
-  h += `<div class="slot"></div><div class="err" data-err="${esc(a.id)}"></div></div>`;
-  return h;
+  if (!text) h += `<div class="muted" style="margin-top:6px">구조화 자료(XBRL) 값이라 검토·정정 대상이 아닙니다.</div>`;
+  return h + `<div class="slot"></div><div class="err" data-err="${esc(a.id)}"></div></div>`;
 }
 function renderAlerts() {
   const open = D.alerts.filter(a => !a.dismissed), closed = D.alerts.filter(a => a.dismissed);
-  let h = `<h2 style="margin-top:12px">알림 <span class="muted">내 가설의 조건과 감시 조건에 걸린 변화입니다. 최신 기간을 바로 앞 기간과 비교했습니다.</span></h2>`;
+  let h = `<div class="co-head" style="margin-top:0"><div><h1>알림</h1><div class="sub">내 가설의 조건과 감시 조건에 걸린 변화입니다. 최신 기간을 바로 앞 기간과 비교했습니다.</div></div></div>`;
   if (!API) h += `<div class="off">${OFF_MSG}</div>`;
-  if (!open.length) h += `<div class="qa">열린 알림이 없습니다.</div>`;
+  if (!open.length) h += `<div class="card empty">열린 알림이 없습니다.</div>`;
   const th = open.filter(a => a.kind === "thesis"), mon = open.filter(a => a.kind !== "thesis");
-  if (th.length) h += `<h2>내 가설에 닿은 것 <span class="muted">${th.length}건 · 지켜지지 않거나 앞 분기와 판정이 달라진 조건</span></h2>` + th.map(a => `<div class="muted" style="margin:6px 0 2px">${esc(cname(a.company))}</div>` + alertCard(a)).join("");
+  if (th.length) h += `<h2 class="sec">내 가설에 닿은 것 <span class="muted">${th.length}건</span></h2>` + th.map(alertCard).join("");
   for (const c of D.companies) {
     const mine = mon.filter(a => a.company === c.id);
-    if (mine.length) h += `<h2>${esc(c.name)} <span class="muted">감시 조건 ${mine.length}건</span></h2>` + mine.map(alertCard).join("");
+    if (mine.length) h += `<h2 class="sec"><span><i class="dot" style="background:${ccolor(c.id)};width:8px;height:8px"></i> ${esc(c.name)}</span> <span class="muted">감시 조건 ${mine.length}건</span></h2>` + mine.map(alertCard).join("");
   }
-  if (closed.length) h += `<details><summary>닫힌 알림 ${closed.length}건</summary>${closed.map(a => `<div class="muted" style="margin:6px 0 2px">${esc(cname(a.company))}</div>` + alertCard(a)).join("")}</details>`;
-  h += `<h2>감시 조건</h2><div class="qa">${(D.monitors || []).map(r => esc(r.name)).join(" · ")}</div>`;
-  document.getElementById("alerts").innerHTML = h;
+  if (closed.length) h += `<details class="tbl"><summary>닫힌 알림 ${closed.length}건</summary>${closed.map(alertCard).join("")}</details>`;
+  h += `<h2 class="sec">감시 조건</h2><div class="card qa">${(D.monitors || []).map(r => esc(r.name)).join(" · ")}</div>`;
+  document.getElementById("pane-alerts").innerHTML = h;
 }
+
 // ---------- 기록 ----------
 const ACT = {review: "검토함으로 표시", correct: "값 정정", link: "가려진 고객 잇기", dismiss: "알림 닫기", judge: "조건 판정", decide: "판단", reflect: "돌아보기"};
 function renderLog() {
@@ -413,11 +830,24 @@ function renderLog() {
     if (a.type === "decide") { const th = D.theses.find(x => x.id === t.thesis); what = th ? `${esc(cname(th.company))} · "${esc(th.statement)}"` : esc(t.thesis); did += `: ${esc(a.decision)}`; }
     if (a.type === "reflect") { const th = D.theses.find(x => x.decisions.some(d => d.id === t.decision)), d = th?.decisions.find(d => d.id === t.decision); what = d ? `${esc(cname(th.company))} · ${esc(String(d.ts).slice(0, 10))}의 판단 "${esc(d.decision)}"` : esc(t.decision); }
     if (a.type === "dismiss") { const al = D.alerts.find(x => x.id === t.alert_id); what = al ? `${esc(cname(al.company))} · ${esc(al.rule_name)} · ${esc(al.period_end)}` : esc(t.alert_id); }
-    return `<tr><td>${esc(String(a.ts || "").replace("T", " "))}</td><td>${what}</td><td>${did}</td><td>${esc(a.note || "")}</td></tr>`;
+    return `<tr><td style="white-space:nowrap">${esc(String(a.ts || "").replace("T", " "))}</td><td>${what}</td><td>${did}</td><td>${esc(a.note || "")}</td></tr>`;
   });
-  const body = rows.length ? rows.join("") : `<tr><td colspan="4">아직 기록이 없습니다.</td></tr>`;
-  document.getElementById("log").innerHTML = `<h2 style="margin-top:12px">기록 <span class="muted">사람이 한 행동입니다. 최신순. 다음 빌드에서 값과 알림에 반영됩니다.</span></h2><div class="wrap"><table class="log"><thead><tr><th>언제</th><th>무엇에</th><th>무엇을</th><th>이유</th></tr></thead><tbody>${body}</tbody></table></div>`;
+  const body = rows.length ? rows.join("") : `<tr><td colspan="4" class="empty">아직 기록이 없습니다.</td></tr>`;
+  document.getElementById("pane-log").innerHTML = `<div class="co-head" style="margin-top:0"><div><h1>기록</h1><div class="sub">사람이 한 행동입니다. 최신순. 다음 빌드에서 값과 알림에 반영됩니다.</div></div></div><div class="card wrap"><table><thead><tr><th>언제</th><th>무엇에</th><th>무엇을</th><th>이유</th></tr></thead><tbody>${body}</tbody></table></div>`;
 }
+
+// ---------- 질의 화면 ----------
+function renderView(v) {
+  let h = `<div class="co-head" style="margin-top:0"><div><h1>${esc(v.title)}</h1><div class="sub">질문: ${esc(v.question)} · ${esc(v.created)}에 만든 화면</div></div></div>`;
+  for (const b of v.blocks) {
+    if (b.title) h += `<h2 class="sec">${esc(b.title)}</h2>`;
+    if (b.type === "note") h += `<div class="card qa">${esc(b.text)}</div>`;
+    if (b.type === "quotes") h += b.items.map(it => `<div class="card qa"><b>${esc(cname(it.company))} · ${it.period_start} ~ ${it.period_end}</b><div>${esc(it.ko)}</div><div class="q">${esc(it.text)}</div><a href="${esc(it.source.url)}" target="_blank" rel="noopener">${esc(it.source.form)} · ${esc(it.source.filed)} 제출</a></div>`).join("");
+    if (b.type === "series") h += `<div class="grid2">${b.companies.map(cid => `<div class="card chart-card"><h3>${esc(cname(cid))} · ${esc(M[b.metric].name)}</h3>${metricChart(cid, b.metric)}</div>`).join("")}</div>`;
+  }
+  document.getElementById("pane-view").innerHTML = h;
+}
+
 // ---------- 행동 ----------
 function showErr(key, msg) {
   for (const el of document.querySelectorAll("[data-err]")) if (el.dataset.err === key) el.textContent = msg ? " " + msg : "";
@@ -455,17 +885,28 @@ function openForm(card, kind) {
   slot.querySelector("input,select").focus();
 }
 document.addEventListener("click", e => {
+  const go = e.target.closest("[data-goto]");
+  if (go) return showTab(go.dataset.goto);
+  const fc = e.target.closest("[data-focal]");
+  if (fc) { setFocal(fc.dataset.focal); return; }
+  const fg = e.target.closest("[data-focal-go]");
+  if (fg) { setFocal(fg.dataset.focalGo); showTab("overview"); return; }
+  const rel = e.target.closest("[data-rel]");
+  if (rel) return showRelation(+rel.dataset.rel);
   const b = e.target.closest("button[data-act]");
-  if (!b || b.disabled) return;
-  const card = b.closest(".al"), act = b.dataset.act;
-  if (act === "goto") return showTab(b.dataset.id);
-  if (act === "panel") { showTab("fixed"); showPanel(b.dataset.key); document.getElementById("panel").scrollIntoView({block: "start"}); return; }
-  if (act === "review") {
-    const [company, metric, period_end] = b.dataset.key.split("|");
-    post({type: "review", target: {company, metric, period_end}, note: ""}, card ? card.dataset.aid : b.dataset.key);
-  } else if (act === "dismiss") post({type: "dismiss", target: {alert_id: card.dataset.aid}, note: ""}, card.dataset.aid);
-  else if (act === "open-correct") openForm(card, "correct");
-  else if (act === "open-link") openForm(card, "link");
+  if (b && !b.disabled) {
+    const card = b.closest(".al"), act = b.dataset.act;
+    if (act === "panel") return showPanel(b.dataset.key);
+    if (act === "review") {
+      const [company, metric, period_end] = b.dataset.key.split("|");
+      return post({type: "review", target: {company, metric, period_end}, note: ""}, card ? card.dataset.aid : b.dataset.key);
+    }
+    if (act === "dismiss") return post({type: "dismiss", target: {alert_id: card.dataset.aid}, note: ""}, card.dataset.aid);
+    if (act === "open-correct") return openForm(card, "correct");
+    if (act === "open-link") return openForm(card, "link");
+  }
+  const op = e.target.closest("[data-open]");
+  if (op && !e.target.closest("form,a")) return showPanel(op.dataset.open);
 });
 document.addEventListener("submit", e => {
   const form = e.target.closest("form.f");
@@ -509,37 +950,73 @@ document.addEventListener("submit", e => {
     post({type: "link", target: {company: a.company, label: a.current.label}, counterparty: cp === "__null" ? null : cp, note}, a.id);
   }
 });
+document.addEventListener("keydown", e => {
+  if (e.key === "Escape") closeDrawer();
+  const op = e.target.closest?.("[data-open]");
+  if (op && op.tagName !== "BUTTON" && (e.key === "Enter" || e.key === " ")) { e.preventDefault(); showPanel(op.dataset.open); }
+});
+document.getElementById("scrim").addEventListener("click", closeDrawer);
+document.getElementById("dr-close").addEventListener("click", closeDrawer);
+
+// ---------- 툴팁 ----------
+const tip = document.getElementById("tip");
+let tipEl = null;
+document.addEventListener("mousemove", e => {
+  const el = e.target.closest?.("[data-tip]");
+  if (el !== tipEl) {
+    if (tipEl?.dataset.xh) tipEl.closest("svg")?.querySelector(".xh")?.style.setProperty("visibility", "hidden");
+    tipEl = el;
+    if (el) {
+      tip.innerHTML = el.dataset.tip.split("\n").map(l => l.startsWith("<b>") ? l : esc(l)).join("\n");
+      if (el.dataset.xh) { const xh = el.closest("svg")?.querySelector(".xh"); if (xh) { xh.setAttribute("x1", el.dataset.xh); xh.setAttribute("x2", el.dataset.xh); xh.style.visibility = "visible"; } }
+    }
+    tip.style.opacity = el ? 1 : 0;
+  }
+  if (el) {
+    const r = tip.getBoundingClientRect(), pad = 14;
+    let x = e.clientX + pad, y = e.clientY + pad;
+    if (x + r.width > innerWidth - 8) x = e.clientX - r.width - pad;
+    if (y + r.height > innerHeight - 8) y = e.clientY - r.height - pad;
+    tip.style.left = x + "px"; tip.style.top = y + "px";
+  }
+});
+
 // ---------- 탭 ----------
 const tabs = document.getElementById("tabs");
-let curTab = "fixed";
-const PANES = ["fixed", "theses", "alerts", "log", "view"];
+let curTab = location.hash.slice(1) || (() => { try { return localStorage.getItem("tab") || "overview"; } catch (e) { return "overview"; } })();
+const PANES = ["overview", "compare", "theses", "alerts", "log", "view"];
 function renderTabs() {
   const n = D.alerts.filter(a => !a.dismissed).length;
-  tabs.innerHTML = `<button data-id="fixed">고정 화면</button><button data-id="theses">가설 (${D.theses.length})</button><button data-id="alerts">알림 (${n})</button><button data-id="log">기록</button>` + (D.views || []).map(v => `<button data-id="${esc(v.id)}">${esc(v.title)}</button>`).join("");
-  for (const b of tabs.children) b.setAttribute("aria-pressed", String(b.dataset.id === curTab));
+  tabs.innerHTML = `<button data-id="overview">개요</button><button data-id="compare">비교</button><button data-id="theses">가설</button><button data-id="alerts">알림${n ? `<span class="n">${n}</span>` : ""}</button><button data-id="log">기록</button>` + (D.views || []).map(v => `<button data-id="${esc(v.id)}">${esc(v.title)}</button>`).join("");
 }
 function showTab(id) {
+  if (!PANES.includes(id) && !(D.views || []).some(v => v.id === id)) id = "overview";
   curTab = id;
+  try { localStorage.setItem("tab", id); } catch (e) {}
+  if (location.hash.slice(1) !== id) history.replaceState(null, "", "#" + id);
   const pane = PANES.includes(id) && id !== "view" ? id : "view";
-  for (const p of PANES) document.getElementById(p).hidden = p !== pane;
+  for (const p of PANES) document.getElementById("pane-" + p).hidden = p !== pane;
+  scrollTo(0, 0);
+  if (pane === "overview") renderOverview();
+  if (pane === "compare") renderCompare();
   if (pane === "theses") renderTheses();
   if (pane === "alerts") renderAlerts();
   if (pane === "log") renderLog();
   if (pane === "view") renderView(D.views.find(v => v.id === id));
   for (const b of tabs.children) b.setAttribute("aria-pressed", String(b.dataset.id === id));
 }
+function setFocal(id) {
+  focal = id;
+  try { localStorage.setItem("focal", id); } catch (e) {}
+  if (curTab === "overview") renderOverview();
+}
 function refresh() {
-  document.getElementById("gen").textContent = `자료를 만든 때: ${D.generated}`;
+  document.getElementById("gen").textContent = `자료 ${D.generated}`;
   renderTabs();
   showTab(curTab);
-  if (selected) showPanel(selected); else render();
+  if (selected && document.getElementById("drawer").classList.contains("on")) showPanel(selected);
 }
 tabs.addEventListener("click", e => { const b = e.target.closest("button"); if (b) showTab(b.dataset.id); });
-const sel = document.getElementById("focal");
-sel.innerHTML = D.companies.map(c => `<option value="${c.id}">${esc(c.name)}</option>`).join("");
-sel.addEventListener("change", render);
-document.getElementById("grid").addEventListener("click", e => { const td = e.target.closest("td.c"); if (td) showPanel(td.dataset.key); });
-document.getElementById("grid").addEventListener("keydown", e => { const td = e.target.closest("td.c"); if (td && (e.key === "Enter" || e.key === " ")) { e.preventDefault(); showPanel(td.dataset.key); } });
 refresh();
 fetch("/api/ping", {cache: "no-store"}).then(r => r.ok ? r.json() : null).then(j => { API = !!(j && j.ok); refresh(); }).catch(() => {});
 </script>

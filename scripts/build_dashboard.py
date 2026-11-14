@@ -29,7 +29,7 @@ def normalize(v: dict) -> dict:
     s = v["source"]
     if s.get("type") == "text":
         v = dict(v, source={
-            "type": "text", "how": "글에서 뽑음", "label": s.get("label"), "quote": s.get("quote"),
+            "type": "text", "how": s.get("how") or "글에서 뽑음", "label": s.get("label"), "quote": s.get("quote"),
             "filings": [{"form": s.get("form"), "accession": s.get("accession"), "filed": s.get("filed"), "url": s.get("url")}],
         })
     return v
@@ -144,6 +144,8 @@ def compute_gaps(values: list[dict], metrics: list[dict], companies: list[dict],
         if f"{cid}|{mid}" in gaps:
             return gaps[f"{cid}|{mid}"]
         m = M[mid]
+        if m.get("only") and cid not in m["only"]:
+            return {"reason": "not_applicable", "note": "회사가 따로 밝히는 부문 값이라 그 회사에만 있다."}
         if m.get("applies_to") and role not in m["applies_to"]:
             roles = ", ".join(ROLE_NAMES.get(r, r) for r in m["applies_to"])
             return {"reason": "not_applicable", "note": f"이 지표는 {roles} 회사에만 해당한다."}

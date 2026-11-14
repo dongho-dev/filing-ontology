@@ -1,7 +1,7 @@
 """글에서 뽑은 값(data/work/)을 검토 규칙에 따라 걸러 ontology/에 옮긴다.
 
 쓰는 법: python scripts/merge_text.py
-입력: data/work/nbis_values.json, nbis_values2.json, text_values.json, data/work/*_relations.json
+입력: data/work/nbis_values.json, nbis_values2.json, nbis_segments.json, text_values.json, data/work/*_relations.json
 출력: ontology/values_text.json, ontology/relations.json
 
 검토하며 정한 규칙(2026-11-13):
@@ -12,6 +12,7 @@
 - 차입금은 다섯 분기 모두 재무상태표의 두 줄(Debt, current / Debt, non-current)로 맞춘다(2026-11-13).
   2026년 3분기는 주석의 합계(Total debt 14,162.8)로 뽑혔는데, 재무상태표 합(14,190.8)과 28.0 차이가 나고
   앞 분기들과 기준이 달라서 쓰지 않고, 재무상태표의 두 줄을 표에서 읽어 넣는다. 합계는 계산 지표(debt)가 만든다.
+- 네비우스 AI 클라우드 부문 값과 제휴 매출은 data/work/nbis_segments_build.py가 부문 표에서 읽는다(2026-11-14).
 - 선수금(Deferred revenue)은 재무상태표의 유동·비유동 두 줄을 표에서 읽어 넣는다. 2025년 3분기에는 한 줄뿐이라 합계로 넣는다.
 """
 import json
@@ -127,7 +128,7 @@ def nbis_deferred_revenue(known: list[dict]) -> list[dict]:
 
 
 def main() -> None:
-    values = load("nbis_values.json") + load("text_values.json") + [nbis_q3_2026_top_customer()] + second_batch()
+    values = load("nbis_values.json") + load("text_values.json") + [nbis_q3_2026_top_customer()] + second_batch() + load("nbis_segments.json")
     values += nbis_deferred_revenue(values)
     kept: dict[tuple, dict] = {}
     dropped = 0

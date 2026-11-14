@@ -1,1 +1,23 @@
-[]
+[
+ {
+  "company": "nbis",
+  "metric": "partner_revenue",
+  "period_end": "2026-03-31",
+  "reason": "not_disclosed",
+  "note": "3분기 공시에서 2026년 9개월 제휴 매출 409.1과 3분기 325.1만 밝혔다. 상반기 84.0이 1분기인지 2분기인지는 밝히지 않았고, 1·2분기 공시에는 제휴 매출 언급이 없다."
+ },
+ {
+  "company": "nbis",
+  "metric": "partner_revenue",
+  "period_end": "2026-06-30",
+  "reason": "not_disclosed",
+  "note": "3분기 공시에서 2026년 9개월 제휴 매출 409.1과 3분기 325.1만 밝혔다. 상반기 84.0이 1분기인지 2분기인지는 밝히지 않았고, 1·2분기 공시에는 제휴 매출 언급이 없다."
+ },
+ {
+  "company": "nbis",
+  "metric": "partner_revenue",
+  "period_end": "2025-12-31",
+  "reason": "not_disclosed",
+  "note": "3분기 공시는 2025년 1~3분기에 제휴 매출이 없었다고만 밝혔다. 2025년 연간보고서에는 제휴 매출 언급도 회계정책도 없다."
+ }
+]

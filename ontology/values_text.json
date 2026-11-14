@@ -487,6 +487,522 @@
  },
  {
   "company": "nbis",
+  "metric": "cloud_adj_ebitda",
+  "period_start": "2025-01-01",
+  "period_end": "2025-03-31",
+  "value": -27400000,
+  "unit": "USD",
+  "source": {
+   "type": "text",
+   "form": "6-K",
+   "accession": "0001104659-26-094844",
+   "filed": "2026-08-12",
+   "url": "https://www.sec.gov/Archives/edgar/data/1513845/000110465926094844/nbis-20260812xex99d2.htm",
+   "label": "Nebius AI cloud",
+   "quote": "Nebius AI cloud 9.5 ​ 285.7 ​ (17.9) ​ 459.7",
+   "text_file": "data/raw/filings/nbis/0001104659-26-094844/nbis-20260812xex99d2.htm.txt",
+   "how": "2분기 공시의 2025년 6개월 값 -17.9에서 2분기 값 9.5을 뺌"
+  }
+ },
+ {
+  "company": "nbis",
+  "metric": "cloud_adj_ebitda",
+  "period_start": "2025-04-01",
+  "period_end": "2025-06-30",
+  "value": 9500000,
+  "unit": "USD",
+  "source": {
+   "type": "text",
+   "form": "6-K",
+   "accession": "0001104659-26-094844",
+   "filed": "2026-08-12",
+   "url": "https://www.sec.gov/Archives/edgar/data/1513845/000110465926094844/nbis-20260812xex99d2.htm",
+   "label": "Nebius AI cloud",
+   "quote": "Nebius AI cloud 9.5 ​ 285.7 ​ (17.9) ​ 459.7",
+   "text_file": "data/raw/filings/nbis/0001104659-26-094844/nbis-20260812xex99d2.htm.txt"
+  }
+ },
+ {
+  "company": "nbis",
+  "metric": "cloud_adj_ebitda",
+  "period_start": "2025-07-01",
+  "period_end": "2025-09-30",
+  "value": 25100000,
+  "unit": "USD",
+  "source": {
+   "type": "text",
+   "form": "6-K",
+   "accession": "0001104659-26-126238",
+   "filed": "2026-11-12",
+   "url": "https://www.sec.gov/Archives/edgar/data/1513845/000110465926126238/nbis-ex99d2.htm",
+   "label": "Nebius AI cloud",
+   "quote": "Nebius AI cloud 25.1 ​ 518.2 ​ 7.2 ​ 977.9",
+   "text_file": "data/raw/filings/nbis/0001104659-26-126238/nbis-ex99d2.htm.txt"
+  }
+ },
+ {
+  "company": "nbis",
+  "metric": "cloud_adj_ebitda",
+  "period_start": "2025-10-01",
+  "period_end": "2025-12-31",
+  "value": 51800000,
+  "unit": "USD",
+  "source": {
+   "type": "text",
+   "form": "20-F",
+   "accession": "0001104659-26-052948",
+   "filed": "2026-04-30",
+   "url": "https://www.sec.gov/Archives/edgar/data/1513845/000110465926052948/nbis-20251231x20f.htm",
+   "label": "Nebius",
+   "quote": "Nebius ​ ( 134.1 ) ​ ( 128.5 ) ​ 59.0",
+   "text_file": "data/raw/filings/nbis/0001104659-26-052948/nbis-20251231x20f.htm.txt",
+   "how": "2025년 연간 값 59.0에서 3분기 공시의 2025년 9개월 값 7.2을 뺌"
+  }
+ },
+ {
+  "company": "nbis",
+  "metric": "cloud_adj_ebitda",
+  "period_start": "2026-01-01",
+  "period_end": "2026-03-31",
+  "value": 174000000,
+  "unit": "USD",
+  "source": {
+   "type": "text",
+   "form": "6-K",
+   "accession": "0001104659-26-094844",
+   "filed": "2026-08-12",
+   "url": "https://www.sec.gov/Archives/edgar/data/1513845/000110465926094844/nbis-20260812xex99d2.htm",
+   "label": "Nebius AI cloud",
+   "quote": "Nebius AI cloud 9.5 ​ 285.7 ​ (17.9) ​ 459.7",
+   "text_file": "data/raw/filings/nbis/0001104659-26-094844/nbis-20260812xex99d2.htm.txt",
+   "how": "2분기 공시의 2026년 6개월 값 459.7에서 2분기 값 285.7을 뺌"
+  }
+ },
+ {
+  "company": "nbis",
+  "metric": "cloud_adj_ebitda",
+  "period_start": "2026-04-01",
+  "period_end": "2026-06-30",
+  "value": 285700000,
+  "unit": "USD",
+  "source": {
+   "type": "text",
+   "form": "6-K",
+   "accession": "0001104659-26-094844",
+   "filed": "2026-08-12",
+   "url": "https://www.sec.gov/Archives/edgar/data/1513845/000110465926094844/nbis-20260812xex99d2.htm",
+   "label": "Nebius AI cloud",
+   "quote": "Nebius AI cloud 9.5 ​ 285.7 ​ (17.9) ​ 459.7",
+   "text_file": "data/raw/filings/nbis/0001104659-26-094844/nbis-20260812xex99d2.htm.txt"
+  }
+ },
+ {
+  "company": "nbis",
+  "metric": "cloud_adj_ebitda",
+  "period_start": "2026-07-01",
+  "period_end": "2026-09-30",
+  "value": 518200000,
+  "unit": "USD",
+  "source": {
+   "type": "text",
+   "form": "6-K",
+   "accession": "0001104659-26-126238",
+   "filed": "2026-11-12",
+   "url": "https://www.sec.gov/Archives/edgar/data/1513845/000110465926126238/nbis-ex99d2.htm",
+   "label": "Nebius AI cloud",
+   "quote": "Nebius AI cloud 25.1 ​ 518.2 ​ 7.2 ​ 977.9",
+   "text_file": "data/raw/filings/nbis/0001104659-26-126238/nbis-ex99d2.htm.txt"
+  }
+ },
+ {
+  "company": "nbis",
+  "metric": "cloud_employee_cost",
+  "period_start": "2025-01-01",
+  "period_end": "2025-03-31",
+  "value": 36500000,
+  "unit": "USD",
+  "source": {
+   "type": "text",
+   "form": "6-K",
+   "accession": "0001104659-26-094844",
+   "filed": "2026-08-12",
+   "url": "https://www.sec.gov/Archives/edgar/data/1513845/000110465926094844/nbis-20260812xex99d2.htm",
+   "label": "Employee compensation expenses",
+   "quote": "Employee compensation expenses (46.6) ​ (147.8) ​ (83.1) ​ (222.3)",
+   "text_file": "data/raw/filings/nbis/0001104659-26-094844/nbis-20260812xex99d2.htm.txt",
+   "how": "2분기 공시의 2025년 6개월 값 83.1에서 2분기 값 46.6을 뺌"
+  }
+ },
+ {
+  "company": "nbis",
+  "metric": "cloud_employee_cost",
+  "period_start": "2025-04-01",
+  "period_end": "2025-06-30",
+  "value": 46600000,
+  "unit": "USD",
+  "source": {
+   "type": "text",
+   "form": "6-K",
+   "accession": "0001104659-26-094844",
+   "filed": "2026-08-12",
+   "url": "https://www.sec.gov/Archives/edgar/data/1513845/000110465926094844/nbis-20260812xex99d2.htm",
+   "label": "Employee compensation expenses",
+   "quote": "Employee compensation expenses (46.6) ​ (147.8) ​ (83.1) ​ (222.3)",
+   "text_file": "data/raw/filings/nbis/0001104659-26-094844/nbis-20260812xex99d2.htm.txt"
+  }
+ },
+ {
+  "company": "nbis",
+  "metric": "cloud_employee_cost",
+  "period_start": "2025-07-01",
+  "period_end": "2025-09-30",
+  "value": 49500000,
+  "unit": "USD",
+  "source": {
+   "type": "text",
+   "form": "6-K",
+   "accession": "0001104659-26-126238",
+   "filed": "2026-11-12",
+   "url": "https://www.sec.gov/Archives/edgar/data/1513845/000110465926126238/nbis-ex99d2.htm",
+   "label": "Employee compensation expenses",
+   "quote": "Employee compensation expenses (49.5) ​ (135.1) ​ (132.6) ​ (357.4)",
+   "text_file": "data/raw/filings/nbis/0001104659-26-126238/nbis-ex99d2.htm.txt"
+  }
+ },
+ {
+  "company": "nbis",
+  "metric": "cloud_employee_cost",
+  "period_start": "2025-10-01",
+  "period_end": "2025-12-31",
+  "value": 62400000,
+  "unit": "USD",
+  "source": {
+   "type": "text",
+   "form": "20-F",
+   "accession": "0001104659-26-052948",
+   "filed": "2026-04-30",
+   "url": "https://www.sec.gov/Archives/edgar/data/1513845/000110465926052948/nbis-20251231x20f.htm",
+   "label": "Employee compensation expenses",
+   "quote": "Employee compensation expenses ​ 107.1 ​ 136.3 ​ 195.0",
+   "text_file": "data/raw/filings/nbis/0001104659-26-052948/nbis-20251231x20f.htm.txt",
+   "how": "2025년 연간 값 195.0에서 3분기 공시의 2025년 9개월 값 132.6을 뺌"
+  }
+ },
+ {
+  "company": "nbis",
+  "metric": "cloud_employee_cost",
+  "period_start": "2026-01-01",
+  "period_end": "2026-03-31",
+  "value": 74500000,
+  "unit": "USD",
+  "source": {
+   "type": "text",
+   "form": "6-K",
+   "accession": "0001104659-26-094844",
+   "filed": "2026-08-12",
+   "url": "https://www.sec.gov/Archives/edgar/data/1513845/000110465926094844/nbis-20260812xex99d2.htm",
+   "label": "Employee compensation expenses",
+   "quote": "Employee compensation expenses (46.6) ​ (147.8) ​ (83.1) ​ (222.3)",
+   "text_file": "data/raw/filings/nbis/0001104659-26-094844/nbis-20260812xex99d2.htm.txt",
+   "how": "2분기 공시의 2026년 6개월 값 222.3에서 2분기 값 147.8을 뺌"
+  }
+ },
+ {
+  "company": "nbis",
+  "metric": "cloud_employee_cost",
+  "period_start": "2026-04-01",
+  "period_end": "2026-06-30",
+  "value": 147800000,
+  "unit": "USD",
+  "source": {
+   "type": "text",
+   "form": "6-K",
+   "accession": "0001104659-26-094844",
+   "filed": "2026-08-12",
+   "url": "https://www.sec.gov/Archives/edgar/data/1513845/000110465926094844/nbis-20260812xex99d2.htm",
+   "label": "Employee compensation expenses",
+   "quote": "Employee compensation expenses (46.6) ​ (147.8) ​ (83.1) ​ (222.3)",
+   "text_file": "data/raw/filings/nbis/0001104659-26-094844/nbis-20260812xex99d2.htm.txt"
+  }
+ },
+ {
+  "company": "nbis",
+  "metric": "cloud_employee_cost",
+  "period_start": "2026-07-01",
+  "period_end": "2026-09-30",
+  "value": 135100000,
+  "unit": "USD",
+  "source": {
+   "type": "text",
+   "form": "6-K",
+   "accession": "0001104659-26-126238",
+   "filed": "2026-11-12",
+   "url": "https://www.sec.gov/Archives/edgar/data/1513845/000110465926126238/nbis-ex99d2.htm",
+   "label": "Employee compensation expenses",
+   "quote": "Employee compensation expenses (49.5) ​ (135.1) ​ (132.6) ​ (357.4)",
+   "text_file": "data/raw/filings/nbis/0001104659-26-126238/nbis-ex99d2.htm.txt"
+  }
+ },
+ {
+  "company": "nbis",
+  "metric": "cloud_other_cost",
+  "period_start": "2025-01-01",
+  "period_end": "2025-03-31",
+  "value": 32300000,
+  "unit": "USD",
+  "source": {
+   "type": "text",
+   "form": "6-K",
+   "accession": "0001104659-26-094844",
+   "filed": "2026-08-12",
+   "url": "https://www.sec.gov/Archives/edgar/data/1513845/000110465926094844/nbis-20260812xex99d2.htm",
+   "label": "Other costs and expenses",
+   "quote": "Other costs and expenses (37.6) ​ (141.4) ​ (69.9) ​ (282.6)",
+   "text_file": "data/raw/filings/nbis/0001104659-26-094844/nbis-20260812xex99d2.htm.txt",
+   "how": "2분기 공시의 2025년 6개월 값 69.9에서 2분기 값 37.6을 뺌"
+  }
+ },
+ {
+  "company": "nbis",
+  "metric": "cloud_other_cost",
+  "period_start": "2025-04-01",
+  "period_end": "2025-06-30",
+  "value": 37600000,
+  "unit": "USD",
+  "source": {
+   "type": "text",
+   "form": "6-K",
+   "accession": "0001104659-26-094844",
+   "filed": "2026-08-12",
+   "url": "https://www.sec.gov/Archives/edgar/data/1513845/000110465926094844/nbis-20260812xex99d2.htm",
+   "label": "Other costs and expenses",
+   "quote": "Other costs and expenses (37.6) ​ (141.4) ​ (69.9) ​ (282.6)",
+   "text_file": "data/raw/filings/nbis/0001104659-26-094844/nbis-20260812xex99d2.htm.txt"
+  }
+ },
+ {
+  "company": "nbis",
+  "metric": "cloud_other_cost",
+  "period_start": "2025-07-01",
+  "period_end": "2025-09-30",
+  "value": 56500000,
+  "unit": "USD",
+  "source": {
+   "type": "text",
+   "form": "6-K",
+   "accession": "0001104659-26-126238",
+   "filed": "2026-11-12",
+   "url": "https://www.sec.gov/Archives/edgar/data/1513845/000110465926126238/nbis-ex99d2.htm",
+   "label": "Other costs and expenses",
+   "quote": "Other costs and expenses (56.5) ​ (320.5) ​ (126.4) ​ (603.1)",
+   "text_file": "data/raw/filings/nbis/0001104659-26-126238/nbis-ex99d2.htm.txt"
+  }
+ },
+ {
+  "company": "nbis",
+  "metric": "cloud_other_cost",
+  "period_start": "2025-10-01",
+  "period_end": "2025-12-31",
+  "value": 99900000,
+  "unit": "USD",
+  "source": {
+   "type": "text",
+   "form": "20-F",
+   "accession": "0001104659-26-052948",
+   "filed": "2026-04-30",
+   "url": "https://www.sec.gov/Archives/edgar/data/1513845/000110465926052948/nbis-20251231x20f.htm",
+   "label": "Other costs and expenses",
+   "quote": "Other costs and expenses ​ 19.4 ​ 36.1 ​ 154.4",
+   "text_file": "data/raw/filings/nbis/0001104659-26-052948/nbis-20251231x20f.htm.txt",
+   "how": "2025년 연간 기타비용 154.4에 본사 비용 71.9을 더한 226.3(2026년 2분기부터 회사가 합쳐 적는 기준)에서 3분기 공시의 2025년 9개월 값 126.4을 뺌. 본사 비용 줄: Corporate Functions Expenses (excl. personnel costs) ​ 17.2 ​ 24.4 ​ 71.9"
+  }
+ },
+ {
+  "company": "nbis",
+  "metric": "cloud_other_cost",
+  "period_start": "2026-01-01",
+  "period_end": "2026-03-31",
+  "value": 141200000,
+  "unit": "USD",
+  "source": {
+   "type": "text",
+   "form": "6-K",
+   "accession": "0001104659-26-094844",
+   "filed": "2026-08-12",
+   "url": "https://www.sec.gov/Archives/edgar/data/1513845/000110465926094844/nbis-20260812xex99d2.htm",
+   "label": "Other costs and expenses",
+   "quote": "Other costs and expenses (37.6) ​ (141.4) ​ (69.9) ​ (282.6)",
+   "text_file": "data/raw/filings/nbis/0001104659-26-094844/nbis-20260812xex99d2.htm.txt",
+   "how": "2분기 공시의 2026년 6개월 값 282.6에서 2분기 값 141.4을 뺌"
+  }
+ },
+ {
+  "company": "nbis",
+  "metric": "cloud_other_cost",
+  "period_start": "2026-04-01",
+  "period_end": "2026-06-30",
+  "value": 141400000,
+  "unit": "USD",
+  "source": {
+   "type": "text",
+   "form": "6-K",
+   "accession": "0001104659-26-094844",
+   "filed": "2026-08-12",
+   "url": "https://www.sec.gov/Archives/edgar/data/1513845/000110465926094844/nbis-20260812xex99d2.htm",
+   "label": "Other costs and expenses",
+   "quote": "Other costs and expenses (37.6) ​ (141.4) ​ (69.9) ​ (282.6)",
+   "text_file": "data/raw/filings/nbis/0001104659-26-094844/nbis-20260812xex99d2.htm.txt"
+  }
+ },
+ {
+  "company": "nbis",
+  "metric": "cloud_other_cost",
+  "period_start": "2026-07-01",
+  "period_end": "2026-09-30",
+  "value": 320500000,
+  "unit": "USD",
+  "source": {
+   "type": "text",
+   "form": "6-K",
+   "accession": "0001104659-26-126238",
+   "filed": "2026-11-12",
+   "url": "https://www.sec.gov/Archives/edgar/data/1513845/000110465926126238/nbis-ex99d2.htm",
+   "label": "Other costs and expenses",
+   "quote": "Other costs and expenses (56.5) ​ (320.5) ​ (126.4) ​ (603.1)",
+   "text_file": "data/raw/filings/nbis/0001104659-26-126238/nbis-ex99d2.htm.txt"
+  }
+ },
+ {
+  "company": "nbis",
+  "metric": "cloud_revenue",
+  "period_start": "2025-01-01",
+  "period_end": "2025-03-31",
+  "value": 41400000,
+  "unit": "USD",
+  "source": {
+   "type": "text",
+   "form": "6-K",
+   "accession": "0001104659-26-094844",
+   "filed": "2026-08-12",
+   "url": "https://www.sec.gov/Archives/edgar/data/1513845/000110465926094844/nbis-20260812xex99d2.htm",
+   "label": "Nebius AI cloud",
+   "quote": "Nebius AI cloud 93.7 ​ 574.9 ​ 135.1 ​ 964.6",
+   "text_file": "data/raw/filings/nbis/0001104659-26-094844/nbis-20260812xex99d2.htm.txt",
+   "how": "2분기 공시의 2025년 6개월 값 135.1에서 2분기 값 93.7을 뺌"
+  }
+ },
+ {
+  "company": "nbis",
+  "metric": "cloud_revenue",
+  "period_start": "2025-04-01",
+  "period_end": "2025-06-30",
+  "value": 93700000,
+  "unit": "USD",
+  "source": {
+   "type": "text",
+   "form": "6-K",
+   "accession": "0001104659-26-094844",
+   "filed": "2026-08-12",
+   "url": "https://www.sec.gov/Archives/edgar/data/1513845/000110465926094844/nbis-20260812xex99d2.htm",
+   "label": "Nebius AI cloud",
+   "quote": "Nebius AI cloud 93.7 ​ 574.9 ​ 135.1 ​ 964.6",
+   "text_file": "data/raw/filings/nbis/0001104659-26-094844/nbis-20260812xex99d2.htm.txt"
+  }
+ },
+ {
+  "company": "nbis",
+  "metric": "cloud_revenue",
+  "period_start": "2025-07-01",
+  "period_end": "2025-09-30",
+  "value": 131100000,
+  "unit": "USD",
+  "source": {
+   "type": "text",
+   "form": "6-K",
+   "accession": "0001104659-26-126238",
+   "filed": "2026-11-12",
+   "url": "https://www.sec.gov/Archives/edgar/data/1513845/000110465926126238/nbis-ex99d2.htm",
+   "label": "Nebius AI cloud (1)",
+   "quote": "Nebius AI cloud (1) 131.1 ​ 973.8 ​ 266.2 ​ 1,938.4",
+   "text_file": "data/raw/filings/nbis/0001104659-26-126238/nbis-ex99d2.htm.txt"
+  }
+ },
+ {
+  "company": "nbis",
+  "metric": "cloud_revenue",
+  "period_start": "2025-10-01",
+  "period_end": "2025-12-31",
+  "value": 214100000,
+  "unit": "USD",
+  "source": {
+   "type": "text",
+   "form": "20-F",
+   "accession": "0001104659-26-052948",
+   "filed": "2026-04-30",
+   "url": "https://www.sec.gov/Archives/edgar/data/1513845/000110465926052948/nbis-20251231x20f.htm",
+   "label": "Nebius",
+   "quote": "Nebius ​ 9.6 ​ 68.3 ​ 480.3",
+   "text_file": "data/raw/filings/nbis/0001104659-26-052948/nbis-20251231x20f.htm.txt",
+   "how": "2025년 연간 값 480.3에서 3분기 공시의 2025년 9개월 값 266.2을 뺌"
+  }
+ },
+ {
+  "company": "nbis",
+  "metric": "cloud_revenue",
+  "period_start": "2026-01-01",
+  "period_end": "2026-03-31",
+  "value": 389700000,
+  "unit": "USD",
+  "source": {
+   "type": "text",
+   "form": "6-K",
+   "accession": "0001104659-26-094844",
+   "filed": "2026-08-12",
+   "url": "https://www.sec.gov/Archives/edgar/data/1513845/000110465926094844/nbis-20260812xex99d2.htm",
+   "label": "Nebius AI cloud",
+   "quote": "Nebius AI cloud 93.7 ​ 574.9 ​ 135.1 ​ 964.6",
+   "text_file": "data/raw/filings/nbis/0001104659-26-094844/nbis-20260812xex99d2.htm.txt",
+   "how": "2분기 공시의 2026년 6개월 값 964.6에서 2분기 값 574.9을 뺌"
+  }
+ },
+ {
+  "company": "nbis",
+  "metric": "cloud_revenue",
+  "period_start": "2026-04-01",
+  "period_end": "2026-06-30",
+  "value": 574900000,
+  "unit": "USD",
+  "source": {
+   "type": "text",
+   "form": "6-K",
+   "accession": "0001104659-26-094844",
+   "filed": "2026-08-12",
+   "url": "https://www.sec.gov/Archives/edgar/data/1513845/000110465926094844/nbis-20260812xex99d2.htm",
+   "label": "Nebius AI cloud",
+   "quote": "Nebius AI cloud 93.7 ​ 574.9 ​ 135.1 ​ 964.6",
+   "text_file": "data/raw/filings/nbis/0001104659-26-094844/nbis-20260812xex99d2.htm.txt"
+  }
+ },
+ {
+  "company": "nbis",
+  "metric": "cloud_revenue",
+  "period_start": "2026-07-01",
+  "period_end": "2026-09-30",
+  "value": 973800000,
+  "unit": "USD",
+  "source": {
+   "type": "text",
+   "form": "6-K",
+   "accession": "0001104659-26-126238",
+   "filed": "2026-11-12",
+   "url": "https://www.sec.gov/Archives/edgar/data/1513845/000110465926126238/nbis-ex99d2.htm",
+   "label": "Nebius AI cloud (1)",
+   "quote": "Nebius AI cloud (1) 131.1 ​ 973.8 ​ 266.2 ​ 1,938.4",
+   "text_file": "data/raw/filings/nbis/0001104659-26-126238/nbis-ex99d2.htm.txt"
+  }
+ },
+ {
+  "company": "nbis",
   "metric": "contracted_power_mw",
   "period_start": null,
   "period_end": "2026-02-12",
@@ -1149,6 +1665,100 @@
    "label": "income from operations",
    "quote": "income from operations of $50.4 million in the third quarter of 2026, compared with a loss from operations of $130.2 million in the comparative period",
    "text_file": "data/raw/filings/nbis/0001104659-26-126238/nbis-ex99d1.htm.txt"
+  }
+ },
+ {
+  "company": "nbis",
+  "metric": "partner_revenue",
+  "period_start": "2025-01-01",
+  "period_end": "2025-03-31",
+  "value": 0,
+  "unit": "USD",
+  "source": {
+   "type": "text",
+   "form": "6-K",
+   "accession": "0001104659-26-126238",
+   "filed": "2026-11-12",
+   "url": "https://www.sec.gov/Archives/edgar/data/1513845/000110465926126238/nbis-ex99d1.htm",
+   "label": "no revenue from partnerships",
+   "quote": "We had no revenue from partnerships in the corresponding periods of 2025.",
+   "text_file": "data/raw/filings/nbis/0001104659-26-126238/nbis-ex99d1.htm.txt",
+   "how": "2025년 같은 기간(3분기, 9개월)에 제휴 매출이 없었다고 밝힘. 9개월에 1~3분기가 모두 들어간다."
+  }
+ },
+ {
+  "company": "nbis",
+  "metric": "partner_revenue",
+  "period_start": "2025-04-01",
+  "period_end": "2025-06-30",
+  "value": 0,
+  "unit": "USD",
+  "source": {
+   "type": "text",
+   "form": "6-K",
+   "accession": "0001104659-26-126238",
+   "filed": "2026-11-12",
+   "url": "https://www.sec.gov/Archives/edgar/data/1513845/000110465926126238/nbis-ex99d1.htm",
+   "label": "no revenue from partnerships",
+   "quote": "We had no revenue from partnerships in the corresponding periods of 2025.",
+   "text_file": "data/raw/filings/nbis/0001104659-26-126238/nbis-ex99d1.htm.txt",
+   "how": "2025년 같은 기간(3분기, 9개월)에 제휴 매출이 없었다고 밝힘. 9개월에 1~3분기가 모두 들어간다."
+  }
+ },
+ {
+  "company": "nbis",
+  "metric": "partner_revenue",
+  "period_start": "2025-07-01",
+  "period_end": "2025-09-30",
+  "value": 0,
+  "unit": "USD",
+  "source": {
+   "type": "text",
+   "form": "6-K",
+   "accession": "0001104659-26-126238",
+   "filed": "2026-11-12",
+   "url": "https://www.sec.gov/Archives/edgar/data/1513845/000110465926126238/nbis-ex99d1.htm",
+   "label": "no revenue from partnerships",
+   "quote": "We had no revenue from partnerships in the corresponding periods of 2025.",
+   "text_file": "data/raw/filings/nbis/0001104659-26-126238/nbis-ex99d1.htm.txt",
+   "how": "2025년 같은 기간(3분기, 9개월)에 제휴 매출이 없었다고 밝힘. 9개월에 1~3분기가 모두 들어간다."
+  }
+ },
+ {
+  "company": "nbis",
+  "metric": "partner_revenue",
+  "period_start": "2026-07-01",
+  "period_end": "2026-09-30",
+  "value": 325100000,
+  "unit": "USD",
+  "source": {
+   "type": "text",
+   "form": "6-K",
+   "accession": "0001104659-26-126238",
+   "filed": "2026-11-12",
+   "url": "https://www.sec.gov/Archives/edgar/data/1513845/000110465926126238/nbis-ex99d2.htm",
+   "label": "revenue from strategic partnerships",
+   "quote": "Nebius AI cloud revenue includes revenue from strategic partnerships of $325.1 and $409.1 for the three and nine months ended September 30, 2026, respectively.",
+   "text_file": "data/raw/filings/nbis/0001104659-26-126238/nbis-ex99d2.htm.txt"
+  }
+ },
+ {
+  "company": "nbis",
+  "metric": "partner_revenue_ytd",
+  "period_start": "2026-01-01",
+  "period_end": "2026-09-30",
+  "value": 409100000,
+  "unit": "USD",
+  "source": {
+   "type": "text",
+   "form": "6-K",
+   "accession": "0001104659-26-126238",
+   "filed": "2026-11-12",
+   "url": "https://www.sec.gov/Archives/edgar/data/1513845/000110465926126238/nbis-ex99d2.htm",
+   "label": "revenue from strategic partnerships",
+   "quote": "Nebius AI cloud revenue includes revenue from strategic partnerships of $325.1 and $409.1 for the three and nine months ended September 30, 2026, respectively.",
+   "text_file": "data/raw/filings/nbis/0001104659-26-126238/nbis-ex99d2.htm.txt",
+   "how": "3분기 공시의 2026년 9개월 값. 상반기 합계(409.1 − 325.1 = 84.0)를 1·2분기 범위로 그릴 때 쓴다."
   }
  },
  {

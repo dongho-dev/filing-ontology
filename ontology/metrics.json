@@ -258,5 +258,143 @@
     "kind": "text",
     "definition": "가장 큰 고객 한 곳이 분기 매출에서 차지하는 비율.",
     "comparability": "회사에 따라 분기 기준이 아닌 누적 기준으로만 밝히기도 한다. 기준 기간을 함께 적는다."
+  },
+  {
+    "id": "cloud_revenue",
+    "name": "AI 클라우드 매출",
+    "unit": "USD",
+    "kind": "text",
+    "show": false,
+    "only": ["nbis"],
+    "group": "segment",
+    "definition": "Nebius AI 클라우드 부문의 분기 매출(부문 표의 값, 내부 거래 제거 전).",
+    "comparability": "회사가 정한 부문 값이다. 인건비에는 본사 인력 배분분이, 기타비용에는 데이터센터 운영·코로케이션·전기와 마케팅, 본사 비용이 들어 있다. 2026년 2분기부터 본사 비용을 기타비용에 합쳐 적어서, 그 앞 분기도 같은 기준으로 맞췄다. 주식 보상은 빠진다."
+  },
+  {
+    "id": "cloud_adj_ebitda",
+    "name": "AI 클라우드 조정 EBITDA",
+    "unit": "USD",
+    "kind": "text",
+    "show": false,
+    "only": ["nbis"],
+    "group": "segment",
+    "definition": "Nebius AI 클라우드 부문의 분기 조정 EBITDA.",
+    "comparability": "회사가 정한 부문 값이다. 인건비에는 본사 인력 배분분이, 기타비용에는 데이터센터 운영·코로케이션·전기와 마케팅, 본사 비용이 들어 있다. 2026년 2분기부터 본사 비용을 기타비용에 합쳐 적어서, 그 앞 분기도 같은 기준으로 맞췄다. 주식 보상은 빠진다."
+  },
+  {
+    "id": "cloud_employee_cost",
+    "name": "AI 클라우드 인건비",
+    "unit": "USD",
+    "kind": "text",
+    "show": false,
+    "only": ["nbis"],
+    "group": "segment",
+    "definition": "Nebius AI 클라우드 부문의 분기 인건비(주식 보상 제외).",
+    "comparability": "회사가 정한 부문 값이다. 인건비에는 본사 인력 배분분이, 기타비용에는 데이터센터 운영·코로케이션·전기와 마케팅, 본사 비용이 들어 있다. 2026년 2분기부터 본사 비용을 기타비용에 합쳐 적어서, 그 앞 분기도 같은 기준으로 맞췄다. 주식 보상은 빠진다."
+  },
+  {
+    "id": "cloud_other_cost",
+    "name": "AI 클라우드 기타비용",
+    "unit": "USD",
+    "kind": "text",
+    "show": false,
+    "only": ["nbis"],
+    "group": "segment",
+    "definition": "Nebius AI 클라우드 부문의 인건비 외 분기 비용.",
+    "comparability": "회사가 정한 부문 값이다. 인건비에는 본사 인력 배분분이, 기타비용에는 데이터센터 운영·코로케이션·전기와 마케팅, 본사 비용이 들어 있다. 2026년 2분기부터 본사 비용을 기타비용에 합쳐 적어서, 그 앞 분기도 같은 기준으로 맞췄다. 주식 보상은 빠진다."
+  },
+  {
+    "id": "partner_revenue",
+    "name": "전략적 제휴 매출",
+    "unit": "USD",
+    "kind": "text",
+    "show": false,
+    "only": ["nbis"],
+    "group": "segment",
+    "definition": "AI 클라우드 매출 안에 든 전략적 제휴 매출. 계약상 받을 권리가 확정되는 때에 한 번에 인식한다.",
+    "comparability": "회사는 앞으로도 생기겠지만 본래 반복되지 않고 시기와 크기를 예측하기 어렵다고 밝혔다. 2026년 상반기 합계 84.0백만 달러는 어느 분기인지 밝히지 않았다."
+  },
+  {
+    "id": "cloud_margin",
+    "name": "AI 클라우드 마진",
+    "unit": "%",
+    "kind": "derived",
+    "show": false,
+    "only": ["nbis"],
+    "group": "segment",
+    "definition": "AI 클라우드 조정 EBITDA를 AI 클라우드 매출로 나눈 비율.",
+    "comparability": "회사가 정한 부문 값이다. 인건비에는 본사 인력 배분분이, 기타비용에는 데이터센터 운영·코로케이션·전기와 마케팅, 본사 비용이 들어 있다. 2026년 2분기부터 본사 비용을 기타비용에 합쳐 적어서, 그 앞 분기도 같은 기준으로 맞췄다. 주식 보상은 빠진다.",
+    "derive": {"op": "ratio", "a": "cloud_adj_ebitda", "b": "cloud_revenue", "scale": 100}
+  },
+  {
+    "id": "cloud_employee_ratio",
+    "name": "AI 클라우드 인건비율",
+    "unit": "%",
+    "kind": "derived",
+    "show": false,
+    "only": ["nbis"],
+    "group": "segment",
+    "definition": "AI 클라우드 인건비를 AI 클라우드 매출로 나눈 비율.",
+    "comparability": "회사가 정한 부문 값이다. 인건비에는 본사 인력 배분분이, 기타비용에는 데이터센터 운영·코로케이션·전기와 마케팅, 본사 비용이 들어 있다. 2026년 2분기부터 본사 비용을 기타비용에 합쳐 적어서, 그 앞 분기도 같은 기준으로 맞췄다. 주식 보상은 빠진다.",
+    "derive": {"op": "ratio", "a": "cloud_employee_cost", "b": "cloud_revenue", "scale": 100}
+  },
+  {
+    "id": "cloud_other_ratio",
+    "name": "AI 클라우드 기타비용률",
+    "unit": "%",
+    "kind": "derived",
+    "show": false,
+    "only": ["nbis"],
+    "group": "segment",
+    "definition": "AI 클라우드 기타비용을 AI 클라우드 매출로 나눈 비율.",
+    "comparability": "회사가 정한 부문 값이다. 인건비에는 본사 인력 배분분이, 기타비용에는 데이터센터 운영·코로케이션·전기와 마케팅, 본사 비용이 들어 있다. 2026년 2분기부터 본사 비용을 기타비용에 합쳐 적어서, 그 앞 분기도 같은 기준으로 맞췄다. 주식 보상은 빠진다.",
+    "derive": {"op": "ratio", "a": "cloud_other_cost", "b": "cloud_revenue", "scale": 100}
+  },
+  {
+    "id": "cloud_revenue_ex_partner",
+    "name": "제휴 뺀 AI 클라우드 매출",
+    "unit": "USD",
+    "kind": "derived",
+    "show": false,
+    "only": ["nbis"],
+    "group": "segment",
+    "definition": "AI 클라우드 매출에서 전략적 제휴 매출을 뺀 값.",
+    "comparability": "제휴 매출은 한 번에 인식하는 매출이고 회사가 본래 반복되지 않는다고 밝혔다. 이 매출에 붙은 비용은 공시에 없어서 0으로 보고 뺐다. 그래서 이 값은 제휴 매출의 영향을 가장 크게 잡은 값이다(실제 값은 이보다 조금 높을 수 있다).",
+    "derive": {"op": "diff", "a": "cloud_revenue", "b": "partner_revenue"}
+  },
+  {
+    "id": "cloud_ebitda_ex_partner",
+    "name": "제휴 뺀 AI 클라우드 조정 EBITDA",
+    "unit": "USD",
+    "kind": "derived",
+    "show": false,
+    "only": ["nbis"],
+    "group": "segment",
+    "definition": "AI 클라우드 조정 EBITDA에서 전략적 제휴 매출을 뺀 값.",
+    "comparability": "제휴 매출은 한 번에 인식하는 매출이고 회사가 본래 반복되지 않는다고 밝혔다. 이 매출에 붙은 비용은 공시에 없어서 0으로 보고 뺐다. 그래서 이 값은 제휴 매출의 영향을 가장 크게 잡은 값이다(실제 값은 이보다 조금 높을 수 있다).",
+    "derive": {"op": "diff", "a": "cloud_adj_ebitda", "b": "partner_revenue"}
+  },
+  {
+    "id": "cloud_margin_ex_partner",
+    "name": "제휴 뺀 AI 클라우드 마진",
+    "unit": "%",
+    "kind": "derived",
+    "show": false,
+    "only": ["nbis"],
+    "group": "segment",
+    "definition": "제휴 뺀 조정 EBITDA를 제휴 뺀 매출로 나눈 비율.",
+    "comparability": "제휴 매출은 한 번에 인식하는 매출이고 회사가 본래 반복되지 않는다고 밝혔다. 이 매출에 붙은 비용은 공시에 없어서 0으로 보고 뺐다. 그래서 이 값은 제휴 매출의 영향을 가장 크게 잡은 값이다(실제 값은 이보다 조금 높을 수 있다).",
+    "derive": {"op": "ratio", "a": "cloud_ebitda_ex_partner", "b": "cloud_revenue_ex_partner", "scale": 100}
+  },
+  {
+    "id": "partner_revenue_ytd",
+    "name": "전략적 제휴 매출(연초부터 누계)",
+    "unit": "USD",
+    "kind": "text",
+    "show": false,
+    "only": ["nbis"],
+    "group": "segment",
+    "definition": "그해 1월부터 분기 말까지 인식한 전략적 제휴 매출의 합계.",
+    "comparability": "분기 값이 아니라 누계다. 분기를 밝히지 않은 제휴 매출이 어느 범위에 있는지 볼 때만 쓴다."
   }
 ]
