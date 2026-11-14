@@ -1,0 +1,399 @@
+<!doctype html>
+<html lang="ko">
+<head>
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width,initial-scale=1">
+<title>네비우스 처음부터 지금까지</title>
+<style>
+:root{
+  --bg:#f6f4ef;--card:#ffffff;--ink:#1d1f23;--ink2:#4f5560;--mute:#868c97;--line:#e3e0d8;--soft:#efece5;
+  --s1:#2a78d6;--s2:#eb6834;--s3:#1baf7a;--s4:#eda100;--c2:#c9cdd4;--c4:#a9afb9;
+  --good:#0ca30c;--crit:#d03b3b;--hl:#fff3cc;--hlline:#eda100;--so:#e3eefb;--soline:#2a78d6;
+}
+@media (prefers-color-scheme:dark){:root{
+  --bg:#14161a;--card:#1d2025;--ink:#eceef1;--ink2:#b5bbc6;--mute:#7f8692;--line:#30343b;--soft:#262a30;
+  --s1:#3987e5;--s2:#d95926;--s3:#199e70;--s4:#c98500;--c2:#434952;--c4:#5b626d;
+  --good:#3cc43c;--crit:#e25d5d;--hl:#352e18;--hlline:#c98500;--so:#1c2c42;--soline:#3987e5;
+}}
+*{box-sizing:border-box}
+html{scroll-behavior:smooth;scroll-padding-top:64px}
+body{margin:0;background:var(--bg);color:var(--ink);font:17px/1.75 "Pretendard","Apple SD Gothic Neo","Malgun Gothic","Noto Sans KR",sans-serif;word-break:keep-all;overflow-wrap:anywhere}
+a{color:inherit}
+.wrap{max-width:880px;margin:0 auto;padding:0 16px 80px}
+nav.top{position:sticky;top:0;z-index:6;background:var(--bg);border-bottom:1px solid var(--line)}
+nav.top .in{max-width:880px;margin:0 auto;padding:10px 16px;display:flex;gap:6px;overflow-x:auto;white-space:nowrap;font-size:14px}
+nav.top a{text-decoration:none;padding:4px 10px;border-radius:999px;background:var(--soft);color:var(--ink2)}
+nav.top a.home{background:none;font-weight:700;color:var(--ink);padding-left:0}
+nav.top a.on{background:var(--ink);color:var(--bg)}
+header.hero{padding:40px 0 4px}
+.kicker{font-size:14px;color:var(--mute)}
+h1{font-size:clamp(28px,6vw,44px);line-height:1.25;margin:8px 0 14px;letter-spacing:-.02em}
+.lead{font-size:19px;color:var(--ink2);margin:0 0 18px}
+h2{font-size:26px;line-height:1.35;margin:4px 0 10px;letter-spacing:-.01em}
+h3{font-size:16px;margin:22px 0 8px;color:var(--ink2)}
+p{margin:0 0 14px}
+.card{background:var(--card);border:1px solid var(--line);border-radius:16px;padding:20px;margin:16px 0}
+.card h4{margin:0 0 6px;font-size:16.5px}
+.cap{font-size:14px;color:var(--mute);margin:8px 0 0;line-height:1.6}
+/* 한 줄 흐름 */
+.chain{list-style:none;margin:0;padding:0;counter-reset:c}
+.chain li{position:relative;padding:10px 0 10px 44px;border-bottom:1px solid var(--line)}
+.chain li:last-child{border-bottom:0}
+.chain li::before{counter-increment:c;content:counter(c);position:absolute;left:0;top:11px;width:28px;height:28px;border-radius:50%;background:var(--ink);color:var(--bg);font-weight:700;font-size:14px;display:flex;align-items:center;justify-content:center}
+.chain a{text-decoration:none}
+.chain .w{font-size:13px;color:var(--mute);display:block;line-height:1.3}
+.tw{overflow-x:auto}
+table{width:100%;border-collapse:collapse;font-size:15.5px}
+th,td{text-align:left;padding:9px 8px;border-bottom:1px solid var(--line)}
+th{font-size:13px;color:var(--mute);font-weight:600}
+td.r,th.r{text-align:right;font-variant-numeric:tabular-nums;white-space:nowrap}
+tr:last-child td{border-bottom:0}
+/* 장 */
+.ch{position:relative;margin:0;padding:38px 0 8px 30px;border-left:3px solid var(--line)}
+.ch::before{content:"";position:absolute;left:-10px;top:44px;width:17px;height:17px;border-radius:50%;background:var(--s1);border:3px solid var(--bg)}
+.ch.pro::before,.ch.epi::before{background:var(--ink)}
+@media (max-width:560px){.ch{padding-left:18px}}
+.when{font-size:14px;font-weight:700;color:var(--ink2)}
+.when span{font-weight:400;color:var(--mute);margin-left:6px}
+.tiles{display:grid;grid-template-columns:repeat(auto-fit,minmax(150px,1fr));gap:10px;margin:14px 0}
+.tile{background:var(--card);border:1px solid var(--line);border-radius:14px;padding:12px 14px}
+.tile .l{font-size:13px;color:var(--mute)}
+.tile .v{font-size:22px;font-weight:800;line-height:1.25;font-variant-numeric:tabular-nums;letter-spacing:-.02em}
+.tile .p{font-size:13px;color:var(--ink2);font-variant-numeric:tabular-nums}
+.evl{margin:0;padding-left:20px;font-size:15.5px}
+.evl li{margin-bottom:7px}
+.evl .d{font-size:13px;color:var(--mute);margin-right:6px;font-variant-numeric:tabular-nums}
+.evl a{font-size:12.5px;color:var(--mute);margin-left:4px;white-space:nowrap}
+.charts{display:grid;grid-template-columns:1fr 1fr;gap:12px;margin:16px 0}
+@media (max-width:720px){.charts{grid-template-columns:1fr}}
+figure{margin:0;background:var(--card);border:1px solid var(--line);border-radius:16px;padding:14px 14px 10px}
+figcaption{font-size:14.5px;font-weight:700;margin-bottom:2px}
+figure .cap{margin-top:4px}
+.chart svg{display:block}
+.chart text{fill:var(--mute);font-size:11px;font-variant-numeric:tabular-nums}
+.chart text.sel{fill:var(--ink);font-weight:700}
+.so,.but{border-radius:10px;padding:13px 16px;margin:12px 0}
+.so{background:var(--so);border-left:4px solid var(--soline)}
+.but{background:var(--hl);border-left:4px solid var(--hlline)}
+.so b:first-child,.but b:first-child{display:block;font-size:14px;margin-bottom:2px}
+.q{display:grid;grid-template-columns:36px 1fr;gap:10px;padding:12px 0;border-bottom:1px solid var(--line)}
+.q:last-child{border-bottom:0}
+.q .n{width:30px;height:30px;border-radius:50%;background:var(--s1);color:#fff;font-weight:800;display:flex;align-items:center;justify-content:center}
+.q h4{margin:2px 0 2px;font-size:16.5px}.q p{font-size:15.5px;color:var(--ink2);margin:0}
+footer{margin-top:44px;padding-top:20px;border-top:1px solid var(--line);font-size:14px;color:var(--mute);line-height:1.7}
+footer a{color:var(--ink2)}
+</style>
+</head>
+<body>
+<nav class="top"><div class="in" id="nav">
+  <a class="home" href="./">← 대시보드</a>
+  <a href="#c0">시작 전</a><a href="#c1">24년 여름</a><a href="#c2">24년 가을</a><a href="#c3">25년 1분기</a><a href="#c4">2분기</a><a href="#c5">3분기</a><a href="#c6">4분기</a><a href="#c7">26년 1분기</a><a href="#c8">2분기</a><a href="#c9">3분기</a><a href="#c10">그래서 지금</a>
+  <a href="nebius-quarters.html">분기 비교</a><a href="nebius-story.html">쉬운 설명</a>
+</div></nav>
+
+<div class="wrap">
+<header class="hero">
+  <div class="kicker">네비우스(Nebius) 이야기 · 2024년 7월 ~ 2026년 9월</div>
+  <h1>처음부터 지금까지,<br>어떻게 여기까지 왔을까요?</h1>
+  <p class="lead">2년 전 이 회사는 석 달에 3천만 달러를 버는 작은 회사였어요. 지금은 석 달에 9억 8천만 달러를 벌고, 빚이 142억 달러예요. 어떤 일이 있었고, 그래서 무엇이 달라졌고, 그 때문에 다음에 무슨 일이 생겼는지를 순서대로 따라가요.</p>
+</header>
+
+<div class="card"><h4>한 줄씩 이으면 이런 이야기예요</h4>
+  <ol class="chain">
+    <li><a href="#c0"><span class="w">2024년 7월 이전</span>러시아에 있던 큰 사업을 팔았어요. 현금 28억 달러를 받았어요.</a></li>
+    <li><a href="#c1"><span class="w">2024년 여름</span>남은 것은 현금 25억 달러, 기술자 1,300명, 핀란드 데이터센터 한 곳. 이걸로 AI용 컴퓨터를 빌려주는 회사가 되기로 했어요.</a></li>
+    <li><a href="#c2"><span class="w">2024년 가을</span>2년 8개월 만에 주식 거래가 다시 열렸고, 엔비디아 등에게서 7억 달러를 투자받았어요.</a></li>
+    <li><a href="#c3"><span class="w">2025년 1분기</span>데이터센터를 다섯 곳으로 늘렸어요. 그러느라 석 달 만에 통장에서 10억 달러가 빠졌어요.</a></li>
+    <li><a href="#c4"><span class="w">2025년 2분기</span>통장이 줄어드니 처음으로 빚을 냈어요(10억 달러).</a></li>
+    <li><a href="#c5"><span class="w">2025년 3분기</span>마이크로소프트와 메타가 몇 년 치 자리를 통째로 예약했어요. 그 계약을 믿고 43억 달러를 더 구했어요.</a></li>
+    <li><a href="#c6"><span class="w">2025년 4분기</span>큰손이 요금을 미리 내기 시작했어요. 장사에서 처음으로 현금이 들어왔어요.</a></li>
+    <li><a href="#c7"><span class="w">2026년 1분기</span>메타가 최대 270억 달러짜리 두 번째 계약을 했고, 엔비디아가 20억 달러를 투자했어요.</a></li>
+    <li><a href="#c8"><span class="w">2026년 2분기</span>약속한 자리를 지으려고 석 달에 57억 달러를 썼어요. 앞 분기의 두 배가 넘어요.</a></li>
+    <li><a href="#c9"><span class="w">2026년 3분기</span>처음으로 장사에서 돈이 남았어요. 하지만 빚은 142억 달러가 됐고 새 숙제가 생겼어요.</a></li>
+  </ol>
+</div>
+
+<div class="card"><h4>처음과 지금</h4>
+  <div class="tw"><table id="thenow"></table></div>
+  <p class="cap">"처음"은 새 출발 뒤 첫 분기(2024년 7~9월), "지금"은 2026년 7~9월이에요.</p>
+</div>
+
+<!-- 프롤로그 -->
+<article class="ch pro" id="c0">
+  <div class="when">2024년 7월 이전<span>시작 전</span></div>
+  <h2>원래는 얀덱스라는 다른 회사였어요</h2>
+  <p>네비우스의 옛 이름은 "Yandex N.V."예요. 러시아에서 검색·택시·배달 같은 큰 인터넷 사업을 하던 회사의 네덜란드 본사였어요. 2022년 2월 러시아가 우크라이나를 침공하자, 미국 나스닥은 이 회사 주식의 거래를 멈췄어요. 주주들은 2년 넘게 주식을 사지도 팔지도 못했어요.</p>
+  <p>회사는 러시아 사업을 통째로 팔기로 했어요. 매각은 두 번에 나눠 끝났어요. 2024년 5월 17일에 첫 번째, 7월 15일에 마지막. 계약 가치는 약 54억 달러였고, 그 가운데 현금으로 받은 돈이 28억 달러예요.</p>
+  <h3>공시에 적힌 일</h3><ul class="evl" data-ev="24Q2" data-kinds="events"></ul>
+  <div class="charts">
+    <figure><figcaption>통장에 남은 현금 (억 달러)</figcaption><div class="chart" data-chart="cash" data-upto="24Q2"></div><p class="cap">2023년 말에는 1.2억 달러뿐이었어요. 매각 대금이 들어와 2024년 6월 말 23억 달러가 됐어요.</p></figure>
+    <figure><figcaption>석 달 매출 (억 달러)</figcaption><div class="chart" data-chart="rev" data-upto="24Q2"></div><p class="cap">남은 사업의 매출은 아주 작았어요. 2023년 한 해를 다 합쳐도 0.1억 달러였어요.</p></figure>
+  </div>
+  <div class="so"><b>그래서</b>큰 사업은 사라지고, 큰돈과 작은 사업 몇 개만 남았어요. PC방으로 치면 "전국 체인을 팔고, 현금 가방과 가게 한 곳만 들고 나온" 셈이에요.</div>
+</article>
+
+<article class="ch" id="c1">
+  <div class="when">2024년 7~9월<span>1장</span></div>
+  <h2>새 이름, 새 출발. 무엇이 남았을까요?</h2>
+  <p>2024년 7월 16일, 회사는 "유럽에서 으뜸가는 AI 인프라 회사가 되겠다"고 발표했어요. 8월에는 이름도 네비우스(Nebius)로 바꿨어요. 손에 쥔 것은 이랬어요.</p>
+  <div class="tiles" data-q="24Q3" data-tiles="rev,cost100,cash,ppe,capex"></div>
+  <h3>공시에 적힌 일</h3><ul class="evl" data-ev="24Q3" data-kinds="events"></ul>
+  <div class="charts">
+    <figure><figcaption>석 달 매출 (억 달러)</figcaption><div class="chart" data-chart="rev" data-upto="24Q3"></div><p class="cap">0.15억에서 0.32억 달러로 두 배가 넘게 뛰었어요. 그래도 아직 아주 작아요.</p></figure>
+    <figure><figcaption>100원을 벌 때 쓴 돈 (원)</figcaption><div class="chart" data-chart="cost100" data-upto="24Q3" data-ref="100"></div><p class="cap">검은 선이 100원이에요. 이때는 100원을 벌려고 351원을 썼어요.</p></figure>
+  </div>
+  <div class="so"><b>그래서</b>밑천은 넉넉했어요. 현금 약 25억 달러에 빚이 없었고, 기술자 약 1,300명과 핀란드 데이터센터가 있었어요. 회사는 이 돈으로 2025년 중반까지 유럽에 10억 달러 넘게 투자하겠다고 했어요. 이때만 해도 "남는 돈의 큰 몫은 주주에게 돌려주겠다"는 계획이었어요.</div>
+  <div class="but"><b>그런데</b>매출이 석 달에 0.3억 달러뿐이라 번 돈으로는 아무것도 지을 수 없었어요. 게다가 주식 거래가 아직 멈춰 있어서, 새 투자자에게서 돈을 구하기도 어려웠어요.</div>
+</article>
+
+<article class="ch" id="c2">
+  <div class="when">2024년 10~12월<span>2장</span></div>
+  <h2>거래가 다시 열리고, 첫 투자를 받았어요</h2>
+  <p>10월 21일, 2년 8개월 만에 나스닥에서 주식 거래가 다시 시작됐어요. 회사는 바로 움직였어요. 핀란드 데이터센터를 3배(75MW, GPU 최대 6만 개)로 키우겠다고 했고, 미국 캔자스시티에 첫 GPU 단지를 짓겠다고 했어요.</p>
+  <div class="tiles" data-q="24Q4" data-tiles="rev,arr,capex,fin,cash"></div>
+  <h3>공시에 적힌 일</h3><ul class="evl" data-ev="24Q4" data-kinds="events"></ul>
+  <div class="charts">
+    <figure><figcaption>새 장비·건물에 쓴 돈 (억 달러)</figcaption><div class="chart" data-chart="capex" data-upto="24Q4"></div><p class="cap">1.7억에서 4.2억 달러로. 석 달 매출(0.35억)의 12배예요.</p></figure>
+    <figure><figcaption>빌리고 투자받은 돈 (억 달러)</figcaption><div class="chart" data-chart="fin" data-upto="24Q4"></div><p class="cap">12월에 Accel, 엔비디아, Orbis 등에게 주식을 주고 7억 달러를 받았어요.</p></figure>
+  </div>
+  <div class="so"><b>그래서</b>12월에 계획이 바뀌었어요. 이사회는 "주주에게 돌려주려던 돈도 AI 인프라에 쓰겠다"고 정했어요. 거기에 새로 받은 7억 달러를 더해, 가진 돈을 모두 컴퓨터와 건물에 걸기로 한 거예요.</div>
+  <div class="but"><b>그런데</b>장사는 생각만큼 빨리 크지 않았어요. 연환산 매출(지금 속도로 1년을 달리면 벌 돈)이 9월 말 1.2억 달러 이상에서 12월 말 0.9억 달러로 오히려 줄어, 회사가 내다본 값에 못 미쳤어요. 회사는 "손님을 새 플랫폼으로 옮기는 중이고, 영업 조직을 아직 키우는 중"이라고 설명했어요.</div>
+</article>
+
+<article class="ch" id="c3">
+  <div class="when">2025년 1~3월<span>3장</span></div>
+  <h2>가게를 다섯 곳으로. 통장이 빠르게 줄었어요</h2>
+  <p>핀란드 한 곳뿐이던 데이터센터가 세 분기 만에 유럽·미국·중동 다섯 곳이 됐어요. 3월에 아이슬란드가 문을 열었고, 미국 뉴저지에 새 센터를 짓는다고 발표했어요. 용량이 늘자 손님도 늘었어요.</p>
+  <div class="tiles" data-q="25Q1" data-tiles="rev,arr,c_margin,capex,cash"></div>
+  <h3>공시에 적힌 일</h3><ul class="evl" data-ev="25Q1" data-kinds="events,drivers"></ul>
+  <div class="charts">
+    <figure><figcaption>통장에 남은 현금 (억 달러)</figcaption><div class="chart" data-chart="cash" data-upto="25Q1"></div><p class="cap">석 달 만에 24억에서 14억 달러로 줄었어요.</p></figure>
+    <figure><figcaption>연환산 매출 ARR (억 달러)</figcaption><div class="chart" data-chart="arr" data-upto="25Q1"></div><p class="cap">0.9억에서 2.5억 달러로. 용량을 늘리자 바로 팔렸어요.</p></figure>
+  </div>
+  <div class="so"><b>그래서</b>용량을 늘리면 팔린다는 것은 확인했어요. 연환산 매출이 석 달 만에 2.8배가 됐어요. 하지만 통장에서 10억 달러가 빠졌어요. 주로 새 장비에 5.4억, 장사 적자로 1.8억, 네덜란드에 낸 배당 관련 세금으로 1.8억 달러가 나갔기 때문이에요.</div>
+  <div class="but"><b>그런데</b>남은 현금은 14억 달러. 석 달에 10억씩 줄어든다면 반년을 못 버텨요. 본업도 아직 100원을 벌 때 66원을 손해 보고 있었어요. 계속 지으려면 어디선가 돈을 가져와야 했어요.</div>
+</article>
+
+<article class="ch" id="c4">
+  <div class="when">2025년 4~6월<span>4장</span></div>
+  <h2>처음으로 빚을 냈어요</h2>
+  <p>6월, 회사는 전환사채 10억 달러를 발행했어요. "나중에 돈 대신 주식으로 받아 가도 되는 빚"이라 이자가 낮아요(연 2%와 3%). 새 출발 뒤 첫 빚이에요. 5월에는 딸린 사업도 정리했어요. AI 데이터 사업 Toloka는 제프 베이조스 쪽 투자를 받으며 따로 떼어 냈고, 가지고 있던 ClickHouse 지분은 "값을 인정받아 성장 밑천으로 쓰겠다"고 했어요.</p>
+  <div class="tiles" data-q="25Q2" data-tiles="rev,arr,c_margin,debt,cash"></div>
+  <h3>공시에 적힌 일</h3><ul class="evl" data-ev="25Q2" data-kinds="events,drivers"></ul>
+  <div class="charts">
+    <figure><figcaption>빌린 돈 (억 달러)</figcaption><div class="chart" data-chart="debt" data-upto="25Q2"></div><p class="cap">거의 0에서 9.9억 달러로. 이 그림은 여기서부터 계속 커져요.</p></figure>
+    <figure><figcaption>AI 클라우드 마진 (%)</figcaption><div class="chart" data-chart="c_margin" data-upto="25Q2"></div><p class="cap">−66%에서 +10%로. 본업이 처음으로 0 위로 올라왔어요(컴퓨터 낡는 값과 이자를 빼기 전 기준).</p></figure>
+  </div>
+  <div class="so"><b>그래서</b>두 가지가 한꺼번에 일어났어요. 매출이 석 달 만에 두 배(0.51억 → 1.05억 달러)가 됐고, 본업 마진이 계획보다 빨리 플러스가 됐어요. 손님이 늘면 100원당 드는 돈이 줄어든다는 것이 숫자로 보이기 시작한 거예요.</div>
+  <div class="but"><b>그런데</b>수요가 용량보다 컸어요. 회사는 훗날 "2025년 매출을 막은 것은 손님이 아니라 가동할 수 있는 용량이었다"고 말해요. 그래서 2026년 말까지 전기 1GW 이상을 확보하러 나섰어요. 10억 달러로는 턱없이 모자란 크기예요.</div>
+</article>
+
+<article class="ch" id="c5">
+  <div class="when">2025년 7~9월<span>5장</span></div>
+  <h2>큰손 두 곳이 자리를 통째로 예약했어요</h2>
+  <p>9월 8일, 마이크로소프트가 2031년까지 약 174억 달러(추가 서비스를 넣으면 약 194억 달러)어치 GPU 자리를 쓰겠다고 계약했어요. 메타도 5년 동안 약 30억 달러를 쓰기로 했어요. 석 달 매출이 1.5억 달러인 회사에 200억 달러가 넘는 예약이 들어온 거예요.</p>
+  <div class="tiles" data-q="25Q3" data-tiles="rev,arr,fin,debt,cash"></div>
+  <h3>공시에 적힌 일</h3><ul class="evl" data-ev="25Q3" data-kinds="events" data-max="5"></ul>
+  <div class="charts">
+    <figure><figcaption>빌리고 투자받은 돈 (억 달러)</figcaption><div class="chart" data-chart="fin" data-upto="25Q3"></div><p class="cap">계약 발표 이틀 뒤, 주식 공모 11.5억과 전환사채 31.6억 달러. 석 달에 42억 달러가 들어왔어요.</p></figure>
+    <figure><figcaption>빌린 돈 (억 달러)</figcaption><div class="chart" data-chart="debt" data-upto="25Q3"></div><p class="cap">9.9억에서 41억 달러로 네 배가 됐어요.</p></figure>
+  </div>
+  <div class="so"><b>그래서</b>돈 구하기가 쉬워졌어요. "마이크로소프트와 메타가 몇 년 동안 요금을 내기로 했다"는 계약서는 돈을 빌려주거나 투자하는 사람에게 믿음을 줘요. 회사는 계약 발표 직후 43억 달러를 구했고, 통장은 17억에서 48억 달러로 불었어요.</div>
+  <div class="but"><b>그런데</b>예약받은 자리는 아직 없는 자리예요. 이제 그만큼을 실제로 지어야 해요. 회사는 "2026년 말 연환산 매출 70억~90억 달러"를 목표로 내걸었는데, 그러려면 몇십억이 아니라 몇백억 달러가 들어요.</div>
+</article>
+
+<article class="ch" id="c6">
+  <div class="when">2025년 10~12월<span>6장</span></div>
+  <h2>손님이 요금을 미리 내기 시작했어요</h2>
+  <p>이 분기에 통장으로 들어오는 돈의 종류가 바뀌었어요. 큰손이 앞으로 쓸 요금을 미리 낸 거예요. 메타 계약의 첫 물량을 기한 안에 넘겨줬고, 연환산 매출은 12.5억 달러로 목표(9억~11억)를 넘었어요. 확보한 전기도 2GW를 넘었어요.</p>
+  <div class="tiles" data-q="25Q4" data-tiles="rev,arr,defrev,ocf,capex,cash"></div>
+  <h3>공시에 적힌 일</h3><ul class="evl" data-ev="25Q4" data-kinds="events" data-max="7"></ul>
+  <div class="charts">
+    <figure><figcaption>미리 받은 돈: 선수금 잔액 (억 달러)</figcaption><div class="chart" data-chart="defrev" data-upto="25Q4"></div><p class="cap">0.2억도 안 되던 것이 석 달 만에 15.8억 달러가 됐어요.</p></figure>
+    <figure><figcaption>장사에서 들어온 현금 (억 달러)</figcaption><div class="chart" data-chart="ocf" data-upto="25Q4"></div><p class="cap">값이 있는 다섯 분기 내내 마이너스였다가 처음으로 +8.3억 달러.</p></figure>
+  </div>
+  <div class="so"><b>그래서</b>돈줄이 하나 더 생겼어요. 지금까지는 "빌린 돈"으로만 지었는데, 이제 "손님이 미리 낸 돈"으로도 지을 수 있게 됐어요. PC방을 새로 차릴 돈을 단골이 정액권 값으로 먼저 내 주는 셈이에요.</div>
+  <div class="but"><b>그런데</b>짓는 속도는 그보다 더 빨랐어요. 이 석 달에 장비·건물에 21억 달러를 써서, 선불을 받고도 통장은 48억에서 37억 달러로 줄었어요. 그리고 미리 받은 돈은 공짜가 아니에요. 그만큼 자리를 내줘야 하는 숙제가 쌓이는 거예요.</div>
+</article>
+
+<article class="ch" id="c7">
+  <div class="when">2026년 1~3월<span>7장</span></div>
+  <h2>판이 한 번 더 커졌어요</h2>
+  <p>메타가 최대 270억 달러짜리 두 번째 계약을 맺었어요. GPU를 파는 엔비디아는 네비우스에 20억 달러를 투자했어요. 회사는 전환사채로 43억 달러를 더 구했고, 미국 펜실베이니아에 전기 1.2GW짜리 터를 잡았어요. 확보한 전기는 3.5GW를 넘었어요.</p>
+  <div class="tiles" data-q="26Q1" data-tiles="rev,c_margin,rpo,defrev,debt,cash"></div>
+  <h3>공시에 적힌 일</h3><ul class="evl" data-ev="26Q1" data-kinds="events"></ul>
+  <div class="charts">
+    <figure><figcaption>석 달 매출 (억 달러)</figcaption><div class="chart" data-chart="rev" data-upto="26Q1"></div><p class="cap">2.3억에서 4.0억 달러로. 지어 놓은 용량이 켜지면서 매출이 따라왔어요.</p></figure>
+    <figure><figcaption>100원을 벌 때 쓴 돈 (원)</figcaption><div class="chart" data-chart="cost100" data-upto="26Q1" data-ref="100"></div><p class="cap">210원에서 132원으로. 검은 선(100원)에 바짝 다가갔어요.</p></figure>
+  </div>
+  <div class="so"><b>그래서</b>약속받은 일감(수주 잔고)이 336억 달러가 됐어요. 그때 석 달 매출의 84배예요. 미리 받은 돈도 16억에서 48억 달러로 불어, 장사에서 들어온 현금이 23억 달러였어요. 본업 마진은 45%까지 올라왔어요.</div>
+  <div class="but"><b>그런데</b>100원당 쓴 돈이 줄어든 데는 회계 기준을 바꾼 몫도 있어요. 이 분기부터 컴퓨터 수명을 4년에서 5년으로 늘려 잡아, 해마다 "낡는 값"이 줄었어요. 그리고 빚은 41억에서 85억 달러로 두 배가 됐어요. 석 달 이자가 0.64억 달러로, 장사에서 난 손해(1.28억)에 얹혔어요.</div>
+</article>
+
+<article class="ch" id="c8">
+  <div class="when">2026년 4~6월<span>8장</span></div>
+  <h2>짓는 돈이 두 배로 뛰었어요</h2>
+  <p>약속한 자리를 채우려고 석 달에 57억 달러를 장비·건물에 썼어요. 앞 분기(25억)의 2.3배예요. 큰 계약 네 건이 새로 들어왔고(한 건이 평균 10억 달러 이상), GPU 빌리는 값도 올랐어요. 회사는 "구형 GPU 값이 1분기보다 30% 넘게 올랐다"고 했어요.</p>
+  <div class="tiles" data-q="26Q2" data-tiles="rev,arr,c_margin,capex,debt,cash"></div>
+  <h3>공시에 적힌 일</h3><ul class="evl" data-ev="26Q2" data-kinds="events,drivers" data-max="8"></ul>
+  <div class="charts">
+    <figure><figcaption>새 장비·건물에 쓴 돈 (억 달러)</figcaption><div class="chart" data-chart="capex" data-upto="26Q2"></div><p class="cap">2024년 3분기 1.7억 달러에서 57억 달러로.</p></figure>
+    <figure><figcaption>가진 장비·건물 (억 달러)</figcaption><div class="chart" data-chart="ppe" data-upto="26Q2"></div><p class="cap">석 달 만에 71억에서 130억 달러로 늘었어요.</p></figure>
+  </div>
+  <div class="so"><b>그래서</b>매출은 5.8억 달러, 본업 마진은 49.7%까지 올랐어요. 회사는 직접 다 짓는 대신 다른 회사와 손잡는 방식("자산을 덜 들이는 제휴 모델")도 이 분기에 시작했어요. 회사 말로는 직접 마련하는 용량을 보완하려는 것이에요.</div>
+  <div class="but"><b>그런데</b>회사 전체로는 아직 100원을 벌 때 130원을 썼어요. 인수한 회사(Eigen AI) 사람들에게 준 주식과 보상 1.16억 달러가 한꺼번에 잡혔고, 석 달 이자가 1.19억 달러로 뛰었어요. 7월에는 처음으로 담보를 맡기고 은행 대출(7.75억 달러)도 받았어요. 빚의 종류가 하나 더 늘어난 거예요.</div>
+</article>
+
+<article class="ch" id="c9">
+  <div class="when">2026년 7~9월<span>9장</span></div>
+  <h2>처음으로 돈이 남았어요. 그리고 새 숙제</h2>
+  <p>매출이 9.8억 달러가 되면서, 새 출발 뒤 처음으로 장사에서 돈이 남았어요(영업이익 0.5억 달러). 100원을 벌 때 95원을 쓴 거예요. 2년 전에는 351원을 썼어요.</p>
+  <div class="tiles" data-q="26Q3" data-tiles="rev,op,c_margin,capex,debt,defrev,ar,cash"></div>
+  <h3>공시에 적힌 일</h3><ul class="evl" data-ev="26Q3" data-kinds="events,drivers" data-max="9"></ul>
+  <div class="charts">
+    <figure><figcaption>장사에서 남은 돈: 영업이익 (억 달러)</figcaption><div class="chart" data-chart="op" data-upto="26Q3"></div><p class="cap">열 분기 내내 마이너스였다가 처음으로 0 위로.</p></figure>
+    <figure><figcaption>아직 못 받은 돈: 외상 (억 달러)</figcaption><div class="chart" data-chart="ar" data-upto="26Q3"></div><p class="cap">석 달 만에 2.9억에서 40억 달러로. 75%가 손님 한 곳이에요.</p></figure>
+  </div>
+  <div class="so"><b>그래서</b>"손님이 늘면 남는다"는 것이 회사 전체 숫자로 처음 확인됐어요. 선불은 더 커져서, 이 분기에 맺은 계약은 손님이 미리 낸 돈이 필요한 장비 값의 100% 이상을 댔어요(2분기에는 50~60%).</div>
+  <div class="but"><b>그런데</b>자세히 보면 걸리는 것이 네 가지 있어요. ① 매출 9.8억 가운데 3.25억 달러는 회사 스스로 "되풀이되지 않는다"고 한 제휴 매출이에요. 이걸 빼면 본업 마진은 53%가 아니라 약 30%예요. ② 남은 돈 0.5억 달러로는 석 달 이자 1.13억 달러를 못 내요. ③ 외상이 40억 달러로 불어, 선불 34억 달러를 받고도 장사에서 현금 2.7억 달러가 빠졌어요. ④ 몇몇 데이터센터 완공이 2027년 상반기로 밀려, 올해 매출은 예상 범위의 아래쪽이 됐어요.</div>
+</article>
+
+<article class="ch epi" id="c10">
+  <div class="when">그래서 지금<span>맺음</span></div>
+  <h2>같은 일이 점점 크게 되풀이됐어요</h2>
+  <p>아홉 장을 한 줄로 줄이면 이래요. <b>먼저 짓는다 → 손님이 온다 → 더 큰 약속을 받는다 → 그 약속을 믿고 더 큰돈을 구한다 → 더 크게 짓는다.</b> 이 바퀴가 한 번 돌 때마다 숫자가 한 자리씩 커졌어요.</p>
+  <div class="card"><h4>바퀴가 돌 때마다</h4><div class="tw"><table id="wheel"></table></div>
+  <p class="cap">빈칸(—)은 그때 공시에 값이 없다는 뜻이에요.</p></div>
+  <div class="charts">
+    <figure><figcaption>석 달 매출 (억 달러)</figcaption><div class="chart" data-chart="rev" data-upto="26Q3"></div></figure>
+    <figure><figcaption>빌린 돈 (억 달러)</figcaption><div class="chart" data-chart="debt" data-upto="26Q3"></div></figure>
+    <figure><figcaption>새 장비·건물에 쓴 돈 (억 달러)</figcaption><div class="chart" data-chart="capex" data-upto="26Q3"></div></figure>
+    <figure><figcaption>미리 받은 돈 (억 달러)</figcaption><div class="chart" data-chart="defrev" data-upto="26Q3"></div></figure>
+  </div>
+  <div class="so"><b>회사가 말한 다음 장면</b>바퀴는 더 크게 돌 예정이에요. 회사는 2026년 한 해 장비·건물에 약 270억 달러(9월까지 154억을 썼으니 10~12월에만 약 116억), 2027년에는 400억~450억 달러를 쓰겠다고 했어요. 2027년 매출 예상은 120억~130억 달러, 세금을 내기 전 이익이 0을 넘는 때는 2027년 4분기로 잡았어요. 10월에는 씨티은행과 35억 달러짜리 담보 대출 틀도 마련했어요.</div>
+  <div class="card"><h4>이 이야기가 어떻게 끝날지는 네 가지에 달렸어요</h4>
+    <div class="q"><div class="n">1</div><div><h4>한 번뿐인 매출을 빼고도 남는 돈이 늘어날까요?</h4><p>제휴 매출을 뺀 본업 마진은 약 30%예요.</p></div></div>
+    <div class="q"><div class="n">2</div><div><h4>장사에서 남은 돈이 이자를 넘을까요?</h4><p>지금은 이자의 0.45배. 짓고 있는 건물이 완성되면 이자비용은 더 늘어요.</p></div></div>
+    <div class="q"><div class="n">3</div><div><h4>외상 40억 달러가 제때 걷힐까요?</h4><p>선불 없이도 장사에서 현금이 들어와야 바퀴가 스스로 돌아요.</p></div></div>
+    <div class="q"><div class="n">4</div><div><h4>약속한 자리를 제때 지을 수 있을까요?</h4><p>약속받은 일감은 387억 달러. 3분기에 이미 몇 곳이 2027년으로 밀렸어요. 큰손 한 곳이 매출의 33%라는 점도 함께 봐야 해요.</p></div></div>
+  </div>
+</article>
+
+<footer>
+  <p><b>읽을 때 주의할 점</b><br>
+  · 사건은 모두 회사가 미국 증권거래위원회(SEC)에 낸 공시에서 가져왔고, 항목마다 "원문"을 누르면 그 공시가 열려요. 인용한 문장 150개가 원문에 글자 그대로 있는지 검사했어요.<br>
+  · "그래서"와 "그런데"는 공시의 숫자와 사건을 이은 설명이에요. 원인과 결과로 읽히도록 썼지만, 회사가 그렇게 말했다는 뜻은 아니에요. 회사가 직접 한 말은 따옴표로 적었어요.<br>
+  · 2024년 숫자는 회사가 나중에 Toloka를 빼고 다시 적은 값이라, 그때 발표한 숫자보다 조금 작아요. 2024년 6월·9월 말과 2025년 3월 말 잔액은 그때 발표문 값이에요.<br>
+  · 4분기 값은 "1년 값 − 9개월 값"으로 구했어요. 얀덱스가 러시아에서 하던 사업에 대한 설명(검색·택시·배달)은 공시가 아니라 널리 알려진 사실에서 가져왔어요.<br>
+  · 더 자세한 숫자는 <a href="nebius-quarters.html">분기 비교</a>에서, 지금 한 분기의 돈 흐름은 <a href="nebius-story.html">쉬운 설명</a>에서 볼 수 있어요. 이 페이지는 공시를 쉽게 풀어 쓴 설명이고, 주식을 사라거나 팔라는 뜻이 아니에요.</p>
+</footer>
+</div>
+
+<script src="nebius-quarters.data.js"></script>
+<script>
+(function(){
+var D = window.NBQ, Q = D.quarters, S = D.series, N = Q.length;
+var ok = function(v){ return v !== null && v !== undefined && !isNaN(v); };
+function map2(a, b, f){ return a.map(function(x, i){ return ok(x) && ok(b[i]) ? f(x, b[i]) : null; }); }
+S.cost100 = map2(S.op, S.rev, function(o, r){ return (r - o) / r * 100; });
+S.c_margin = map2(S.c_ebitda, S.c_rev, function(e, r){ return e / r * 100; });
+function sg(v, d){ return (v < 0 ? '−' : '') + Math.abs(v).toFixed(d); }
+function usd(v){
+  var a = Math.abs(v), s = v < 0 ? '−' : '';
+  if (a < 0.005) return '0달러';
+  if (a < 10) return s + Math.round(a * 100).toLocaleString('ko-KR') + '만 달러';
+  if (a < 1000) return s + (a / 100).toFixed(2) + '억 달러';
+  if (a < 10000) return s + (a / 100).toFixed(1) + '억 달러';
+  return s + Math.round(a / 100).toLocaleString('ko-KR') + '억 달러';
+}
+function eok(v){ var a = Math.abs(v) / 100; return (v < 0 ? '−' : '') + (a >= 100 ? a.toFixed(0) : a >= 10 ? a.toFixed(1) : a >= 1 ? a.toFixed(2) : a.toFixed(2)); }
+var M = {
+  rev: ['석 달 매출', usd], arr: ['연환산 매출(ARR)', usd], cost100: ['100원 벌 때 쓴 돈', function(v){ return v.toFixed(0) + '원'; }],
+  op: ['장사에서 남은 돈', usd], c_margin: ['AI 클라우드 마진', function(v){ return sg(v, 1) + '%'; }],
+  capex: ['새 장비·건물에 쓴 돈', usd], ppe: ['가진 장비·건물', usd], cash: ['통장의 현금', usd], debt: ['빌린 돈', usd],
+  fin: ['빌리고 투자받은 돈', usd], ocf: ['장사에서 들어온 현금', usd], defrev: ['미리 받은 돈', usd], ar: ['아직 못 받은 돈', usd],
+  rpo: ['약속받은 일감', usd], int_exp: ['석 달 이자', usd]
+};
+var CF = {rev: eok, arr: eok, op: eok, capex: eok, ppe: eok, cash: eok, debt: eok, fin: eok, ocf: eok, defrev: eok, ar: eok,
+  cost100: function(v){ return v.toFixed(0); }, c_margin: function(v){ return sg(v, 0); }};
+
+// 그 시점까지만 그리는 막대
+function prog(el){
+  var k = el.dataset.chart, upto = Q.indexOf(el.dataset.upto), vals = S[k], f = CF[k] || function(v){ return v; };
+  var ref = el.dataset.ref ? +el.dataset.ref : null;
+  var W = el.clientWidth || 380, H = 170, shown = vals.filter(function(v, i){ return ok(v) && i <= upto; });
+  var mx = Math.max.apply(null, shown.concat([0, ref || 0])), mn = Math.min.apply(null, shown.concat([0]));
+  var pt = 20, pb = mn < 0 ? 40 : 24, y = function(v){ return pt + (mx - v) / (mx - mn || 1) * (H - pt - pb); };
+  var band = W / N, bw = Math.min(22, band * 0.56), y0 = y(0);
+  var s = '<svg viewBox="0 0 ' + W + ' ' + H + '" width="' + W + '" height="' + H + '" role="img" aria-label="' + (M[k] ? M[k][0] : k) + '">';
+  s += '<line x1="0" x2="' + W + '" y1="' + y0 + '" y2="' + y0 + '" stroke="var(--line)"/>';
+  if (ref !== null){ var yr = y(ref); s += '<line x1="0" x2="' + W + '" y1="' + yr + '" y2="' + yr + '" stroke="var(--ink)" stroke-width="1.5"/>'; }
+  var lastShown = -1; vals.forEach(function(v, i){ if (ok(v) && i < upto) lastShown = i; });
+  vals.forEach(function(v, i){
+    var cx = band * (i + .5), x = cx - bw / 2, cur = i === upto;
+    if (i === 0 || cur || i === N - 1 || (i % 2 === 0 && band > 30)) s += '<text class="' + (cur ? 'sel' : '') + '" text-anchor="middle" x="' + cx + '" y="' + (H - 7) + '">' + Q[i] + '</text>';
+    if (i > upto){ s += '<rect x="' + x + '" y="' + (y0 - 3) + '" width="' + bw + '" height="3" rx="1.5" fill="var(--c2)" opacity=".5"/>'; return; }
+    if (!ok(v)) return;
+    var y1 = y(v), h = Math.max(1, Math.abs(y1 - y0)), r = Math.min(4, h, bw / 2), up = v >= 0 ? 1 : -1;
+    var d = 'M' + x + ',' + y0 + 'V' + (y1 + up * r) + 'Q' + x + ',' + y1 + ' ' + (x + r) + ',' + y1 + 'H' + (x + bw - r) + 'Q' + (x + bw) + ',' + y1 + ' ' + (x + bw) + ',' + (y1 + up * r) + 'V' + y0 + 'Z';
+    s += '<path d="' + d + '" fill="' + (cur ? 'var(--s1)' : 'var(--c4)') + '"><title>' + Q[i] + ': ' + (M[k] ? M[k][1](v) : v) + '</title></path>';
+    if (cur || i === lastShown) s += '<text class="' + (cur ? 'sel' : '') + '" text-anchor="middle" x="' + cx + '" y="' + (v >= 0 ? y1 - 5 : y1 + 13) + '">' + f(v) + '</text>';
+  });
+  el.innerHTML = s + '</svg>';
+}
+function tiles(el){
+  var qi = Q.indexOf(el.dataset.q), h = '';
+  el.dataset.tiles.split(',').forEach(function(k){
+    var v = S[k][qi]; if (!ok(v)) return;
+    var pi = -1; for (var i = qi - 1; i >= 0; i--) if (ok(S[k][i])){ pi = i; break; }
+    h += '<div class="tile"><div class="l">' + M[k][0] + '</div><div class="v">' + M[k][1](v) + '</div><div class="p">' + (pi >= 0 ? Q[pi] + ': ' + M[k][1](S[k][pi]) : '앞 분기 값 없음') + '</div></div>';
+  });
+  el.innerHTML = h;
+}
+function evl(el){
+  var b = (D.events || {})[el.dataset.ev] || {}, items = [], max = +(el.dataset.max || 8);
+  el.dataset.kinds.split(',').forEach(function(kind){ items = items.concat(b[kind] || []); });
+  el.innerHTML = items.slice(0, max).map(function(x){
+    var d = x.date ? '<span class="d">' + (+x.date.slice(5, 7)) + '월 ' + (+x.date.slice(8, 10)) + '일</span>' : '';
+    return '<li>' + d + x.ko + (x.url ? '<a href="' + x.url + '" target="_blank" rel="noopener" title="' + (x.quote || '').replace(/"/g, '&quot;') + '">원문</a>' : '') + '</li>';
+  }).join('') || '<li>정리된 사건이 없어요.</li>';
+}
+function tables(){
+  var a = Q.indexOf('24Q3'), b = N - 1, rows = [['rev', 1], ['cost100', 0], ['capex', 1], ['ppe', 1], ['cash', 1], ['debt', 1], ['defrev', 1], ['int_exp', 0]];
+  var h = '<tr><th>항목</th><th class="r">처음 (24Q3)</th><th class="r">지금 (26Q3)</th><th class="r">몇 배</th></tr>';
+  rows.forEach(function(r){
+    var k = r[0], x = S[k][a], y = S[k][b];
+    if (k === 'debt' && !ok(x)) x = 0;
+    var mul = r[1] && ok(x) && x > 0 ? (y / x >= 10 ? (y / x).toFixed(0) : (y / x).toFixed(1)) + '배' : k === 'cost100' ? '−' + (x - y).toFixed(0) + '원' : '0에서 시작';
+    h += '<tr><td>' + M[k][0] + '</td><td class="r">' + (ok(x) ? M[k][1](x) : '—') + '</td><td class="r"><b>' + M[k][1](y) + '</b></td><td class="r">' + mul + '</td></tr>';
+  });
+  document.getElementById('thenow').innerHTML = h;
+  var cols = ['24Q3', '25Q1', '25Q3', '26Q1', '26Q3'], ks = ['rev', 'capex', 'fin', 'debt', 'defrev'];
+  h = '<tr><th>석 달 동안</th>' + cols.map(function(q){ return '<th class="r">' + q + '</th>'; }).join('') + '</tr>';
+  ks.forEach(function(k){
+    h += '<tr><td>' + M[k][0] + '</td>' + cols.map(function(q){ var v = S[k][Q.indexOf(q)]; return '<td class="r">' + (ok(v) ? eok(v) + '억' : '—') + '</td>'; }).join('') + '</tr>';
+  });
+  document.getElementById('wheel').innerHTML = h;
+}
+function render(){
+  [].forEach.call(document.querySelectorAll('[data-chart]'), prog);
+}
+[].forEach.call(document.querySelectorAll('[data-tiles]'), tiles);
+[].forEach.call(document.querySelectorAll('[data-ev]'), evl);
+tables(); render();
+var rt; window.addEventListener('resize', function(){ clearTimeout(rt); rt = setTimeout(render, 120); });
+// 지금 읽는 장을 위쪽 띠에 표시
+var links = [].slice.call(document.querySelectorAll('#nav a[href^="#c"]'));
+if ('IntersectionObserver' in window){
+  var io = new IntersectionObserver(function(es){
+    es.forEach(function(e){
+      if (!e.isIntersecting) return;
+      links.forEach(function(a){ a.classList.toggle('on', a.getAttribute('href') === '#' + e.target.id); });
+    });
+  }, {rootMargin: '-30% 0px -60% 0px'});
+  [].forEach.call(document.querySelectorAll('.ch'), function(c){ io.observe(c); });
+}
+})();
+</script>
+</body>
+</html>
